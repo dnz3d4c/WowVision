@@ -42,7 +42,7 @@ Shift+F1을 누릅니다. WowVision 메뉴가 열리고 WowVision이 첫 항목�
 
 ## 4단계: 버퍼로 상태 확인하기
 
-아무것도 열지 않은 상태에서 Alt+Down을 몇 번 누릅니다. WowVision이 일반 버퍼에서 생명력, 마나 또는 다른 자원, 경험치, 돈, 가방 빈칸, 내구도, 우편, 귀환석, 시간, PvP 상태를 한 줄씩 읽습니다. Alt+Up을 누르면 이전 줄로 돌아갑니다.
+아무것도 열지 않은 상태에서 Alt+Down을 몇 번 누릅니다. WowVision이 일반 버퍼에서 생명력, 마나 또는 다른 자원, 경험치, 돈, 비어 있는 가방 칸, 내구도, 우편, 귀환석, 시간, PvP 상태를 한 줄씩 읽습니다. Alt+Up을 누르면 이전 줄로 돌아갑니다.
 
 Alt+Left와 Alt+Right는 다른 버퍼로, Alt+Ctrl+Left와 Alt+Ctrl+Right는 다른 버퍼 그룹으로 전환합니다. 버퍼 그룹은 직접 만든 뒤에 쓸 수 있습니다. [버퍼](../information/buffers.md)를 보십시오.
 
@@ -62,7 +62,7 @@ Alt+Left와 Alt+Right는 다른 버퍼로, Alt+Ctrl+Left와 Alt+Ctrl+Right는 �
 
 ## 6단계: 길 찾기
 
-- F9를 누르면 주변에 있는 퀘스트 제공자, 퀘스트, 그 밖의 대상을 보여 주는 스캐너가 열립니다. 항목에서 Enter를 누르면 그 항목이 목적지로 선택된 길 안내 창이 열리고, 거기서 Enter를 다시 누르면 그곳으로 안내가 시작됩니다.
+- F9를 누르면 주변에 있는 퀘스트 NPC, 퀘스트, 그 밖의 대상을 보여 주는 스캐너가 열립니다. 항목에서 Enter를 누르면 그곳으로 안내가 시작됩니다.
 - 지도 데이터가 있는 버전에서는 F10을 누르면 길 안내 창이 열리고 경로의 목적지를 고를 수 있습니다.
 - 경로가 진행 중일 때 I를 누르면 현재 경유지 쪽으로 돌아서고, Alt Gr(또는 Ctrl+Alt)를 누르면 거리를 듣습니다. Shift+F12는 경로를 멈춥니다.
 
@@ -78,7 +78,7 @@ Alt+Left와 Alt+Right는 다른 버퍼로, Alt+Ctrl+Left와 Alt+Ctrl+Right는 �
 | Shift+I / Shift+O / Shift+P | 적, 상호작용, 아군에 대한 소프트 대상 지정을 켜거나 끄기 |
 | Ctrl+Shift+F | 미니맵에서 약초, 광석과 그 밖에 추적 중인 것 찾기(가능한 경우) |
 
-모든 키는 [단축키 일람](../reference/keybindings.md)에 나와 있으며, 어느 키든 바꿀 수 있습니다. [단축키](../basics/keybindings.md)를 보십시오.
+모든 키는 [키 바인딩 목록](../reference/keybindings.md)에 나와 있으며, 어느 키든 바꿀 수 있습니다. [단축키](../basics/keybindings.md)를 보십시오.
 
 ## 다음에 볼 곳
 

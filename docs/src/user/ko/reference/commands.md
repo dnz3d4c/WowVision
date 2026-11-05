@@ -40,7 +40,7 @@ WowVision은 게임의 대화 입력창에 입력하는 슬래시 명령을 추�
 | /wv dbcheck | 저장 변수 상태를 보고합니다 | 전체 |
 | /wv turnlog | 경유지 쪽으로 방향을 돌린 최근 기록을 나열합니다 | 전체 |
 | /wv keylog | 창의 키 처리를 기록합니다 | 전체 |
-| /wv padlog | 컨트롤러 기록을 다시 시작합니다 | 전체(기록은 게임패드 인터페이스를 켠 리테일, WoW: Forever에서만) |
+| /wv padlog | 컨트롤러 기록을 다시 시작합니다 | 리테일, WoW: Forever(게임패드 인터페이스를 켰을 때) |
 | /wv cdmlog | 재사용 대기시간 관리자 모니터 기록 | 리테일, WoW: Forever |
 
 ## 일상 명령
@@ -67,7 +67,7 @@ WowVision 메뉴를 엽니다. Shift+F1과 같습니다. [WowVision 메뉴와 �
 
 예: /wv speech 1 9 100은 목소리 1, 속도 9, 음량 100을 고르고 "Speech voice ... rate 9, volume 100"이라고 말합니다. 없는 목소리 번호를 입력하면 "No voice with id 5. Type /wv speech to list the voices"를 출력합니다. 숫자가 아닌 것을 입력하면 "Usage: /wv speech voiceID rate volume, for example /wv speech 1 9 100"을 출력합니다.
 
-버전: 전체. [음성 및 소리](../basics/speech.md)를 참고하십시오.
+버전: 전체. [음성](../basics/speech.md)을 참고하십시오.
 
 ### /wv bind
 
@@ -83,7 +83,7 @@ WowVision 메뉴를 엽니다. Shift+F1과 같습니다. [WowVision 메뉴와 �
 
 ### /beacon
 
-직선 비컨을 설정하거나, 이름으로 지정한 장소까지 경로를 안내하거나, 현재 위치를 알려 줍니다. 그러면 걸어가는 동안 비컨이 소리를 내고 말합니다. 길 안내 창이 사용하는 것과 같은 비컨입니다. [길 안내: 지도, 경로, 비컨](../world/navigation.md)을 참고하십시오.
+직선 비컨을 설정하거나, 이름으로 지정한 장소까지 경로를 안내하거나, 현재 위치를 알려 줍니다. 그러면 걸어가는 동안 비컨이 소리를 내고 말합니다. 길 안내 창이 사용하는 것과 같은 비컨입니다. [길 안내](../world/navigation.md)를 참고하십시오.
 
 | 입력 | 하는 일 |
 |---|---|
@@ -95,7 +95,7 @@ WowVision 메뉴를 엽니다. Shift+F1과 같습니다. [WowVision 메뉴와 �
 
 예: /beacon 50.5 30.4는 "비컨 설정됨 245 야드"라고 말하고 그 지점까지 직선 비컨을 시작합니다. 길 안내 창은 열지 않습니다. /beacon to innkeeper는 찾은 장소를 말하고 그곳까지 경로 안내를 시작하거나, "경로 없음 innkeeper"라고 말합니다. 숫자를 하나만 넣은 /beacon 12는 "Usage beacon x y"라고 말합니다.
 
-버전: 전체. /beacon to는 현재 대륙의 지도 데이터가 있어야 합니다. [길 안내: 지도, 경로, 비컨](../world/navigation.md)을 참고하십시오.
+버전: 전체. /beacon to는 현재 대륙의 지도 데이터가 있어야 합니다. [길 안내](../world/navigation.md)를 참고하십시오.
 
 ### /focus1부터 /focus5까지
 
@@ -120,7 +120,7 @@ WoW는 주시 대상을 하나만 지원합니다. WowVision은 가상 주시 �
 
 애드온을 켜거나 끄고 바로 인터페이스를 다시 불러옵니다.
 
-문법: /enableaddon name과 /disableaddon name. 이름은 애드온의 폴더 이름이며 대소문자를 구분하지 않습니다. 이름이 없으면 "Syntax: `/enableaddon <name>`"을 출력합니다(/disableaddon이면 "Syntax: /disableaddon <name>"). 그 이름의 애드온이 없어도 인터페이스는 다시 불러와집니다.
+문법: /enableaddon name과 /disableaddon name. 이름은 애드온의 폴더 이름이며 대소문자를 구분하지 않습니다. 이름이 없으면 "Syntax: `/enableaddon <name>`"을 출력합니다. 그 이름의 애드온이 없어도 인터페이스는 다시 불러와집니다.
 
 예: /disableaddon sku. sku라는 이름은 특별합니다. Sku 애드온과 그 오디오 데이터 애드온, 비컨 애드온을 함께 전환해서, 절반만 불러와진 상태가 남지 않게 합니다. /enableaddon sku는 이 애드온을 모두 다시 켭니다.
 
@@ -130,11 +130,11 @@ WoW는 주시 대상을 하나만 지원합니다. WowVision은 가상 주시 �
 
 ### /wv soft
 
-소프트 대상 지정 모드와 모든 소프트 대상 지정 게임 값을 한 줄씩 읽습니다. 먼저 고정 모드(하드 대상이 있을 때 소프트 대상 지정)를 읽고, 이어서 "SoftTargetEnemy 3 (default 0)" 같은 줄을 읽습니다. 전투가 끝나기를 기다리는 값에는 "전투 후" 표시와 함께 그때 적용될 값이 나오고, 게임 버전에 없는 값은 "사용 불가"로 표시됩니다. 이 줄들은 대화 창에 출력되고 말로도 읽힙니다. [대상 지정](../world/targeting.md)을 참고하십시오.
+소프트 대상 지정 모드와 모든 소프트 대상 지정 게임 값을 한 줄씩 읽습니다. 먼저 고정 모드(하드 대상이 있을 때 소프트 대상 지정)를 읽고, 이어서 "SoftTargetEnemy 3 (기본 0)" 같은 줄을 읽습니다. 전투가 끝나기를 기다리는 값에는 "전투 후" 표시와 함께 그때 적용될 값이 나오고, 게임 버전에 없는 값은 "사용 불가"로 표시됩니다. 이 줄들은 대화 창에 출력되고 말로도 읽힙니다. [대상 지정](../world/targeting.md)을 참고하십시오.
 
 ### /wv mscan
 
-미니맵 스캐너입니다. 단독으로 입력하면 바로 스캔합니다. Ctrl+Shift+F와 같습니다. [미니맵 스캐너](../world/minimap.md)를 참고하십시오.
+미니맵 스캐너입니다. 단독으로 입력하면 바로 스캔합니다. Ctrl+Shift+F와 같습니다. [미니맵](../world/minimap.md)을 참고하십시오.
 
 | 입력 | 하는 일 |
 |---|---|
@@ -181,7 +181,7 @@ WoW는 주시 대상을 하나만 지원합니다. WowVision은 가상 주시 �
 
 taint(애드온 코드에서 보호된 동작을 시도한 것) 때문에 게임이 차단한 호출을 보여 줍니다. 시각, 이벤트, 애드온, 함수, 그리고 그때 인터페이스에서 초점이 있던 대상이 함께 나옵니다. WowVision은 최근 30개를 보관합니다. 기록이 없으면 "No blocked calls recorded"라고 말합니다.
 
-/wv taint clear는 목록을 비웁니다. /reload를 입력하면 이 기록이 WowVisionDump 저장 변수에 저장됩니다. WowVision 자체가 차단되면 "차단됨: ..."도 들립니다.
+/wv taint clear는 목록을 비웁니다. /reload를 입력하면 이 기록이 WowVisionDump 저장 변수에 저장됩니다. WowVision 자체가 차단되면 "Blocked: ..."도 들립니다.
 
 ### /wv dbcheck
 
@@ -197,7 +197,7 @@ taint(애드온 코드에서 보호된 동작을 시도한 것) 때문에 게임
 
 ### /wv padlog
 
-컨트롤러 기록을 새로 시작합니다. "WowVision pad log started afresh" 또는 "WowVision pad log: only with the gamepad interface on"을 출력합니다. 명령은 모든 게임 버전에 등록되지만, 게임패드 인터페이스가 켜져 있을 때만, 곧 리테일이나 WoW: Forever에서만 기록합니다. [게임패드로 플레이하기](../controller.md)를 참고하십시오.
+컨트롤러 기록을 새로 시작합니다. "WowVision pad log started afresh" 또는 "WowVision pad log: only with the gamepad interface on"을 출력합니다. 명령은 모든 게임 버전에 등록되지만, 게임패드 인터페이스가 켜져 있을 때만, 곧 리테일이나 WoW: Forever에서만 기록합니다. [컨트롤러](../controller.md)를 참고하십시오.
 
 ### /wv cdmlog
 

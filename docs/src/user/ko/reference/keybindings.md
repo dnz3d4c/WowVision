@@ -1,7 +1,7 @@
 <!-- source: docs/src/user/en/reference/keybindings.md @ 397ffc3 -->
 # 키 바인딩 목록
 
-이 페이지는 WowVision의 모든 키 바인딩과 기본 키를 나열합니다. 어느 것이든 키 바인딩 창에서 바꿀 수 있습니다. WowVision 메뉴(Shift+F1)를 열고 인터페이스로 가서 단축키를 고르십시오. 키 바인딩 창을 쓰는 법은 [단축키](../basics/keybindings.md)에서 설명합니다.
+이 페이지는 WowVision의 모든 키 바인딩과 기본 키를 나열합니다. 어느 것이든 단축키 창에서 바꿀 수 있습니다. WowVision 메뉴(Shift+F1)를 열고 인터페이스로 가서 단축키를 고르십시오. 단축키 창을 쓰는 법은 [단축키](../basics/keybindings.md)에서 설명합니다.
 
 "지정 안 됨"은 바인딩은 있지만 직접 키를 정해 주기 전까지는 키가 없다는 뜻입니다.
 
@@ -16,10 +16,10 @@
 
 | 동작 | 기본 키 | 참고 |
 |---|---|---|
-| 위 | 위 화살표 | 목록이나 열의 이전 요소 |
-| 아래 | 아래 화살표 | 다음 요소 |
-| 왼쪽 | 왼쪽 화살표 | 왼쪽 요소, 또는 슬라이더나 선택 항목의 이전 값 |
-| 오른쪽 | 오른쪽 화살표 | 오른쪽 요소, 또는 다음 값 |
+| 위 | Up Arrow | 목록이나 열의 이전 요소 |
+| 아래 | Down Arrow | 다음 요소 |
+| 왼쪽 | Left Arrow | 왼쪽 요소, 또는 슬라이더나 선택 항목의 이전 값 |
+| 오른쪽 | Right Arrow | 오른쪽 요소, 또는 다음 값 |
 | 다음 | Tab | 다음 탭 위치. 목록이나 버튼 줄처럼 창의 다음 구역 |
 | 이전 | Shift+Tab | 이전 탭 위치 |
 | 처음으로 이동 | Home | 첫 요소 |
@@ -50,7 +50,7 @@
 | 툴팁 왼쪽 읽기 | Shift+Left |
 | 툴팁 오른쪽 읽기 | Shift+Right |
 
-[툴팁 읽기](../basics/tooltips.md)를 참고하십시오.
+[툴팁](../basics/tooltips.md)을 참고하십시오.
 
 ## WowVision 창 열기
 
@@ -60,7 +60,7 @@
 | 대화 | Shift+F3 | [대화](../windows/chat.md) |
 | 행동 단축바 | Shift+F4 | [행동 단축바](../windows/action-bars.md) |
 | 스캐너 | F9 | [스캐너](../world/scanner.md) |
-| 길 안내 | F10 | [길 안내: 지도, 경로, 비컨](../world/navigation.md) |
+| 길 안내 | F10 | [길 안내와 경로](../world/navigation.md) |
 
 ## 버퍼
 
@@ -102,7 +102,7 @@
 | WowNav 경로 상태 | 지정 안 됨 | (WoW: Forever) WowNav 경로의 상태를 말합니다 |
 | 막힌 지점을 피하는 새 WowNav 경로 | 지정 안 됨 | (WoW: Forever) 걸려 있는 지점을 피하는 새 경로를 짭니다 |
 
-Alt Gr은 바인딩이 아닙니다. WowVision이 Alt Gr 키를 직접 감지하며, 입력창에 글을 쓰는 동안에는 아무 말도 하지 않습니다. 지도 모듈의 Alt Gr로 거리 알림 설정에서 이 기능을 끌 수 있습니다. [길 안내: 지도, 경로, 비컨](../world/navigation.md)과 [WowNav (WoW: Forever)](../world/wownav.md)를 참고하십시오.
+Alt Gr은 바인딩이 아닙니다. WowVision이 Alt Gr 키를 직접 감지하며, 입력창에 글을 쓰는 동안에는 아무 말도 하지 않습니다. 지도 모듈의 Alt Gr로 거리 알림 설정에서 이 기능을 끌 수 있습니다. [길 안내와 경로](../world/navigation.md)와 [WowNav](../world/wownav.md)를 참고하십시오.
 
 ## 미니맵
 
@@ -110,13 +110,13 @@ Alt Gr은 바인딩이 아닙니다. WowVision이 Alt Gr 키를 직접 감지하
 |---|---|
 | 미니맵 스캔 | Ctrl+Shift+F |
 
-[미니맵 스캐너](../world/minimap.md)를 참고하십시오.
+[미니맵](../world/minimap.md)을 참고하십시오.
 
 ## 대상 지정
 
 | 동작 | 기본 키 | 참고 |
 |---|---|---|
-| 적 소프트 대상 | Shift+I | 적 소프트 대상 지정을 켜거나 끄고 "적 소프트 대상 사용함" 또는 "비활성화"라고 말합니다(전투 중에 누르면 "전투 후"가 붙습니다) |
+| 적 소프트 대상 | Shift+I | 적 소프트 대상 지정을 켜거나 끄고 "적 소프트 대상 사용함" 또는 "적 소프트 대상 비활성화"라고 말합니다(전투 중에 누르면 "전투 후"가 붙습니다) |
 | 아군 소프트 대상 | Shift+P | 아군 소프트 대상 지정에 대해 같은 일을 합니다 |
 | 상호작용 소프트 대상 | Shift+O | 상호작용 소프트 대상 지정에 대해 같은 일을 합니다 |
 | 대상 메뉴 열기 | Alt+T | 대상의 초상화를 오른쪽 클릭한 것처럼 대상의 메뉴를 엽니다 |
@@ -155,7 +155,7 @@ Alt Gr은 바인딩이 아닙니다. WowVision이 Alt Gr 키를 직접 감지하
 |---|---|---|
 | 닫기 (컨트롤러) | 지정 안 됨(키보드 키 없음) | 게임이 Escape를 처리하는 창에서 컨트롤러의 닫기 버튼이 게임 자체의 Escape 동작을 하게 합니다 |
 
-Retail과 WoW: Forever에서는 모든 바인딩에 컨트롤러 버튼도 지정할 수 있습니다. 기본값은 [게임패드로 플레이하기](../controller.md)에 나와 있습니다.
+Retail과 WoW: Forever에서는 모든 바인딩에 컨트롤러 버튼도 지정할 수 있습니다. 기본값은 [컨트롤러](../controller.md)에 나와 있습니다.
 
 ## 특정 창 안의 키
 
@@ -177,7 +177,7 @@ Retail과 WoW: Forever에서는 모든 바인딩에 컨트롤러 버튼도 지�
 | WowVision 메뉴, 상황별 메뉴, 드롭다운 메뉴 | 글자 | 그 글자로 시작하는 다음 항목으로 건너뜁니다. 메뉴에서 글자로 이동 설정으로 끌 수 있습니다 |
 | 입력창 | Enter, Tab, Escape | Enter는 게임 입력창에서는 커서를 넣고 WowVision 입력창에서는 입력을 확정합니다. Tab은 다음으로 넘어가고, Escape는 WowVision 입력창을 취소합니다 |
 
-[대화](../windows/chat.md), [길 안내: 지도, 경로, 비컨](../world/navigation.md), [스캐너](../world/scanner.md), [행동 단축바](../windows/action-bars.md), [인터페이스 사용하기](../basics/interface.md)를 참고하십시오.
+[대화](../windows/chat.md), [길 안내와 경로](../world/navigation.md), [스캐너](../world/scanner.md), [행동 단축바](../windows/action-bars.md), [인터페이스 사용하기](../basics/interface.md)를 참고하십시오.
 
 ## Sku가 설치되어 있을 때
 
@@ -187,4 +187,4 @@ Retail과 WoW: Forever에서는 모든 바인딩에 컨트롤러 버튼도 지�
 - 소프트 대상 지정 전환 키(Shift+I, Shift+P, Shift+O)
 - 주시 대상 선택 1부터 주시 대상 선택 5까지(그리고 `/focus1`부터 `/focus5`까지의 명령)
 
-WowVision은 일부 창과 `/pquit`, `/dquit` 명령도 Sku에 맡깁니다. 이 판단은 로그인할 때 한 번만 하므로 Sku를 켜거나 끈 것을 반영하려면 UI를 재시작해야 합니다. 목록에 없는 키, 창, 명령은 계속 WowVision이 처리합니다. 두 애드온을 함께 쓰는 방법은 [WowVision과 Sku 함께 쓰기](../getting-started/sku.md)에 더 자세히 나와 있습니다.
+WowVision은 일부 창과 `/pquit`, `/dquit` 명령도 Sku에 맡깁니다. 이 판단은 로그인할 때 한 번만 하므로 Sku를 켜거나 끈 것을 반영하려면 UI를 재시작해야 합니다. 목록에 없는 키, 창, 명령은 계속 WowVision이 처리합니다. 두 애드온을 함께 쓰는 방법은 [설치](../getting-started/sku.md)에 더 자세히 나와 있습니다.

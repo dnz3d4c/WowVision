@@ -10,9 +10,9 @@ Sku 프로젝트의 WoW Login Tool을 쓰면 이 화면들을 통과할 수 있�
 요약하면 다음과 같습니다.
 
 1. 도구를 설치합니다. [설치 프로그램](./installer.md)이 대신 설치해 주고(WoW Login Tool 설치(권장) 항목이 기본으로 체크되어 있습니다) 바탕 화면에 WoW Login Tool 바로 가기를 만듭니다. 직접 설치하려면 [받아서 설치하기](./sku-login.md#받아서-설치하기)를 참고하십시오.
-2. 도구를 시작합니다. WoW: Forever에서는 게임보다 먼저 시작합니다. 맨 처음 실행할 때 음성, 언어, 지역, 게임 종류를 묻습니다. 오른쪽 화살표 키로 들어가고, 위아래 화살표 키로 고른 다음 Enter로 확정합니다. "Setup completed. Start the game now."라는 말이 들립니다.
+2. 도구를 시작합니다. WoW: Forever에서는 게임보다 먼저 시작합니다. 맨 처음 실행할 때 음성, 언어, 지역, 게임 종류를 묻습니다. Right로 들어가고, Up과 Down으로 고른 다음 Enter로 확정합니다. "Setup completed. Start the game now."라는 말이 들립니다.
 3. 게임을 시작합니다. 도구가 "Login mode for"와 함께 게임 버전을 말하고, 이어서 "Main menu"라고 말합니다.
-4. Classic Era와 The Burning Crusade에서는 Select character로 가서 오른쪽을 누르고, 위와 아래로 캐릭터를 고른 뒤 Enter를 누르고, Login with selected character에서 Enter를 누릅니다. 도구가 "Play mode"라고 말합니다. WoW: Forever에서는 도구가 각 항목으로 이동할 때 게임이 그 항목을 읽어 줍니다. [WoW: Forever에서 도구 쓰기](./sku-login.md#wow-forever에서-도구-쓰기)를 참고하십시오.
+4. Classic Era와 The Burning Crusade에서는 Select character로 가서 Right를 누르고, Up과 Down으로 캐릭터를 고른 뒤 Enter를 누르고, Login with selected character에서 Enter를 누릅니다. 도구가 "Play mode"라고 말합니다. WoW: Forever에서는 도구가 각 항목으로 이동할 때 게임이 그 항목을 읽어 줍니다. [WoW: Forever에서 도구 쓰기](./sku-login.md#wow-forever에서-도구-쓰기)를 참고하십시오.
 
 도구가 자체 메뉴와 게임 사이를 저절로 전환하지 않으면 Alt+F1을 누르십시오. 캐릭터 만들기, 서버 바꾸기, 전체 키 목록, 도구 자체의 문제 해결은 [Sku Login Tool로 로그인하기](./sku-login.md)에 있습니다.
 

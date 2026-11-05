@@ -6,7 +6,7 @@
 - [인터페이스 사용하기](interface.md) — 창 안에서 이동하기, 클릭하기, 드롭다운, 텍스트 상자, 상황별 메뉴, 커서
 - [툴팁 읽기](tooltips.md) — 툴팁을 한꺼번에 또는 한 줄씩 읽기
 - [음성 및 소리](speech.md) — 목소리, 속도, 음량, 음성 끊기, 소리와 음성 팩
-- [WowVision 메뉴와 설정](menu-and-settings.md) — 설정 메뉴, 캐릭터별 설정과 계정 설정
+- [WowVision 메뉴와 설정](menu-and-settings.md) — 설정 메뉴, 캐릭터별 설정과 계정 전체 설정
 - [경보](alerts.md) — 자동 안내와 안내를 바꾸는 법
 - [단축키](keybindings.md) — 단축키 화면
 
