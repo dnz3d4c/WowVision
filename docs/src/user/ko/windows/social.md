@@ -3,7 +3,7 @@
 
 이 페이지는 다른 플레이어와 관계된 창을 다룹니다. 친구 목록, 차단 목록, 누구 목록, Battle.net 친구, 공격대 탭, 길드 창, 대화 채널 창, 길드 초대, 그리고 게임 곳곳의 이름에서 여는 플레이어 메뉴입니다. 대화 메시지를 읽고 보내는 방법은 [대화](chat.md)를 참고하십시오.
 
-이 창들은 모두 화면을 보며 플레이하는 사람이 여는 방법 그대로, 게임 자체의 키와 버튼으로 엽니다. 게임이 창을 열면 WowVision이 이를 알아차리고 읽습니다. 이동은 평소의 WowVision 키로 합니다([인터페이스](../basics/interface.md) 참고). Tab과 Shift+Tab은 구역 사이를, Up, Down, Left, Right는 구역 안을 이동하고, Enter는 왼쪽 클릭, Backspace는 오른쪽 클릭, Space는 툴팁 읽기, Shift+F10은 초점이 있는 컨트롤의 상황 메뉴, Escape는 닫기입니다.
+이 창들은 모두 비장애인 플레이어이 여는 방법 그대로, 게임 자체의 키와 버튼으로 엽니다. 게임이 창을 열면 WowVision이 이를 알아차리고 읽습니다. 이동은 평소의 WowVision 키로 합니다([인터페이스](../basics/interface.md) 참고). Tab과 Shift+Tab은 구역 사이를, Up, Down, Left, Right는 구역 안을 이동하고, Enter는 왼쪽 클릭, Backspace는 오른쪽 클릭, Space는 툴팁 읽기, Shift+F10은 초점이 있는 컨트롤의 상황 메뉴, Escape는 닫기입니다.
 
 ## 게임 버전별로 있는 창
 

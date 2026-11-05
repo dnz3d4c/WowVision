@@ -5,7 +5,7 @@
 
 WowVision은 캐릭터가 월드에 서 있을 때부터 작동합니다. 그 전에 로그인 화면, 서버 목록, 캐릭터 선택 화면을 거치는데, 게임은 캐릭터가 월드에 들어간 뒤에야 애드온을 불러오므로 어떤 애드온도 이 화면들을 읽을 수 없습니다. 이 화면들을 접근 가능하게 만들 수 있는 것은 게임 자체뿐입니다. WoW: Forever는 로그인 화면을 소리 내어 읽어 주지만, 여전히 마우스가 필요합니다.
 
-Sku 프로젝트의 WoW Login Tool을 쓰면 이 화면들을 통과할 수 있습니다. 게임 옆에서 실행되는 작은 Windows 프로그램으로, 이 화면들에 음성 메뉴를 붙여 줍니다. Classic Era, The Burning Crusade 기념 서버, WoW: Forever를 지원합니다. Mists of Pandaria Classic과 Retail에서는 작동하지 않으므로, 이 두 버전에서는 눈이 보이는 사람에게 도움을 받으십시오. Battle.net 로그인은 Battle.net 앱으로 합니다. 이 앱은 Windows와 Mac 모두에서 스크린리더로 쓸 수 있습니다. "keep me logged in"을 한 번 체크해 두면, 앱에서 게임을 시작할 때 게임이 알아서 로그인합니다.
+Sku 프로젝트의 WoW Login Tool을 쓰면 이 화면들을 통과할 수 있습니다. 게임 옆에서 실행되는 작은 Windows 프로그램으로, 이 화면들에 음성 메뉴를 붙여 줍니다. Classic Era, The Burning Crusade 기념 서버, WoW: Forever를 지원합니다. Mists of Pandaria Classic과 Retail에서는 작동하지 않으므로, 이 두 버전에서는 비장애인에게 도움을 받으십시오. Battle.net 로그인은 Battle.net 앱으로 합니다. 이 앱은 Windows와 Mac 모두에서 스크린리더로 쓸 수 있습니다. "keep me logged in"을 한 번 체크해 두면, 앱에서 게임을 시작할 때 게임이 알아서 로그인합니다.
 
 요약하면 다음과 같습니다.
 
