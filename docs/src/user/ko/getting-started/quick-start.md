@@ -42,7 +42,7 @@ Shift+F1을 누릅니다. WowVision 메뉴가 열리고 WowVision이 첫 항목�
 
 ## 4단계: 버퍼로 상태 확인하기
 
-아무것도 열지 않은 상태에서 Alt+Down을 몇 번 누릅니다. WowVision이 일반 버퍼에서 생명력, 마나 또는 다른 자원, 경험치, 돈, 비어 있는 가방 칸, 내구도, 우편, 귀환석, 시간, PvP 상태를 한 줄씩 읽습니다. Alt+Up을 누르면 이전 줄로 돌아갑니다.
+아무것도 열지 않은 상태에서 Alt+Down을 몇 번 누릅니다. WowVision이 일반 버퍼에서 생명력, 마나 또는 다른 자원, 경험치, 돈, 빈 가방 칸, 내구도, 우편, 귀환석, 시간, PvP 상태를 한 줄씩 읽습니다. Alt+Up을 누르면 이전 줄로 돌아갑니다.
 
 Alt+Left와 Alt+Right는 다른 버퍼로, Alt+Ctrl+Left와 Alt+Ctrl+Right는 다른 버퍼 그룹으로 전환합니다. 버퍼 그룹은 직접 만든 뒤에 쓸 수 있습니다. [버퍼](../information/buffers.md)를 보십시오.
 
