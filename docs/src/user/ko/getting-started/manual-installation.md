@@ -29,10 +29,10 @@ zip의 최상위에는 애드온 폴더가 두 개 있습니다.
 
 | 게임 버전 | 설치 폴더 안의 폴더 | AddOns 폴더 |
 |---|---|---|
-| 클래식 시대(Vanilla) | `_classic_era_` | `_classic_era_\Interface\AddOns` |
+| Classic Era(Vanilla) | `_classic_era_` | `_classic_era_\Interface\AddOns` |
 | 불타는 성전(TBC) 기념 서버 | `_anniversary_` | `_anniversary_\Interface\AddOns` |
 | 판다리아의 안개(Mists) | `_classic_` | `_classic_\Interface\AddOns` |
-| 리테일 | `_retail_` | `_retail_\Interface\AddOns` |
+| Retail | `_retail_` | `_retail_\Interface\AddOns` |
 | WoW: Forever | `_forever_` | `_forever_\Interface\AddOns` |
 
 Interface 폴더와 AddOns 폴더가 아직 없으면 만듭니다. 여러 버전을 플레이한다면 버전마다 AddOns 폴더에 zip을 한 번씩 풉니다.
@@ -68,13 +68,13 @@ TOC 파일은 애드온이 무엇이고 어떤 파일을 불러올지 게임에 
 
 | 게임 버전 | 쓰이는 TOC 파일 | 불러오는 것 |
 |---|---|---|
-| 클래식 시대 | `WowVision_Vanilla.toc` | 공통 코어, 클래식 공통 모듈, 클래식 시대 모듈 |
+| Classic Era | `WowVision_Vanilla.toc` | 공통 코어, 클래식 공통 모듈, Classic Era 모듈 |
 | 불타는 성전 | `WowVision_TBC.toc` | 코어, 클래식 공통 모듈, 불타는 성전 모듈 |
 | 판다리아의 안개 | `WowVision_Mists.toc` | 코어, 클래식 공통 모듈, 판다리아의 안개 모듈 |
-| 리테일 | `WowVision_Standard.toc` | 코어와 리테일 모듈 |
-| WoW: Forever | `WowVision_Camelot.toc` | 코어, 리테일 모듈, Forever 모듈(Forever 클라이언트가 클래식·판다리아의 안개 클라이언트와 함께 쓰는 창 때문에 클래식·판다리아의 안개 부분도 몇 개 포함) |
+| Retail | `WowVision_Standard.toc` | 코어와 Retail 모듈 |
+| WoW: Forever | `WowVision_Camelot.toc` | 코어, Retail 모듈, Forever 모듈(Forever 클라이언트가 클래식·판다리아의 안개 클라이언트와 함께 쓰는 창 때문에 클래식·판다리아의 안개 부분도 몇 개 포함) |
 
-버전을 고르는 설정은 없습니다. 기능이 일부 버전에만 있으면 설명서에 (리테일과 WoW: Forever 전용)처럼 적혀 있습니다. 전체 표는 [버전](../reference/versions.md)을 참고하십시오.
+버전을 고르는 설정은 없습니다. 기능이 일부 버전에만 있으면 설명서에 (Retail과 WoW: Forever 전용)처럼 적혀 있습니다. 전체 표는 [버전](../reference/versions.md)을 참고하십시오.
 
 ## 번역과 소리
 

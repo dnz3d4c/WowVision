@@ -58,7 +58,7 @@ Alt+Left와 Alt+Right는 다른 버퍼로, Alt+Ctrl+Left와 Alt+Ctrl+Right는 �
 - "목표가 사정거리를 벗어났습니다" 같은 게임 오류 메시지
 - 읽고 있는 탭의 대화 메시지
 
-이 안내는 모두 WowVision 메뉴에서 바꾸거나 끌 수 있는 경보입니다. [경보](../basics/alerts.md)를 보십시오.
+이 안내는 모두 WowVision 메뉴에서 바꾸거나 끌 수 있는 알림입니다. [알림](../basics/alerts.md)를 보십시오.
 
 ## 6단계: 길 찾기
 
@@ -83,5 +83,5 @@ Alt+Left와 Alt+Right는 다른 버퍼로, Alt+Ctrl+Left와 Alt+Ctrl+Right는 �
 ## 다음에 볼 곳
 
 - [인터페이스 사용하기](../basics/interface.md)를 한 번 꼼꼼히 읽어 보십시오. 모든 창에서 도움이 됩니다.
-- WowVision 메뉴(Shift+F1)를 둘러보며 어떤 모듈과 경보가 있는지 확인하십시오.
+- WowVision 메뉴(Shift+F1)를 둘러보며 어떤 모듈과 알림이 있는지 확인하십시오.
 - 무언가 작동하지 않으면 [문제 해결](troubleshooting.md)을 보십시오.

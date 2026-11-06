@@ -17,8 +17,8 @@ WowVision은 혼자서도 동작합니다. 또한 다른 애드온 세 개를 �
 | 애드온 | 어떤 애드온인가 | WowVision이 하는 일 | 등록된 게임 버전 |
 |---|---|---|---|
 | Sku | 오래전부터 쓰여 온 접근성 애드온 | Sku를 불러온 상태에서는 WowVision이 목록에 정해 둔 창, 키, 명령을 처리하지 않고 Sku에 맡깁니다. [WowVision과 Sku 함께 쓰기](./sku.md)를 보십시오. | 모든 버전 |
-| BlindSlash | 리테일에서 쓰는 또 다른 접근성 애드온 | BlindSlash를 불러온 상태에서는 /enableaddon과 /disableaddon 두 명령을 등록하지 않습니다. | 리테일, 판다리아의 안개, WoW: Forever |
-| Questie | 퀘스트 데이터베이스 애드온 | WowVision은 Questie가 설치되어 있으면 Questie에서, 없으면 게임 자체의 퀘스트 데이터에서 퀘스트 NPC, 목표, 장소를 읽습니다. Questie는 처음 시작할 때 한 번 질문을 하는데, WowVision은 이 질문을 창으로 읽습니다. | 클래식 시대, 불타는 성전, 판다리아의 안개, WoW: Forever |
+| BlindSlash | Retail에서 쓰는 또 다른 접근성 애드온 | BlindSlash를 불러온 상태에서는 /enableaddon과 /disableaddon 두 명령을 등록하지 않습니다. | Retail, 판다리아의 안개, WoW: Forever |
+| Questie | 퀘스트 데이터베이스 애드온 | WowVision은 Questie가 설치되어 있으면 Questie에서, 없으면 게임 자체의 퀘스트 데이터에서 퀘스트 NPC, 목표, 장소를 읽습니다. Questie는 처음 시작할 때 한 번 질문을 하는데, WowVision은 이 질문을 창으로 읽습니다. | Classic Era, 불타는 성전, 판다리아의 안개, WoW: Forever |
 
 퀘스트와 Questie에 관한 모든 내용은 처음 시작할 때의 질문을 포함해 [퀘스트](../world/quests.md)에서 읽을 수 있습니다.
 

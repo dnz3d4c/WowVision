@@ -16,7 +16,7 @@ WowVision은 게임의 대화 입력창에 입력하는 슬래시 명령을 추�
 - 대화 창에 출력됩니다. 출력된 줄을 읽으려면 Shift+F3으로 WowVision 대화 창을 엽니다.
 - 텍스트가 모두 선택된 상태로 창에 표시됩니다. Ctrl+C를 누르면 텍스트를 복사할 수 있고(예: 버그 신고에 붙여 넣기), Escape를 누르면 창이 닫힙니다.
 
-명령 설명에 따로 적혀 있지 않으면 그 명령은 모든 게임 버전, 곧 클래식 시대, 불타는 성전(TBC), 판다리아의 안개(Mists), 리테일, WoW: Forever에 있습니다.
+명령 설명에 따로 적혀 있지 않으면 그 명령은 모든 게임 버전, 곧 Classic Era, 불타는 성전(TBC), 판다리아의 안개(Mists), Retail, WoW: Forever에 있습니다.
 
 ## 한눈에 보기
 
@@ -40,8 +40,8 @@ WowVision은 게임의 대화 입력창에 입력하는 슬래시 명령을 추�
 | /wv dbcheck | 저장 변수 상태를 보고합니다 | 전체 |
 | /wv turnlog | 경유지 쪽으로 방향을 돌린 최근 기록을 나열합니다 | 전체 |
 | /wv keylog | 창의 키 처리를 기록합니다 | 전체 |
-| /wv padlog | 컨트롤러 기록을 다시 시작합니다 | 리테일, WoW: Forever(게임패드 인터페이스를 켰을 때) |
-| /wv cdmlog | 재사용 대기시간 관리자 모니터 기록 | 리테일, WoW: Forever |
+| /wv padlog | 컨트롤러 기록을 다시 시작합니다 | Retail, WoW: Forever(게임패드 인터페이스를 켰을 때) |
+| /wv cdmlog | 재사용 대기시간 관리자 모니터 기록 | Retail, WoW: Forever |
 
 ## 일상 명령
 
@@ -197,7 +197,7 @@ taint(애드온 코드에서 보호된 동작을 시도한 것) 때문에 게임
 
 ### /wv padlog
 
-컨트롤러 기록을 새로 시작합니다. "WowVision pad log started afresh" 또는 "WowVision pad log: only with the gamepad interface on"을 출력합니다. 명령은 모든 게임 버전에 등록되지만, 게임패드 인터페이스가 켜져 있을 때만, 곧 리테일이나 WoW: Forever에서만 기록합니다. [컨트롤러](../controller.md)를 참고하십시오.
+컨트롤러 기록을 새로 시작합니다. "WowVision pad log started afresh" 또는 "WowVision pad log: only with the gamepad interface on"을 출력합니다. 명령은 모든 게임 버전에 등록되지만, 게임패드 인터페이스가 켜져 있을 때만, 곧 Retail이나 WoW: Forever에서만 기록합니다. [컨트롤러](../controller.md)를 참고하십시오.
 
 ### /wv cdmlog
 
@@ -210,7 +210,7 @@ taint(애드온 코드에서 보호된 동작을 시도한 것) 때문에 게임
 | /wv cdmlog spells | 재사용 대기시간 관리자의 추적 중인 강화 효과와 추적 중인 막대 항목을 나열합니다 |
 | /wv cdmlog cooldowns | 핵심 능력과 보조 능력 항목을 나열합니다 |
 
-버전: 리테일, WoW: Forever. [모니터](../information/monitors.md)를 참고하십시오.
+버전: Retail, WoW: Forever. [모니터](../information/monitors.md)를 참고하십시오.
 
 ## WowVision이 사용하는 게임 명령
 
@@ -218,7 +218,7 @@ taint(애드온 코드에서 보호된 동작을 시도한 것) 때문에 게임
 
 - /reload는 인터페이스를 다시 불러오고 설정을 디스크에 저장합니다.
 - /tts playline과 /tts playactivity는 음성 합성과 함께 나는 게임 소리를 켜고 끕니다. WowVision은 둘 다 음성 모듈의 설정(대화 메시지 사이 소리, 대화창이 비활성일 때 활동 소리)으로 보여 줍니다.
-- /cdm은 게임의 재사용 대기시간 관리자 설정을 엽니다. WowVision은 이 설정을 창으로 읽습니다(리테일, WoW: Forever).
+- /cdm은 게임의 재사용 대기시간 관리자 설정을 엽니다. WowVision은 이 설정을 창으로 읽습니다(Retail, WoW: Forever).
 
 ## 개발자용, 버그 신고용
 

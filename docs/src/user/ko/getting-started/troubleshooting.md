@@ -17,7 +17,7 @@
 2. 구버전입니까? 게임 패치 후에는 로그인 화면에서 구버전 애드온을 경고하고, 게임은 보통 그 애드온을 불러오지 않습니다. WowVision Updater를 실행해 지금 업데이트를 고르거나, 직접 설치했다면 더 새로운 WowVision을 내려받습니다. ["구버전" 애드온](./installation.md#구버전-애드온)을 참고하십시오.
 3. 게임을 다시 시작했습니까? 새로 복사한 애드온은 게임이 시작될 때만 인식됩니다. /reload로는 부족합니다.
 4. 폴더가 겹쳐 있습니까? TOC 파일은 AddOns\WowVision\WowVision\WowVision_Standard.toc가 아니라 AddOns\WowVision\WowVision_Standard.toc(와 나머지 네 파일)에 있어야 합니다. "새 폴더에" 압축을 풀면 이렇게 됩니다. [흔한 실수: 겹친 폴더](./manual-installation.md#흔한-실수-겹친-폴더)를 참고하십시오.
-5. 맞는 게임 버전의 폴더에 있습니까? 클래식 시대는 `_classic_era_`, 불타는 성전 기념 서버는 `_anniversary_`, 판다리아의 안개는 `_classic_`, 리테일은 `_retail_`, WoW: Forever는 `_forever_`를 사용합니다. 다른 버전 폴더에 있는 애드온은 실행한 게임에서 아예 보이지 않습니다. [어디에 두는가](./manual-installation.md#어디에-두는가)를 참고하십시오.
+5. 맞는 게임 버전의 폴더에 있습니까? Classic Era는 `_classic_era_`, 불타는 성전 기념 서버는 `_anniversary_`, 판다리아의 안개는 `_classic_`, Retail은 `_retail_`, WoW: Forever는 `_forever_`를 사용합니다. 다른 버전 폴더에 있는 애드온은 실행한 게임에서 아예 보이지 않습니다. [어디에 두는가](./manual-installation.md#어디에-두는가)를 참고하십시오.
 6. 다른 사본이 방해합니까? 서로 다른 폴더에 있는 애드온 사본 두 개나, WowVision-beta 같은 이름의 오래된 사본은 게임을 혼란스럽게 할 수 있습니다. 게임 버전마다 WowVision 폴더를 정확히 하나만 둡니다.
 
 WowVision이 실행되는지 확인하려면 Shift+F1을 누릅니다. 메뉴가 열리면 작동하는 것입니다.
@@ -32,7 +32,7 @@ WowVision은 게임이 제공하는 음성 합성 목소리, 즉 Windows에 설�
 4. Windows 목소리 확인. 스크린리더로 Windows 설정의 시간 및 언어, 음성을 열고 목소리가 하나 이상 설치되어 있는지 확인합니다. 게임은 그 목소리만 사용할 수 있습니다.
 5. 직접 끊었습니까? 왼쪽이나 오른쪽 Ctrl 키를 누르면 진행 중인 음성이 멈춥니다. 무언가 알리는 순간에 Ctrl을 누르면 아무것도 들리지 않습니다.
 6. 텍스트를 NVDA에 넘기는 목소리(예: SAPI2SR)를 사용합니까? 계속 조용하면 3단계처럼 /wv speech 뒤에 목소리 번호를 붙여 일반 Windows 목소리로 바꿉니다.
-7. 음성이 한참 뒤에 막히거나 멈춥니까? 리테일, TBC, 판다리아의 안개, WoW: Forever에서는 음성 모듈에 음성 대기열 설정(기본값 켬)이 있어서 WowVision이 한 번에 한 줄씩 말합니다. 클래식 시대에서는 같은 역할을 하는 설정이 음성 방식이고, 선택지는 직접과 대기열입니다. 음성이 막히면 그 설정을 바꿉니다.
+7. 음성이 한참 뒤에 막히거나 멈춥니까? Retail, TBC, 판다리아의 안개, WoW: Forever에서는 음성 모듈에 음성 대기열 설정(기본값 켬)이 있어서 WowVision이 한 번에 한 줄씩 말합니다. Classic Era에서는 같은 역할을 하는 설정이 음성 방식이고, 선택지는 직접과 모아 말하기입니다. 음성이 막히면 그 설정을 바꿉니다.
 
 ## 음성이 너무 느리거나 빠르거나 목소리가 다름
 
@@ -41,7 +41,7 @@ WowVision은 게임이 제공하는 음성 합성 목소리, 즉 Windows에 설�
 - 목소리, 속도, 음량을 한 번에 설정: /wv speech 1 9 100은 목소리 1, 속도 9, 음량 100을 고릅니다. 속도와 음량은 생략하면 현재 값을 유지합니다.
 - 자동으로 설정: /wv speech 1 9 100 줄을 담은 매크로를 만들고 로그인하거나 /reload한 뒤에 누릅니다. 매크로를 만드는 방법은 [시스템 창](../windows/system.md)을 참고하십시오.
 - Windows 업데이트 후 목소리가 바뀌었습니다. WowVision은 목소리를 번호가 아니라 이름으로 기억하므로, Windows 목소리를 설치하거나 제거해도 다른 목소리로 바뀌지 않습니다. Windows에서 목소리가 잠시 사라지면 WowVision은 기본 목소리로 말하고, 그 목소리가 돌아오면 고른 목소리로 되돌립니다.
-- 경보 하나만 목소리가 다릅니다. 말로 읽는 경보마다 따로 음성 설정이 있습니다. 그 경보에서 다른 목소리를 고르기 전까지는 음성 종류를 따릅니다. [경보](../basics/alerts.md)를 참고하십시오.
+- 알림 하나만 목소리가 다릅니다. 말로 읽는 알림마다 따로 음성 설정이 있습니다. 그 알림에서 다른 목소리를 고르기 전까지는 음성 종류를 따릅니다. [알림](../basics/alerts.md)를 참고하십시오.
 
 목소리에 대한 자세한 내용은 [음성](../basics/speech.md)에 있습니다.
 
@@ -118,14 +118,14 @@ Sku가 실행되는 동안에도 Sku에 맡긴 기능의 WowVision 설정과 단
 
 ## 컨트롤러가 작동하지 않음
 
-컨트롤러 지원은 리테일과 WoW: Forever용입니다. 게임 설정의 게임패드에서 게임패드 사용 설정과 게임패드 UI 사용 설정을 모두 켜야 합니다. 전투 중에는 WowVision이 창 버튼을 게임에 돌려줍니다. 버그를 신고할 때 /wv padlog로 새 기록을 시작하는 방법을 비롯한 나머지 내용은 [컨트롤러](../controller.md)를 참고하십시오.
+컨트롤러 지원은 Retail과 WoW: Forever용입니다. 게임 설정의 게임패드에서 게임패드 사용 설정과 게임패드 UI 사용 설정을 모두 켜야 합니다. 전투 중에는 WowVision이 창 버튼을 게임에 돌려줍니다. 버그를 신고할 때 /wv padlog로 새 기록을 시작하는 방법을 비롯한 나머지 내용은 [컨트롤러](../controller.md)를 참고하십시오.
 
 ## 버그 신고하기
 
 문제는 GitHub에 신고하십시오: [WowVision 프로젝트](https://github.com/wow-vision/WowVision). 이슈를 열고 다음을 적습니다.
 
 - 무엇을 했는지, 무엇이 들릴 거라 예상했는지, 대신 무슨 일이 일어났는지.
-- 게임 버전(클래식 시대, TBC, 판다리아의 안개, 리테일, WoW: Forever)과 /wv version이 출력하는 WowVision 버전.
+- 게임 버전(Classic Era, TBC, 판다리아의 안개, Retail, WoW: Forever)과 /wv version이 출력하는 WowVision 버전.
 - 함께 실행하는 다른 애드온, 특히 Sku, BlindSlash, Questie, BugSack.
 
 그런 다음 문제에 맞는 기록을 추가합니다. 각 기록은 텍스트가 선택된 창입니다. Ctrl+C로 복사해 이슈에 붙여 넣습니다.
@@ -134,9 +134,9 @@ Sku가 실행되는 동안에도 Sku에 맡긴 기능의 WowVision 설정과 단
 |---|---|
 | 스크립트 오류 | /wv errors |
 | "Blocked: ..." 또는 전투 밖에서만 작동하는 것 | /wv taint |
-| 컨트롤러 문제(리테일, WoW: Forever) | 문제를 보여 주기 직전에 /wv padlog, 그 뒤 /reload |
+| 컨트롤러 문제(Retail, WoW: Forever) | 문제를 보여 주기 직전에 /wv padlog, 그 뒤 /reload |
 | 경유지 쪽으로 돌아서기를 하면 반대 방향을 향함 | /wv turnlog |
-| 리테일이나 Forever의 재사용 대기시간 관리자 모니터 | /wv cdmlog |
+| Retail이나 Forever의 재사용 대기시간 관리자 모니터 | /wv cdmlog |
 | 저절로 돌거나 달리는 캐릭터 | /wv keylog |
 | 소프트 대상 지정 | /wv soft |
 | 사라진 설정 | /wv dbcheck |
