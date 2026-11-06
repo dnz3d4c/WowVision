@@ -44,7 +44,7 @@ Shift+F1을 누릅니다. WowVision 메뉴가 열리고 WowVision이 첫 항목�
 
 아무것도 열지 않은 상태에서 Alt+Down을 몇 번 누릅니다. WowVision이 일반 버퍼에서 생명력, 마나 또는 다른 자원, 경험치, 돈, 빈 가방 칸, 내구도, 우편, 귀환석, 시간, PvP 상태를 한 줄씩 읽습니다. Alt+Up을 누르면 이전 줄로 돌아갑니다.
 
-Alt+Left와 Alt+Right는 다른 버퍼로, Alt+Ctrl+Left와 Alt+Ctrl+Right는 다른 버퍼 그룹으로 전환합니다. 버퍼 그룹은 직접 만든 뒤에 쓸 수 있습니다. [버퍼](../information/buffers.md)를 보십시오.
+Alt+Left와 Alt+Right는 다른 버퍼로 전환합니다. 직접 버퍼 그룹을 만든 뒤에는 Alt+Ctrl+Left와 Alt+Ctrl+Right를 눌러 다른 버퍼 그룹으로 전환합니다. [버퍼](../information/buffers.md)를 보십시오.
 
 ## 5단계: 세상에 귀 기울이기
 
@@ -78,7 +78,7 @@ Alt+Left와 Alt+Right는 다른 버퍼로, Alt+Ctrl+Left와 Alt+Ctrl+Right는 �
 | Shift+I / Shift+O / Shift+P | 적, 상호작용, 아군 소프트 대상 지정을 켜거나 끄기 |
 | Ctrl+Shift+F | 미니맵에서 약초, 광석과 그 밖에 추적 중인 것 찾기(가능한 경우) |
 
-모든 키는 [키 바인딩 목록](../reference/keybindings.md)에 나와 있으며, 어느 키든 바꿀 수 있습니다. [단축키](../basics/keybindings.md)를 보십시오.
+모든 키는 [단축키 목록](../reference/keybindings.md)에 나와 있으며, 어느 키든 바꿀 수 있습니다. [단축키](../basics/keybindings.md)를 보십시오.
 
 ## 다음에 볼 곳
 
