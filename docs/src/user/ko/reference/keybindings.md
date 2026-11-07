@@ -1,14 +1,14 @@
 <!-- source: docs/src/user/en/reference/keybindings.md @ 397ffc3 -->
 # 단축키 목록
 
-이 페이지는 WowVision의 모든 단축키와 기본 키를 나열합니다. 어느 것이든 단축키 창에서 바꿀 수 있습니다. WowVision 메뉴(Shift+F1)를 열고 인터페이스로 가서 단축키를 고르십시오. 단축키 창을 쓰는 법은 [단축키](../basics/keybindings.md)에서 설명합니다.
+이 페이지는 WowVision의 모든 단축키와 기본 키를 나열합니다. 어느 것이든 단축키 화면에서 바꿀 수 있습니다. WowVision 메뉴(Shift+F1)를 열고 인터페이스로 가서 단축키를 고르십시오. 단축키 화면을 쓰는 법은 [단축키](../basics/keybindings.md)에서 설명합니다.
 
-"지정 안 됨"은 바인딩은 있지만 직접 키를 정해 주기 전까지는 키가 없다는 뜻입니다.
+"지정 안 됨"은 동작은 있지만 직접 키를 정해 주기 전까지는 지정된 키가 없다는 뜻입니다.
 
 ## 두 종류의 키
 
 - 창 키는 WowVision 창(가방, 상인, WowVision 메뉴 등)이 열려 있을 때만 동작합니다. 창이 열려 있지 않으면 같은 키는 게임에서 그 키에 지정해 둔 동작을 합니다. 화살표 키, Tab, Enter, Backspace, Escape, Space, Home, End, Page Up, Page Down과 상황별 메뉴 키가 창 키입니다. 게임 창에서는 Escape를 게임이 그대로 처리해 게임 창을 닫습니다. WowVision 자체 화면에서는 WowVision이 Escape를 처리합니다([인터페이스 사용하기](../basics/interface.md) 참고).
-- 전역 키는 창이 있든 없든 언제나 동작합니다. 버퍼, 길 안내, 대상 지정, 주사위 키, 커서에 든 아이템 파괴, WowVision 창을 여는 키가 여기에 속합니다.
+- 전역 키는 창이 있든 없든 언제나 동작합니다. 버퍼, 길 안내, 목표 선택, 주사위 키, 커서에 든 아이템 파괴, WowVision 창을 여는 키가 여기에 속합니다.
 
 전투 중에는 WowVision이 창 키를 게임에 돌려줍니다([전투](../world/combat.md) 참고). 전역 키는 계속 동작합니다.
 
@@ -102,7 +102,7 @@
 | WowNav 경로 상태 | 지정 안 됨 | (WoW: Forever) WowNav 경로의 상태를 말합니다 |
 | 막힌 지점을 피하는 새 WowNav 경로 | 지정 안 됨 | (WoW: Forever) 내가 막혀 있는 지점을 피하는 새 경로를 짭니다 |
 
-Alt Gr은 바인딩이 아닙니다. WowVision이 Alt Gr 키를 직접 감지하며, 입력창에 글을 쓰는 동안에는 아무 말도 하지 않습니다. 지도 모듈의 Alt Gr로 거리 알림 설정에서 이 기능을 끌 수 있습니다. [길 안내와 경로](../world/navigation.md)와 [WowNav](../world/wownav.md)를 참고하십시오.
+Alt Gr은 지정된 단축키가 아닙니다. WowVision이 Alt Gr 키를 직접 감지하며, 입력창에 글을 쓰는 동안에는 아무 말도 하지 않습니다. 지도 모듈의 Alt Gr로 거리 알림 설정에서 이 기능을 끌 수 있습니다. [길 안내와 경로](../world/navigation.md)와 [WowNav](../world/wownav.md)를 참고하십시오.
 
 ## 미니맵
 
@@ -155,11 +155,11 @@ Alt Gr은 바인딩이 아닙니다. WowVision이 Alt Gr 키를 직접 감지하
 |---|---|---|
 | 닫기 (컨트롤러) | 지정 안 됨(키보드 키 없음) | 게임이 Escape를 처리하는 창에서 컨트롤러의 닫기 버튼이 게임 자체의 Escape 동작을 하게 합니다 |
 
-Retail과 WoW: Forever에서는 모든 바인딩에 컨트롤러 버튼도 지정할 수 있습니다. 기본값은 [컨트롤러](../controller.md)에 나와 있습니다.
+Retail과 WoW: Forever에서는 모든 단축키에 컨트롤러 버튼도 지정할 수 있습니다. 기본값은 [컨트롤러](../controller.md)에 나와 있습니다.
 
 ## 특정 창 안의 키
 
-이 키들은 따로 있는 바인딩이 아닙니다. 앞부분에서 설명한 창 키가 특정 창에서 그 창에 맞는 일을 하는 것입니다. 바인딩을 바꾸면 모든 곳에서 키가 바뀝니다.
+이 키들은 별도의 단축키가 아닙니다. 앞부분에서 설명한 창 키가 특정 창에서 그 창에 맞는 일을 하는 것입니다. 키 지정을 바꾸면 모든 곳에서 키가 바뀝니다.
 
 | 위치 | 키 | 하는 일 |
 |---|---|---|
@@ -181,7 +181,7 @@ Retail과 WoW: Forever에서는 모든 바인딩에 컨트롤러 버튼도 지�
 
 ## Sku가 설치되어 있을 때
 
-일부 WowVision 바인딩은 예전부터 있던 접근성 애드온 Sku의 키와 같은 일을 합니다. Sku가 로드되어 있는 동안 WowVision은 이 바인딩을 아예 활성화하지 않고 키를 Sku에 맡깁니다.
+일부 WowVision 단축키는 예전부터 있던 접근성 애드온 Sku의 키와 같은 일을 합니다. Sku가 로드되어 있는 동안 WowVision은 이 단축키를 아예 활성화하지 않고 키를 Sku에 맡깁니다.
 
 - 툴팁 줄 키 네 개(Shift+Up, Shift+Down, Shift+Left, Shift+Right)
 - 소프트 대상 지정 전환 키(Shift+I, Shift+P, Shift+O)
