@@ -42,11 +42,12 @@ beaconAlert:addOutput({
 -- How close (yards) counts as reaching a waypoint. Waypoints are treated
 -- as points; the player tunes THREE arrival radii -- short, medium, long
 -- -- and Alt-P cycles between them mid-route for precise or forgiving
--- movement on demand.
+-- movement on demand. The same radius is the minimum for WowNav's
+-- waypoints, which also carry their own (camelot/wownav/module.lua).
 local arrivalRanges = {
-    { key = "arrivalShort", label = L["Short Range"], default = 1 },
-    { key = "arrivalMedium", label = L["Medium Range"], default = 3 },
-    { key = "arrivalLong", label = L["Long Range"], default = 5 },
+    { key = "arrivalShort", label = L["Short Range"], default = 0.3 },
+    { key = "arrivalMedium", label = L["Medium Range"], default = 1 },
+    { key = "arrivalLong", label = L["Long Range"], default = 3 },
 }
 -- Which of the three is active: a dropdown above the sliders, also cycled
 -- in the field by the Alt-P binding.
@@ -69,14 +70,22 @@ for _, range in ipairs(arrivalRanges) do
         type = "Number",
         label = range.label,
         default = range.default,
-        min = 1,
+        min = 0.1,
         max = 20,
+        step = 0.1,
     })
 end
 
 function module:arrivalDistance()
     local range = arrivalRanges[self.settings.arrivalRange] or arrivalRanges[2]
     return self.settings[range.key] or range.default
+end
+
+-- The settings keys of the active radius and its three values, for code
+-- that follows a change of the arrival distance.
+module.arrivalDistanceKeys = { "arrivalRange" }
+for _, range in ipairs(arrivalRanges) do
+    tinsert(module.arrivalDistanceKeys, range.key)
 end
 
 settings:addRef("beacon", beaconAlert.parameters)
@@ -86,7 +95,9 @@ function module:cycleArrivalDistance()
     local index = (self.settings.arrivalRange or 2) % #arrivalRanges + 1
     self.settings.arrivalRange = index
     local range = arrivalRanges[index]
-    WowVision:speak(string.format("%s, %d %s", range.label, self.settings[range.key] or range.default, L["yards"]))
+    -- one decimal at most: "0.3 yards", "3 yards"
+    local yards = string.format("%.1f", self.settings[range.key] or range.default):gsub("%.0$", "")
+    WowVision:speak(string.format("%s, %s %s", range.label, yards, L["yards"]))
 end
 
 module:registerBinding({
@@ -490,6 +501,45 @@ module:registerBinding({
     script = "/run WowVision.base.navigation.maps:restartRoute()",
 })
 
+-- Ctrl-Shift-R: the running route turned around ("I have to go back"). The
+-- waypoint the beacon leads to now starts the new route, and its
+-- destination is where the previous route started (the entry point picked
+-- in F10). A route engine turns its own route (engine:reverseRoute, nil when
+-- none of its routes runs); the route data's route enters the network at
+-- that waypoint. The start becomes the last destination for Ctrl-Shift-N.
+function module:reverseRoute()
+    local engine = self:activeRouteEngine()
+    if engine ~= nil and engine.reverseRoute ~= nil then
+        local handled = engine:reverseRoute()
+        if handled ~= nil then
+            return handled
+        end
+    end
+    local route, path = self.lastRoute, self.path
+    local current = path ~= nil and path.currentWaypoint or nil
+    if route == nil or path ~= route.path or path.complete or current == nil or current.id == nil
+        or route.start == nil or route.start.id == nil then
+        WowVision:speak(L["No route to reverse"])
+        return false
+    end
+    local start = route.start
+    local intro = string.format(L["Route reversed, back to %s"], start.n or L["the start of the previous route"])
+    -- said and remembered only when the way back was found
+    if not self:navigateTo(start.id, route.waypoints, { entryId = current.id, intro = intro }) then
+        return false
+    end
+    self.lastDestination = start
+    return true
+end
+
+module:registerBinding({
+    type = "Script",
+    key = "maps/reverseRoute",
+    label = L["Reverse Route"],
+    inputs = { "CTRL-SHIFT-R" },
+    script = "/run WowVision.base.navigation.maps:reverseRoute()",
+})
+
 -- Exactly one point, no route (F10's "Direct", WowNav's /vn direct): a
 -- straight beacon to the destination, whatever guidance ran before (a route
 -- engine's too) ends first. Arrival says the point's name; onArrive runs
@@ -571,14 +621,53 @@ end
 -- An active route engine gets the same window: the player picks the entry
 -- point from its network.
 -- data: what the target's source knows for a route engine (the scanner's group members: { unit }).
-function module:openNavigationTo(wx, wy, label, onArrive, data)
+-- match: what the target is, for a route engine that knows it with its height ({ kind, id, name }: the scanner's
+-- NPCs and objects, see module:engineMatch).
+function module:openNavigationTo(wx, wy, label, onArrive, data, match)
     if self:activeRouteEngine() == nil and next(self:currentWaypoints()) == nil then
         self:beaconTo(wx, wy, label, onArrive)
         return false
     end
-    self.pendingTarget = { x = wx, y = wy, label = label, onArrive = onArrive, data = data }
+    self.pendingTarget = { x = wx, y = wy, label = label, onArrive = onArrive, data = data, match = match }
     WowVision.UIHost:openWindow("atlas")
     return true
+end
+
+-- The route engine's own row for a target another source names (pendingTarget with .match): WowNav looks for the
+-- same creature, else a target of that name, near the position, and its row brings the height. Nil without an
+-- engine, a match, or a hit; a group member (data.unit) is followed live and never matched.
+function module:engineMatch(engine, target, map)
+    if engine == nil or engine.matchTarget == nil or target == nil or target.match == nil then
+        return nil
+    end
+    if type(target.data) == "table" and target.data.unit ~= nil then
+        return nil
+    end
+    local ok, row = pcall(engine.matchTarget, engine, target.match, target.x, target.y, map)
+    if not ok then
+        geterrorhandler()(row)
+        return nil
+    end
+    return row
+end
+
+-- F10. From the quest log the window opens aimed at the quest's next target (as the scanner's Enter on that
+-- quest), where there is a network to route through; otherwise as usual.
+function module:openNavigationFromKey()
+    local quests = WowVision.base.quests
+    local questId = quests ~= nil and quests.safeLogQuest ~= nil and quests:safeLogQuest() or nil
+    if questId ~= nil and (self:activeRouteEngine() ~= nil or next(self:currentWaypoints()) ~= nil) then
+        local ok, target = pcall(quests.questNavigationTarget, quests, questId)
+        if not ok then
+            geterrorhandler()(target)
+            target = nil
+        end
+        if target ~= nil then
+            self:openNavigationTo(target.x, target.y, target.label, target.onArrive, nil, target.match)
+            return
+        end
+    end
+    WowVision.UIHost:openWindow("atlas")
 end
 
 -- Map-percentage coordinates ("50.5 30.4") on the current zone map, the
@@ -621,6 +710,8 @@ function module:navigateTo(waypointId, waypoints, opts)
     for _, wp in ipairs(route.waypoints) do
         path:add(wp)
     end
+    -- what Ctrl-Shift-R turns around: the route's first waypoint, in its network
+    self.lastRoute = { path = path, start = route.waypoints[1], waypoints = waypoints }
     path.events.complete:subscribe(self, function()
         self.path = nil
         local last = route.waypoints[#route.waypoints]
@@ -638,17 +729,51 @@ function module:navigateTo(waypointId, waypoints, opts)
     if lastLeg > self:arrivalDistance() then
         text = text .. ", " .. string.format(L["last %d yards direct"], lastLeg)
     end
+    if opts ~= nil and opts.intro ~= nil then
+        text = opts.intro .. ". " .. text
+    end
     WowVision:speak(text)
     return true
 end
+
+-- How long after the waypoint-reached cue the count of the waypoints left
+-- is spoken, so the cue is heard first and the path has moved on.
+local REMAINING_DELAY = 0.3
 
 function module:pathfind(path)
     self.beacon = nil
     self.path = path
     path.events.arriveAtWaypoint:subscribe(self, function()
         module:fireAlert("beacon", { action = "arrived" })
+        if not self.stepping and WowVision.base.navigation.settings.announceRemaining then
+            C_Timer.After(REMAINING_DELAY, function()
+                self:announceRemaining(path)
+            end)
+        end
     end)
     self.path:start()
+end
+
+-- The waypoints still ahead on the route, the one the beacon now leads to
+-- included (the Ctrl-W count). Nil once the route ended or another began.
+function module:remainingWaypoints(path)
+    if path == nil or path ~= self.path or not path.active or path.complete or path.currentIndex == nil then
+        return nil
+    end
+    local remaining = #path.waypoints - path.currentIndex + 1
+    if remaining < 1 then
+        return nil
+    end
+    return remaining
+end
+
+-- After a waypoint reached: "3 remaining". The last waypoint says Arrived
+-- instead, so nothing is said once none is left.
+function module:announceRemaining(path)
+    local remaining = self:remainingWaypoints(path)
+    if remaining ~= nil then
+        WowVision:speak(string.format(L["%d remaining"], remaining))
+    end
 end
 
 -- Sku's next/previous waypoint keys: manually step along the active route
@@ -660,7 +785,10 @@ function module:stepWaypoint(offset)
         WowVision:speak(L["No active waypoint"])
         return false
     end
+    -- the step speaks its own count; the arrival cue's count would repeat it
+    self.stepping = true
     local waypoint = self.path:moveBy(offset)
+    self.stepping = false
     if waypoint == nil then
         WowVision:speak(offset > 0 and L["End of route"] or L["Start of route"])
         return false

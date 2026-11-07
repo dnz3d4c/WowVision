@@ -4,6 +4,8 @@ The Scanner is a list of things around you and where they are: quests, quest giv
 
 Press F9 to open the Scanner. Press Escape to close it. The key is called Scanner in the keybinding window and can be changed there; see [Keybindings](../basics/keybindings.md). The Scanner works on every game version, but what it can list depends on the version and on the data available. See "Version notes" at the end.
 
+Pressing F9 while you are in the quest log opens the Scanner right on that quest, under Quests, In Progress: the quest your cursor is on in the log, or else the quest whose details are open. Press Right to hear its objectives, or Enter to be guided to its next target.
+
 ## How it is laid out
 
 The Scanner is one tree. The top level holds categories, categories hold entries, and many entries hold more entries below them. Entries that hold more are groups. You hear "collapsed" or "expanded" after a group's name.
@@ -63,6 +65,8 @@ So you hear what to look for before you hear where. Example: you have the quest 
 
 The quest line and the objective each also carry a position of their own, the first unfinished target, so Enter on the quest itself guides you to the nearest place where you can make progress. A complete quest guides you to its turn-in.
 
+Some objectives name nothing to walk to: an area to explore, a creature the quest data has no spawns for, or a place on another continent. Then WowVision falls back on the game's own quest marker, the area the game shows on your map for the quest's current step, and the entry says "game quest marker". If the game marks nothing, WowVision takes Questie's own map marker for the next open objective, the point Questie shows on your map, and the entry says "Questie marker". If an objective has several Questie markers, it expands to them, nearest first. The game's marker also guides you to the turn-in of a complete quest whose turn-in is not known, and to a quest that Questie does not know. Enter guides you to any of these like to any other place. Only when neither the game nor Questie marks anything does the entry have no place.
+
 ### NPCs
 
 - Quest Givers: the NPCs who offer the quests listed under Nearby, each with the number of quests beneath it ("3 quests"). Open one to see its quests. A giver found only by the minimap scan is a single entry marked "seen".
@@ -91,6 +95,8 @@ Enter on an entry that has a position closes the Scanner and starts guiding you.
 
 - If there is route data for the continent you are on, the navigation window opens with the nearest entry point to the route network and your chosen entry already selected as the destination. Press Enter there to start walking the route. It follows the waypoint network and finishes with a straight last leg to the entry.
 - If there is no route data, you hear "Beacon set" followed by the distance in yards, for example "Beacon set 40 yards", and a sound beacon guides you in a straight line. When you arrive you hear "Arrived".
+
+With WowNav on (WoW: Forever), an NPC or object that WowNav's own place list knows near that spot is taken from that list: the same creature, or else a place with the same name. The route then knows the target's height and floor, so it leads onto the right floor and ends without the warning that the last stretch is unchecked. A target WowNav does not know is routed to as before.
 
 For a seen NPC found by the minimap scan, arriving also triggers the real-name lookup described in [Minimap Scanner](minimap.md).
 

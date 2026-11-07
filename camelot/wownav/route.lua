@@ -46,6 +46,20 @@ Route.TELEPORT_JUMP = 50.0
 Route.TRANSIT_AHEAD = 15.0
 -- WowVision's own: yd above and below a walk-in transit's source volume within which the route is at its height
 Route.TRANSIT_HEIGHT = 5.0
+-- WowVision's own: yd around the player within which the nearest cell is the start when the player stands in none
+-- (his N.START_RADIUS is 3; a step beside the network was "no network here")
+Route.START_RADIUS = 30.0
+
+-- Whether the network reaches the target of a resolution: exact, or approximate with its network ending within the
+-- radius on land. On Forever the game gives no height for a live target (a quest marker, the current target, the
+-- scanner), so a target on its network point resolves "approximate" only for want of one ("0.0 yards"): that end is
+-- checked like an exact one. The last-stretch warning and the arrival text both ask this.
+function Route.reachesTarget(result, radius)
+    if result == nil or result.quality == "exact" then
+        return true
+    end
+    return not result.normalizedWater and (result.delta3D or result.deltaXY or 0) <= radius
+end
 
 -- His chokeFallback setting (WowVisionNavigationDB, written from WowVision's settings by the module): on unless false.
 function Route.chokeFallback()
@@ -104,7 +118,8 @@ function Route:estimatedHeight()
 end
 
 function Route:startOptions()
-    return { swimming = self.env.swimming(), preferred = self.anchor.preferred, lastHeight = self.anchor.last }
+    return { swimming = self.env.swimming(), preferred = self.anchor.preferred, lastHeight = self.anchor.last,
+        radius = Route.START_RADIUS }
 end
 
 -- Binds a position to the network. Returns id, binding | nil, reason ("ambiguous" | "no_attachment" | ...).
@@ -459,6 +474,35 @@ function Route:prependStart(x, y, z)
     N.KeepVirtual(self.path, self.targetBindingId)
 end
 
+-- WowVision's own: a start and a target on the same spot (the same row picked twice, or two within the target's arrival
+-- radius on one floor) have nothing between them. Heights only count when both are known.
+Route.SAME_SPOT_HEIGHT = 3.0          -- yd: his height tolerance of a floor
+
+function Route.sameSpot(a, b)
+    if type(a) ~= "table" or type(b) ~= "table" or type(a.x) ~= "number" or type(a.y) ~= "number"
+        or type(b.x) ~= "number" or type(b.y) ~= "number" then
+        return false
+    end
+    if distance(a.x, a.y, b.x, b.y) > Route.ARRIVAL_TARGET_RADIUS then
+        return false
+    end
+    return type(a.z) ~= "number" or type(b.z) ~= "number" or abs(a.z - b.z) <= Route.SAME_SPOT_HEIGHT
+end
+
+-- Leaves only the logical end point (Route:appendLogicalTarget): nothing of the network is walked. A player standing
+-- there arrives at the first update, with the arrival of any other route. A certified interaction or a transit has no
+-- logical end point or a pending action, and keeps its route. Main thread, after Route:begin. True when it was cut.
+function Route:dropToEnd()
+    if not self.active or self.logicalTarget == nil or self.pendingAction ~= nil then
+        return false
+    end
+    self.path = { self.logicalTarget }
+    self.pathIndex = 1
+    self.logicalPrepoint = nil
+    self.N.KeepVirtual(self.path, self.targetBindingId)
+    return true
+end
+
 -- Makes a plan the running route (main thread). source/result: the target and its resolution.
 function Route:begin(plan, source, result, name)
     local N = self.N
@@ -719,7 +763,8 @@ function Route:update(x, y)
     -- before an unchecked last stretch the last network point counts only within the target radius
     if not lastActivation and (not beforeLogical or dist <= G.EffectiveRadius(Route.ARRIVAL_TARGET_RADIUS))
         and self:waypointIsReached(x, y, waypointId, previousId, not beforeLogical and afterId or nil) then
-        local careful = beforeLogical and not self.logicalWarned and self.result and self.result.quality ~= "exact"
+        local careful = beforeLogical and not self.logicalWarned and self.result ~= nil
+            and not Route.reachesTarget(self.result, G.EffectiveRadius(Route.ARRIVAL_TARGET_RADIUS))
         if careful then
             self.logicalWarned = true
         end
@@ -865,8 +910,10 @@ end
 
 -- His Actions:Observe without a height: the arrival volume in the plane, after the source volume was left (lift,
 -- portal on the same map) or after the map changed (tram entrance, portal to another map); the nearer of the two
--- volumes counts, so a widened circle never proves an arrival at the source. widen: the minimum radius (WowVision's
--- arrival distance, like Guidance.EffectiveRadius). Returns "arrived", "timeout" or nil.
+-- volumes counts, so a widened circle never proves an arrival at the source. widen: the minimum radius of both
+-- volumes, WowVision's arrival distance (Alt-P, G.arrivalMin, the same minimum as Guidance.EffectiveRadius): the
+-- radius that counted the transit's waypoint as reached also counts its source as entered. Returns "arrived",
+-- "timeout" or nil.
 function Route:observeAction(x, y, map, widen)
     local current = self.action
     if not current then

@@ -218,6 +218,17 @@ local suite = {
             :find("diving depth 3.0", 1, true))
     end,
 
+    ["a target without a height on its network point is reached, no unchecked last stretch"] = function(t)
+        t:assertTrue(Route.reachesTarget(nil, 1.5))
+        t:assertTrue(Route.reachesTarget({ quality = "exact" }, 1.5))
+        t:assertTrue(Route.reachesTarget({ quality = "approximate", deltaXY = 0, zUnknown = true }, 1.5),
+            "a quest marker or the current target on Forever: no height, on the network")
+        t:assertFalse(Route.reachesTarget({ quality = "approximate", deltaXY = 4.2, zUnknown = true }, 1.5),
+            "the network ends before the target")
+        t:assertFalse(Route.reachesTarget({ quality = "approximate", deltaXY = 0, normalizedWater = true }, 1.5),
+            "under water the diving stays unchecked")
+    end,
+
     ["his choke fallback switch is read from WowVisionNavigationDB"] = function(t)
         local saved = _G.WowVisionNavigationDB
         _G.WowVisionNavigationDB = nil
@@ -297,6 +308,36 @@ if haveNetwork then
         end))
         t:assertNotNil(result, "a route across Stormwind")
         t:assertTrue(slices > 1, "the search yielded at least once")
+    end
+
+    suite["a start beside the network binds to the nearest cell within 30 yd (his 3 yd said no network)"] = function(t)
+        setup()
+        local game = newGame()
+        local route = Route.new(game.env)
+        local zone = N.LoadZone(STORMWIND)
+        -- a point 10 or 20 yd from a waypoint that his radius does not bind
+        local x, y
+        for i = 0, zone.n - 1, 7 do
+            local nx, ny, nz = N.Position(zone.base + i)
+            for _, d in ipairs({ 10, 20 }) do
+                for a = 0, 7 do
+                    local cx, cy = nx + d * math.cos(a * math.pi / 4), ny + d * math.sin(a * math.pi / 4)
+                    route.anchor.last = nz
+                    local opts = route:startOptions()
+                    opts.radius = nil
+                    if x == nil and N.Bind(cx, cy, nil, opts) == nil then
+                        x, y = cx, cy
+                    end
+                end
+            end
+            if x ~= nil then
+                break
+            end
+        end
+        t:assertNotNil(x, "a Stormwind point beside the network")
+        local id, binding = route:startBinding(x, y)
+        t:assertNotNil(id, "the start binds")
+        t:assertTrue(binding.cellDistance <= Route.START_RADIUS, "to a cell within the start radius")
     end
 
     suite["his outposts (Z2): a route into the enemy capital warns, the own capital does not"] = function(t)
@@ -480,6 +521,30 @@ if haveNetwork then
         end
         -- every routed hit is a direct hit too, the direct list reaches no farther
         t:assertTrue(direct[#direct].distance <= routed[#routed].distance)
+    end
+
+    suite["a scanner target is found in the catalogue: by creature, else by name, near its position"] = function(t)
+        setup()
+        local rows = zoneRows(STORMWIND)
+        local innkeeper = rowsWith(rows, "innkeeper")
+        t:assertNotNil(innkeeper, "Stormwind has an innkeeper")
+        t:assertNotNil(innkeeper.creatureEntry, "a creature's row carries its creature ID")
+        -- the quest database's spawn lies a few yards off the catalogue's point
+        local x, y = innkeeper.x + 12, innkeeper.y - 9
+        local byId = catalog.matchRow(N, C, 0, { kind = "npc", id = innkeeper.creatureEntry, name = "someone else" }, x, y)
+        t:assertNotNil(byId, "the same creature near the position")
+        t:assertEqual(byId.id, innkeeper.id)
+        t:assertNotNil(byId.z, "the catalogue's row brings the height")
+        local byName = catalog.matchRow(N, C, 0, { kind = "object", name = "  " .. innkeeper.n:upper() .. " " }, x, y)
+        t:assertNotNil(byName, "the same name near the position, case and spaces aside")
+        t:assertEqual(byName.id, innkeeper.id)
+        local english = catalog.matchRow(N, C, 0, { name = innkeeper.nameEn }, x, y)
+        t:assertEqual(english and english.id, innkeeper.id, "the English name finds it too")
+        t:assertNil(catalog.matchRow(N, C, 0, { name = "No Such Target Anywhere" }, x, y), "an unknown name")
+        t:assertNil(catalog.matchRow(N, C, 0, { name = innkeeper.n }, innkeeper.x + 500, innkeeper.y),
+            "too far from the position: another place")
+        t:assertNil(catalog.matchRow(N, C, 0, nil, x, y))
+        t:assertNil(catalog.matchRow(N, C, 0, { name = "" }, x, y))
     end
 
     suite["F10's entry points: the nearest 50, waypoints beside the player always, farther ones with the setting"] = function(t)
@@ -1313,7 +1378,7 @@ if haveNetwork then
     -- waypoint; the game teleports the player once he is in the portal's source volume, at its height. unseen: the
     -- teleport comes before any update sees him in it. Returns the transit event, the continuation's state after the
     -- landing, the walked route, the index of the waypoint the player walked to at the transit and at the portal ahead.
-    local function throughPortal(t, map, zoneId, portalId, unseen)
+    local function throughPortal(t, map, zoneId, portalId, unseen, radius)
         setup()
         N.activeMapId = map
         local game = newGame()
@@ -1328,6 +1393,7 @@ if haveNetwork then
         end
         t:assertNotNil(portal, portalId)
         local sv, av = portal.sourceVolume, portal.arrivalVolume
+        sv.radius = radius or sv.radius
         local startId
         for i = 0, 5000 do
             local id = zoneId * N.ZONE_BASE + i
@@ -1389,14 +1455,15 @@ if haveNetwork then
     end
 
     suite["a portal at the route's last waypoint: the route waits for it, seen in it or not"] = function(t)
-        -- Rut'theran to Darnassus: the route's last waypoint lies on the rim of the 10 yd portal (10.0 yd from its
-        -- centre, data 23b1131)
-        local transit, state, route, at = throughPortal(t, 1, 57, "portal:areatrigger:542", false)
+        -- Rut'theran to Darnassus: the route's last waypoint lies 10.4 yd from the centre of the 10 yd portal (data
+        -- 0d79304), so the volume is widened to put it on the rim, the case this test is about
+        local radius = 11
+        local transit, state, route, at = throughPortal(t, 1, 57, "portal:areatrigger:542", false, radius)
         t:assertEqual(at, #route.path, "in the portal at the route's last waypoint")
         t:assertTrue(transit.sourceEntered == true)
         t:assertTrue(transit.announced == true, "said before the portal, not again in it")
         t:assertEqual(state, "arrived", "the route goes on in Darnassus")
-        transit, state = throughPortal(t, 1, 57, "portal:areatrigger:542", true)
+        transit, state = throughPortal(t, 1, 57, "portal:areatrigger:542", true, radius)
         t:assertTrue(transit.teleported == true, "only the landing was seen")
         t:assertTrue(transit.announced == true, "said before the teleport")
         t:assertEqual(state, "arrived")
@@ -1470,6 +1537,94 @@ if haveNetwork then
         t:assertEqual(next.plan.path[#next.plan.path], targetNodeId, "the route goes on to the trainer's binding")
         local _, _, lz = N.Position(targetNodeId)
         t:assertTrue(Route.distance(lx, ly, trainer.x, trainer.y) < 20 and math.abs(lz - trainer.z) < 3, "in the room below, by the trainer")
+    end
+end
+
+if haveNetwork then
+    local function northshire(name)
+        setup()
+        N.LoadZone(ELWYNN)
+        return zoneRows(ELWYNN, name)[1]
+    end
+
+    -- a route from a row to itself as the module starts it: bound like F10's entry point
+    local function startAt(row, game)
+        local route = Route.new(game.env)
+        local id, z = catalog.startNode(N, R, { nativeMapId = 0 }, row, 0)
+        route.anchor.last = z
+        local contract = catalog.contract(row, 0)
+        local outcome = runJob(N.Job(route.prepare, route, contract, { nativeMapId = 0 }, id))
+        route:begin(outcome.plan, contract, outcome.result, row.n)
+        return route, outcome, contract
+    end
+
+    suite["a point on a link routes to itself without leaving it"] = function(t)
+        setup()
+        local id = nil
+        for _, row in ipairs(zoneRows(ELWYNN)) do
+            local result = R:Resolve({ nativeMapId = 0 }, catalog.contract(row, 0), {})
+            if result ~= nil and result.binding ~= nil and result.binding.type == "link" then
+                id = result.endNodeId
+                break
+            end
+        end
+        t:assertTrue(id ~= nil, "a target on a link")
+        local route = N.RouteIds(id, id)
+        t:assertEqual(#route.path, 1)
+        t:assertEqual(route.path[1], id)
+        t:assertEqual(route.length, 0)
+    end
+
+    suite["two points on a link are joined by it, a one way link only forwards"] = function(t)
+        setup()
+        local zone = N.LoadZone(ELWYNN)
+        local both, forward
+        for k = 1, #zone.lu do
+            both = both or (zone.ldir[k] == 0 and k or nil)
+            forward = forward or (zone.ldir[k] == 1 and k or nil)
+        end
+        local a, b = N.LinkpointNode(zone, both, 50), N.LinkpointNode(zone, both, 200)
+        local across = N.RouteIds(b, a)
+        t:assertEqual(#across.path, 2)
+        t:assertEqual(across.path[1], b)
+        t:assertEqual(across.path[2], a)
+        t:assertTrue(math.abs(across.length - zone.llen[both] * 150 / 256) < 0.001)
+        -- a penalty on the link leaves it to the search
+        local u, v = zone.base + zone.lu[both], zone.base + zone.lv[both]
+        local avoided = N.RouteIds(b, a, { [u] = { [v] = 1000 }, [v] = { [u] = 1000 } })
+        t:assertTrue(avoided == nil or #avoided.path > 2, "the search decides")
+        local c, d = N.LinkpointNode(zone, forward, 50), N.LinkpointNode(zone, forward, 200)
+        t:assertEqual(#N.RouteIds(c, d).path, 2, "along its direction")
+        local back = N.RouteIds(d, c)
+        t:assertTrue(back == nil or #back.path > 2, "against it, only over other links")
+    end
+
+    suite["the same spot: floors apart is not, a missing height does not count"] = function(t)
+        t:assertTrue(Route.sameSpot({ x = 1, y = 1, z = 5 }, { x = 1, y = 2, z = 6 }))
+        t:assertEqual(Route.sameSpot({ x = 1, y = 1 }, { x = 1, y = 4 }), false, "too far in the plane")
+        t:assertEqual(Route.sameSpot({ x = 1, y = 1, z = 5 }, { x = 1, y = 1, z = 15 }), false, "another floor")
+        t:assertTrue(Route.sameSpot({ x = 1, y = 1, z = 5 }, { x = 1, y = 1 }))
+        t:assertEqual(Route.sameSpot({ x = 1, y = 1 }, nil), false)
+    end
+
+    suite["start and target on one spot: arrived at once, from afar straight to it"] = function(t)
+        local deputy = northshire("deputy willem")
+        local game = newGame()
+        game.x, game.y = deputy.x, deputy.y
+        local route, outcome, contract = startAt(deputy, game)
+        t:assertEqual(outcome.kind, "start", tostring(outcome.reason))
+        t:assertEqual(#route.path, 2, "his network point and the logical end")
+        t:assertTrue(Route.sameSpot(deputy, contract))
+        t:assertTrue(route:dropToEnd())
+        t:assertEqual(#route.path, 1)
+        t:assertEqual(route:update(game.x, game.y).kind, "arrived")
+
+        game.x = deputy.x + 20
+        route = startAt(deputy, game)
+        route:dropToEnd()
+        t:assertNil(route:update(game.x, game.y), "not there yet")
+        game.x, game.t = deputy.x, game.t + 1
+        t:assertEqual(route:update(game.x, game.y).kind, "arrived")
     end
 end
 

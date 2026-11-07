@@ -188,6 +188,37 @@ local function dropOldWowNavDefault(db)
     end
 end
 
+-- The three arrival distances went from 1, 3 and 5 yards to 0.3, 1 and 3,
+-- and WowNav's own minimum arrival distance went (the active one of the
+-- three is WowNav's minimum now). Saved defaults go when all three are still
+-- the old ones, so the reconcile that follows fills in the new; a player who
+-- tuned any of them keeps theirs. The account store holds them too.
+local oldArrivalDefaults = { arrivalShort = 1, arrivalMedium = 3, arrivalLong = 5 }
+
+local function dropOldArrivalDefaults(db)
+    local navigation = db.submodules and db.submodules.navigation
+    local submodules = navigation and navigation.submodules
+    local maps = submodules and submodules.maps
+    local settings = maps and maps.settings
+    if settings ~= nil then
+        local untouched = true
+        for key, value in pairs(oldArrivalDefaults) do
+            if settings[key] ~= nil and settings[key] ~= value then
+                untouched = false
+            end
+        end
+        if untouched then
+            for key in pairs(oldArrivalDefaults) do
+                settings[key] = nil
+            end
+        end
+    end
+    local wownav = submodules and submodules.wownav
+    if wownav ~= nil and wownav.settings ~= nil then
+        wownav.settings.arrivalMin = nil
+    end
+end
+
 local migrations = {
     {
         version = 1,
@@ -228,6 +259,10 @@ local migrations = {
     {
         version = 7,
         migrate = dropOldWowNavDefault,
+    },
+    {
+        version = 8,
+        migrate = dropOldArrivalDefaults,
     },
 }
 
@@ -273,6 +308,10 @@ local globalMigrations = {
         version = 5,
         migrate = dropOldWowNavDefault,
     },
+    {
+        version = 6,
+        migrate = dropOldArrivalDefaults,
+    },
 }
 
 local GLOBAL_DB_VERSION = globalMigrations[#globalMigrations].version
@@ -288,6 +327,77 @@ function dbManager:beginReconcileGlobal(default, db)
     end
     db._version = GLOBAL_DB_VERSION
     return dbManager:reconcile(default, db)
+end
+
+local function sameConfig(a, b)
+    if type(a) ~= "table" or type(b) ~= "table" then
+        return a == b
+    end
+    for key, value in pairs(a) do
+        if not sameConfig(value, b[key]) then
+            return false
+        end
+    end
+    for key in pairs(b) do
+        if a[key] == nil then
+            return false
+        end
+    end
+    return true
+end
+
+-- Buffer groups are account-wide unless a character chooses otherwise. Each
+-- character does this once, so a group moved back with Scope stays there. A
+-- group joins the account's group of the same name, which takes only the
+-- buffers it lacks: a default General adds nothing, and nothing is lost. Any
+-- other group moves as it is. True when this character was moved.
+function dbManager:moveBuffersToAccount(charDB, globalDB)
+    if charDB._buffersOnAccount then
+        return false
+    end
+    local charNode = charDB.submodules and charDB.submodules.buffers
+    local globalNode = globalDB.submodules and globalDB.submodules.buffers
+    if charNode == nil or globalNode == nil then
+        return false
+    end
+    local charData = charNode.data or {}
+    globalNode.data = globalNode.data or {}
+    if globalNode.data.items == nil then
+        globalNode.data.items = { _type = "array" }
+    end
+    local accountGroups = globalNode.data.items
+    for _, group in ipairs(charData.items or {}) do
+        local joined = nil
+        for _, accountGroup in ipairs(accountGroups) do
+            if group.label ~= nil and accountGroup.label == group.label then
+                joined = accountGroup
+                break
+            end
+        end
+        if joined == nil then
+            tinsert(accountGroups, group)
+        else
+            if joined.items == nil then
+                joined.items = { _type = "array" }
+            end
+            for _, buffer in ipairs(group.items or {}) do
+                local present = false
+                for _, accountBuffer in ipairs(joined.items) do
+                    if sameConfig(buffer, accountBuffer) then
+                        present = true
+                        break
+                    end
+                end
+                if not present then
+                    tinsert(joined.items, buffer)
+                end
+            end
+        end
+    end
+    charData.items = { _type = "array" }
+    charNode.data = charData
+    charDB._buffersOnAccount = true
+    return true
 end
 
 -- Key bindings live at the top of each store, outside the module tree, and

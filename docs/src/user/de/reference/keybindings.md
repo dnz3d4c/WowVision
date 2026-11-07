@@ -96,6 +96,7 @@ Siehe [Chat](../windows/chat.md).
 | Nächster Wegpunkt (Next Waypoint) | Strg+W | Springt zum nächsten Wegpunkt vor. Du hörst, wie viele Wegpunkte noch übrig sind, zum Beispiel "12 verbleibend" |
 | Vorheriger Wegpunkt (Previous Waypoint) | Strg+S | Geht zum vorherigen Wegpunkt zurück, mit derselben Zählung |
 | Route von hier neu starten (Start the Route Again From Here) | Strg+Umschalt+N | Plant die Route zu deinem letzten Ziel noch einmal, beginnend dort, wo du stehst. Du hörst "Keine Route zum Neustarten", wenn du noch kein Ziel gewählt hast |
+| Route umkehren (Reverse Route) | Strg+Umschalt+R | Kehrt die laufende Route um: vom Wegpunkt, zu dem das Signal gerade führt, zurück zu ihrem Start |
 | Navigation abbrechen (Cancel Navigation) | Umschalt+F12 | Beendet die aktive Route oder das aktive Signal |
 | Ankunftsdistanz wechseln (Cycle Arrival Distance) | Alt+P | Ändert, wie nah du an einen Wegpunkt herankommen musst, damit er als erreicht gilt |
 | Entfernung ansagen (Announce Distance) | Unbelegt | Spricht die Entfernung zum Wegpunkt. Alt Gr (oder Strg+Alt) tut von Haus aus dasselbe |
@@ -122,6 +123,7 @@ Siehe [Minimap](../world/minimap.md).
 | Weiches Ziel Feind (Soft Target Enemy) | Umschalt+I | Schaltet die weiche Zielerfassung für Feinde ein oder aus und sagt "Weiches Ziel Feind Aktiviert" oder "Deaktiviert" (mit "nach dem Kampf", wenn du die Taste im Kampf drückst) |
 | Weiches Ziel Freund (Soft Target Friend) | Umschalt+P | Dasselbe für die weiche Zielerfassung von Freunden |
 | Weiches Ziel Interaktion (Soft Target Interact) | Umschalt+O | Dasselbe für die weiche Zielerfassung zur Interaktion |
+| Ziel des Ziels (Target of Target) | Unbelegt | Macht das Ziel deines Ziels zu deinem Ziel, ohne einen Angriff zu beginnen |
 | Zielmenü öffnen (Open Target Menu) | Alt+T | Öffnet das Menü deines Ziels, wie ein Rechtsklick auf sein Porträt |
 | Zielfokus 1 bis Zielfokus 5 (Target Focus 1 bis 5) | Unbelegt | Erfasst eines der fünf WowVision-Fokusziele |
 
@@ -140,6 +142,14 @@ Siehe [Zielerfassung](../world/targeting.md).
 Die Würfeltasten wirken auf das erste Würfelfenster auf dem Bildschirm. Ist keines offen, hörst du "Keine Beute.".
 
 Siehe [Beute, Handel und Post](../windows/loot-trade-mail.md).
+
+## Gruppeneinladungen
+
+| Aktion | Standardtaste | Hinweise |
+|---|---|---|
+| Gruppeneinladung annehmen (Accept Group Invitation) | Unbelegt | Nimmt die angezeigte Gruppeneinladung an, auch im Kampf, wie /wv accept. Ist keine da, hörst du "Keine Gruppeneinladung" |
+
+Siehe [Gruppensuche](../windows/group-finder.md).
 
 ## Monitore
 

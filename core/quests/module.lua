@@ -160,6 +160,25 @@ function module:objectiveTargets(questId, objectiveIndex)
     return self.adapter:objectiveTargets(questId, objectiveIndex)
 end
 
+-- Questie's markers for an objective, when the database names no place and
+-- the game marks none (nil with the native source, which has no such
+-- markers).
+function module:markerTarget(questId, objectiveIndex)
+    if not requireReady(self) or self.adapter.markerTarget == nil then
+        return nil
+    end
+    return self.adapter:markerTarget(questId, objectiveIndex)
+end
+
+-- The game's own marker for a quest, before Questie's (nil with the native
+-- source, which routes to that marker already).
+function module:gameMarkerTarget(questId)
+    if not requireReady(self) or self.adapter.gameMarkerTarget == nil then
+        return nil
+    end
+    return self.adapter:gameMarkerTarget(questId)
+end
+
 function module:quest(questId)
     if not requireReady(self) then
         return nil
@@ -555,3 +574,64 @@ module:registerCommand({
         module:handleCommand(args or "")
     end,
 })
+
+-- The quest the quest log is on, for the scanner (F9) and the navigation
+-- window (F10) opened from it: the quest row the cursor is on, else the
+-- quest whose details are shown (the log's selection). Nil when no quest
+-- log is open.
+local function questFromFocus()
+    local host = WowVision.graphHost
+    local screen = host ~= nil and host:focusedScreen() or nil
+    local id = screen ~= nil and screen.state ~= nil and screen.state.curKey or nil
+    local key = type(id) == "table" and id.key or id
+    if type(key) ~= "string" then
+        return nil
+    end
+    -- Any cell of a quest's row: the quest, its checkbox, its objectives.
+    local questId = key:match("^quest:(%d+)$") or key:match("^track:(%d+)$") or key:match("^objective:(%d+):")
+    return questId ~= nil and tonumber(questId) or nil
+end
+
+function module:logQuest()
+    -- the log beside the world map (Retail, WoW: Forever) or the standalone one (Classic)
+    local mapLog = QuestMapFrame ~= nil and QuestMapFrame:IsVisible()
+    local classicLog = QuestLogFrame ~= nil and QuestLogFrame:IsVisible()
+    if not mapLog and not classicLog then
+        return nil
+    end
+    local questId = questFromFocus()
+    if questId ~= nil then
+        return questId
+    end
+    if mapLog then
+        local details = QuestMapFrame.DetailsFrame
+        if details ~= nil and details:IsVisible() and C_QuestLog.GetSelectedQuest ~= nil then
+            local selected = C_QuestLog.GetSelectedQuest()
+            if selected ~= nil and selected ~= 0 then
+                return selected
+            end
+        end
+        return nil
+    end
+    if GetQuestLogSelection ~= nil then
+        local index = GetQuestLogSelection()
+        if index ~= nil and index > 0 then
+            local _, _, _, isHeader, _, _, _, selected = GetQuestLogTitle(index)
+            if not isHeader and selected ~= nil and selected ~= 0 then
+                return selected
+            end
+        end
+    end
+    return nil
+end
+
+-- logQuest that never breaks a key: an error is reported and reads as no
+-- quest.
+function module:safeLogQuest()
+    local ok, questId = pcall(self.logQuest, self)
+    if not ok then
+        geterrorhandler()(questId)
+        return nil
+    end
+    return questId
+end

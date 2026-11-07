@@ -31,6 +31,8 @@ The examples on this page use the plain place names of WowNav. Classic routes re
 
 Press F10 to open the navigation window. Press Escape to close it. On a controller, hold both shoulder buttons and press D-pad up (see [Controller](../controller.md)). If the game cannot tell WowVision where you are (for example inside an instance on Retail), the window stays empty.
 
+Pressing F10 while you are in the quest log opens the window aimed at that quest's next target, the same place the Scanner's Enter on the quest leads to: the nearest target of its first unfinished objective, or its turn-in once it is complete. That target heads the destination list and is selected, so Enter starts the route. The quest is the one your cursor is on in the log, or else the one whose details are open. A quest with nowhere to go, or a place without route data, opens the window as usual.
+
 The window has four stops. Move between them with Tab and Shift+Tab, and move inside a list with Up and Down. See [Interface](../basics/interface.md) for the general keys.
 
 | Stop | What it is |
@@ -96,10 +98,11 @@ When the route starts, WowVision speaks the summary and the beacon begins to pin
 - The beacon pings towards the current waypoint. The ping changes with the direction and the distance to the waypoint. It pings faster the more directly you face the waypoint, about every 0.7 seconds when off course and about every 0.3 seconds when you are aimed at it. Distance is heard in steps of about 6 yards and works out to roughly 180 yards.
 - Aligned (a clack) plays when you turn to within 10 degrees of the waypoint. Off course (a click) plays when you turn away again. These only play when you cross that line by turning.
 - Waypoint reached (a success sound) plays every time you get close enough to a waypoint, including the last one.
+- Right after the sound, WowVision says how many waypoints are left, for example "3 remaining". The waypoint the beacon now leads to counts too. At the last waypoint you hear Arrived instead, and at a portal, the tram or an elevator on a WowNav route you hear WowNav's own guidance. This works on classic routes and WowNav routes alike. The setting Announce Remaining Waypoints in the Navigation module (on by default) turns it off.
 - Arrived is spoken at the end of a route, followed by the name of the destination.
 - Beacon stopped is spoken when you cancel.
 
-A waypoint counts as reached when you are within the arrival distance of it (see [Arrival distance](#arrival-distance)). With WowNav each waypoint has its own distance.
+A waypoint counts as reached when you are within the arrival distance of it (see [Arrival distance](#arrival-distance)). With WowNav, a waypoint can also have a larger distance of its own.
 
 ### Beacon sounds
 
@@ -125,6 +128,7 @@ For Beacon Sound you choose one of the beacon sets: Notification, Probe (Deep), 
 | Ctrl+W | Next Waypoint | Skip to the next waypoint. |
 | Ctrl+S | Previous Waypoint | Go back to the previous waypoint. |
 | Ctrl+Shift+N | Start the Route Again From Here | Starts the last route again from where you stand. |
+| Ctrl+Shift+R | Reverse Route | Turns the running route around, back to where it started. |
 | Shift+F12 | Cancel Navigation | Stops the route or beacon. |
 | F10 | Navigation | Opens the navigation window. |
 
@@ -146,15 +150,15 @@ Turning needs two camera settings: the camera following style Always (the game o
 
 ### Arrival distance
 
-The arrival distance is how close, in yards, you must get to a waypoint for it to count as reached. A small distance makes you walk precisely onto each point; a large one forgives wandering. WowVision has three values and one of them is active at a time. With WowNav, the waypoints of a route use their own distance from the data instead, and you can set a minimum for them; see [WowNav](./wownav.md#starting-and-following-a-route).
+The arrival distance is how close, in yards, you must get to a waypoint for it to count as reached. A small distance makes you walk precisely onto each point; a large one forgives wandering. WowVision has three values and one of them is active at a time. It counts for the classic routes and for WowNav. With WowNav, a waypoint that has a larger distance of its own in the data uses that one; see [WowNav](./wownav.md#starting-and-following-a-route).
 
 | Name | Default distance |
 |------|------------------|
-| Short Range | 1 yard |
-| Medium Range | 3 yards (active by default) |
-| Long Range | 5 yards |
+| Short Range | 0.3 yards |
+| Medium Range | 1 yard (active by default) |
+| Long Range | 3 yards |
 
-Press Alt+P while following a route to cycle short, medium, long and back to short. WowVision speaks the name and the distance, for example "Long Range, 5 yards". Use the short range in tight places such as a doorway and the long range in open country. The settings are under [Settings](#settings).
+Press Alt+P while following a route to cycle short, medium, long and back to short. WowVision speaks the name and the distance, for example "Long Range, 3 yards". Use the short range in tight places such as a doorway and the long range in open country. The settings are under [Settings](#settings). There, Left and Right change each distance by 0.1 yards, and Enter lets you type one, such as 0.5.
 
 ### Announce distance
 
@@ -171,6 +175,12 @@ When you have wandered off, or want to skip a waypoint you cannot reach, press C
 ### Restart the route
 
 If you have strayed far from the route, press Ctrl+Shift+N. WowVision plans the last destination you chose again, starting from where you stand now. It works for destinations from the window, from the scanner, from the route to your target, and for the corpse run. With classic routes the router picks whichever of the five nearest waypoints gives the best route. With WowNav the route starts where you stand, if WowNav knows which floor you are on. You hear the route summary again, or No route to start again if you have not chosen a destination yet.
+
+### Reverse the route
+
+Halfway along a route you may remember that you have to go back. Press Ctrl+Shift+R. The route turns around: the waypoint the beacon leads to now becomes the start of a new route, and its destination is where the previous route started, the entry point you chose in the navigation window. You hear "Route reversed, back to" and the name of that place, then the summary of the new route. For example, on the way from Priestess Anetta to Marshal Dughan you press Ctrl+Shift+R and hear "Route reversed, back to Priestess Anetta". If the start has no name, you hear "back to the start of the previous route".
+
+This works on classic routes and WowNav routes alike. Afterwards, Ctrl+Shift+N goes to that start again. Without a running route you hear "No route to reverse".
 
 ### Cancel navigation
 
@@ -251,9 +261,9 @@ Open the WowVision menu (/wv), then Navigation, then Maps. Settings are shared b
 |---------|---------|--------------|
 | Enabled | On | Turns the whole Maps module off, including the keys and /beacon. |
 | Arrival Radius | Medium Range | Which arrival distance is active. Alt+P changes it too. |
-| Short Range | 1 yard | The short arrival distance (1 to 20 yards). |
-| Medium Range | 3 yards | The medium arrival distance (1 to 20 yards). |
-| Long Range | 5 yards | The long arrival distance (1 to 20 yards). |
+| Short Range | 0.3 yards | The short arrival distance (0.1 to 20 yards). |
+| Medium Range | 1 yard | The medium arrival distance (0.1 to 20 yards). |
+| Long Range | 3 yards | The long arrival distance (0.1 to 20 yards). |
 | Announce Distance with Alt Gr | On | Whether Alt Gr and Ctrl+Alt speak the distance. The Announce Distance binding works either way. |
 | Beacon | (see above) | The beacon alert and its four sounds: Beacon Sound, Beacon Aligned, Beacon Off Course, Waypoint Reached. Each has Enabled and a sound choice. |
 
@@ -263,7 +273,7 @@ The Visited Waypoints module (under Navigation) has one setting:
 |---------|---------|--------------|
 | Visited For (Minutes) | 15 | How long a reached destination counts as visited (1 to 1440 minutes). |
 
-Two settings of the Navigation module are related: Automatically Navigate to Corpse (on by default) starts a route to your body as soon as you are a ghost, and Auto-move to Interact Target is explained with the movement features. See [Movement](./movement.md) for those, for the compass and for following a player.
+Three settings of the Navigation module are related: Announce Remaining Waypoints (on by default) says how many waypoints are left after each one you reach, Automatically Navigate to Corpse (on by default) starts a route to your body as soon as you are a ghost, and Auto-move to Interact Target is explained with the movement features. See [Movement](./movement.md) for those, for the compass and for following a player.
 
 ## Diagnostic commands
 

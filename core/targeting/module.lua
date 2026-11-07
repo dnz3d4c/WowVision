@@ -58,9 +58,9 @@ local hardTargetSpeak = hardTargetChange:addOutput({
                 targetString = marker .. " "
             end
         end
-        -- The tooltip text may be secret: concatenation carries it through
-        -- and speech accepts it as is.
-        targetString = targetString .. module.tooltips.hardTarget:getText()
+        -- The configured parts (names.lua), or the full tooltip. Either may
+        -- be secret: concatenation carries it through and speech accepts it.
+        targetString = targetString .. module:targetText("target", module.tooltips.hardTarget)
         return targetString
     end,
 })
@@ -72,31 +72,12 @@ hardTargetSpeak:addParameter({
     default = true,
 })
 
+-- Whether you, your pet or a group member is on the unit's threat list:
+-- in a group too, where "party1" is never you (utils.groupUnits). A secret
+-- threat status is not nil, so it still means "on the list".
 local function inCombatWith(unit)
-    if IsInRaid() then
-        for i = 1, 40 do
-            local unitId = "raid" .. i
-            if UnitExists(unitId) and UnitThreatSituation(unitId, unit) then
-                return true
-            end
-            local petId = unitId .. "pet"
-            if UnitExists(petId) and UnitThreatSituation(petId, unit) then
-                return true
-            end
-        end
-    elseif IsInGroup() then
-        for i = 1, 5 do
-            local unitId = "party" .. i
-            if UnitExists(unitId) and UnitThreatSituation(unitId, unit) then
-                return true
-            end
-            local petId = unitId .. "pet"
-            if UnitExists(petId) and UnitThreatSituation(petId, unit) then
-                return true
-            end
-        end
-    else
-        if UnitThreatSituation("player", unit) or UnitThreatSituation("playerpet", unit) then
+    for _, member in ipairs(WowVision.utils.groupUnits(IsInRaid(), IsInGroup())) do
+        if UnitExists(member) and UnitThreatSituation(member, unit) ~= nil then
             return true
         end
     end
@@ -360,7 +341,10 @@ local function addSoftTarget(info)
         label = L["TTS Alert"],
         interrupt = true,
         buildMessage = function(self, message)
-            local text = info.tooltip:getText()
+            local text, configured = module:targetText(info.unit, info.tooltip)
+            if configured then
+                return text
+            end
             if secrets.isSecret(text) or (text and #text > 1) then
                 return text
             end

@@ -1,6 +1,6 @@
 # Targeting
 
-WowVision tells you what you target, lets you keep up to five "virtual focus" targets on keys, can switch the game's soft targeting on and off, and opens the target's menu with a single key. This page covers all of it: the announcements, the keys, and the settings.
+WowVision tells you what you target, lets you keep up to five "virtual focus" targets on keys, can switch the game's soft targeting on and off, can take your target's target with a key you assign, and opens the target's menu with a single key. This page covers all of it: the announcements, the keys, and the settings.
 
 All targeting settings live in the WowVision menu (type /wv) under Targeting. Targeting works the same on every supported game version, apart from the notes marked for Retail and WoW: Forever. Soft targeting needs support from the game itself; if your version lacks one of its settings, /wv soft lists it as "not available".
 
@@ -12,24 +12,122 @@ All targeting settings live in the WowVision menu (type /wv) under Targeting. Ta
 | Shift+P | Soft Target Friend | Switches soft friend targeting on or off |
 | Shift+O | Soft Target Interact | Switches soft interact targeting on or off |
 | Alt+T | Open Target Menu | Opens the menu of your current target |
+| unbound by default | Target of Target | Makes your target's target your target |
 | unbound by default | Target Focus 1 to Target Focus 5 | Targets the unit you stored in that virtual focus slot |
 
 You can change or add keys in the keybinding window (WowVision menu, UI, Bindings); see [Keybindings](../basics/keybindings.md). The complete list of all keys is in the [keybinding reference](../reference/keybindings.md).
 
-If the addon Sku is loaded at the same time, WowVision leaves the soft targeting keys, the Target Focus keys and the /focus1 to /focus5 commands to Sku and does not register them. Alt+T is not affected.
+If the addon Sku is loaded at the same time, WowVision leaves the soft targeting keys, the Target Focus keys and the /focus1 to /focus5 commands to Sku and does not register them. Target of Target and Alt+T are not affected.
 
 ## Hearing your target (hard target)
 
 A "hard target" is the target you get the normal way: clicking, pressing Tab, a macro, or /target. Whenever your hard target changes to a new unit, WowVision reads it out.
 
-What you hear is the same text the game shows in the mouse-over tooltip of that unit: its name, level, creature type, guild and so on. If the unit wears a raid marker, the marker name comes first, so you hear for example "Skull Gnoll Brute, Level 12 ...". The markers are Star, Circle, Diamond, Triangle, Moon, Square, X and Skull.
+What you hear depends on what kind of unit it is and whether you are in combat. Out of combat a mob sounds like "Gnoll Brute, Level 12, Humanoid, Hostile", in combat just "Gnoll Brute, Level 12". You choose these facts yourself for players, NPCs, mobs, pets and totems, separately for in combat and out of combat; see [What the announcement says: Names](#what-the-announcement-says-names). If the unit wears a raid marker, the marker name comes first, so you hear for example "Skull Gnoll Brute, Level 12". The markers are Star, Circle, Diamond, Triangle, Moon, Square, X and Skull.
 
 Some details:
 
 - Clearing your target is silent. Only a new target is announced.
 - The announcement interrupts whatever is being spoken, so quick target switching is never a backlog of old names.
 - If the unit you target is already in combat with you, a short sound plays as well. WowVision decides this from the threat lists of you, your party or raid members and their pets, so it also works when only a party member or a pet is fighting it.
-- (Retail and WoW: Forever only) The game hides which raid marker a unit has from addons. WowVision still tells you that there is one, but speaks its number instead of its name: 1 is Star, 2 Circle, 3 Diamond, 4 Triangle, 5 Moon, 6 Square, 7 X and 8 Skull. In some situations the game also hides a unit's identity from addons; the announcement keeps working, because the tooltip text is passed to speech as the game hands it over.
+- (Retail and WoW: Forever only) The game hides which raid marker a unit has from addons. WowVision still tells you that there is one, but speaks its number instead of its name: 1 is Star, 2 Circle, 3 Diamond, 4 Triangle, 5 Moon, 6 Square, 7 X and 8 Skull. In some situations the game also hides a unit's identity from addons; the announcement keeps working, and only facts the game hides in that moment, such as whether a player is away, are left out.
+
+### What the announcement says: Names
+
+Open Targeting, then Names. Here you decide which facts the target announcement speaks. The soft target announcements use the same choices.
+
+| Setting | Default | What it does |
+|---------|---------|--------------|
+| Configured Target Announcement | Off | Speaks the facts you picked below. Off, you hear the unit's full tooltip text instead |
+| In Combat | | Opens the choices used while you are in combat |
+| Out of Combat | | Opens the choices used while you are not in combat |
+
+Which of the two applies is decided the moment you take the target: in combat, In Combat; otherwise Out of Combat. Both open the same five kinds of unit, each with one checkbox per fact, and end with Reset to Defaults, which puts that combat state's checkboxes back to the defaults and says "Defaults restored". A change counts from the next target on.
+
+The five kinds of unit:
+
+- Players: other players' characters, and yourself.
+- NPCs: units you cannot attack, such as vendors, quest givers and the guards of your faction.
+- Mobs: units you can attack, neutral ones and enemy guards included.
+- Pets: units a player controls, such as hunter pets, warlock demons and summoned minions.
+- Totems: shaman totems.
+
+Things that are not units, such as a mailbox or a herb under soft interact, always speak their full tooltip text.
+
+The facts are spoken in the order of the list, separated by commas. Level and Rare, Elite or Boss come together ("Level 11 Elite"), and so do Race and Class ("Human Warrior"). A fact the unit does not have is left out, so Realm says nothing for a player from your own realm. A fact two checkboxes would both say is said once: with Classification and Elite both on, you hear "Elite" once. If a checkbox is missing from a list, your game version does not offer that fact.
+
+Players:
+
+| Fact | What you hear | In combat | Out of combat |
+|------|---------------|-----------|---------------|
+| Name | The name, with its title when Title is on too, for example "Sergeant Broesel" | On | On |
+| Title | The title. On its own only when Name is off | Off | On |
+| Realm | "Realm Everlook", for a player from another realm | Off | Off |
+| Guild | "Guild The Watchers" | Off | On |
+| Level | "Level 60", or "Skull Level" when the level is too far above yours to know | Off | On |
+| Race | "Human" | Off | On |
+| Class | "Warrior" | On | On |
+| Gender | "Male" or "Female" | Off | Off |
+| Faction | "Alliance" or "Horde" | Off | Off |
+| Group Role | "Tank", "Healer" or "Damage Dealer", for a group member with a role | Off | Off |
+| PvP Status | "PvP" for a player flagged for PvP, "Free-for-All PvP" in free-for-all areas | Off | Off |
+| Away (AFK) | "AFK" | Off | Off |
+| Do Not Disturb (DND) | "Do Not Disturb" | Off | Off |
+| Charmed | "Charmed", for a mind controlled player | On | Off |
+| Target in Combat | "In Combat", while the player is fighting | Off | Off |
+| Dead or Ghost | "Dead" or "Ghost" | On | On |
+
+NPCs:
+
+| Fact | What you hear | In combat | Out of combat |
+|------|---------------|-----------|---------------|
+| Name | The name | On | On |
+| Title | The line under the name in the tooltip, for example "Innkeeper" or "Weapon Merchant" | Off | On |
+| Level | "Level 30" | Off | On |
+| Classification | Each of these that applies: "Rare", "Elite", "World Boss", "Minor" for a weak unit, "Trivial" | Off | Off |
+| Rare | "Rare" | Off | On |
+| Elite | "Elite" | Off | On |
+| Boss | "Boss", or "World Boss" | Off | On |
+| Creature Type | "Humanoid", "Beast" and so on | Off | Off |
+| Creature Family | "Wolf", "Cat" and so on, for beasts | Off | Off |
+| Reaction | "Hostile", "Neutral" or "Friendly" | Off | Off |
+| Quest Boss | "Quest Boss" | Off | Off |
+| Quest Target | "Quest Target", when one of your quests needs this unit | Off | On |
+| Quest Progress | Your unfinished objectives for this unit, for example "Hogger slain: 0/1" | Off | On |
+| Target in Combat | "In Combat", while the unit is fighting | Off | Off |
+| Dead | "Dead" | On | On |
+
+Mobs have the same facts as NPCs, plus two:
+
+| Fact | What you hear | In combat | Out of combat |
+|------|---------------|-----------|---------------|
+| Tapped by Others | "Tapped by Others", when another player hit it first: you get no loot or experience from it | Off | On |
+| Charmed | "Charmed", for a mind controlled mob | Off | Off |
+
+The defaults for mobs differ from NPCs: in combat Name, Level, Rare, Elite, Boss and Dead are on; out of combat also Title, Creature Type, Reaction, Quest Boss, Quest Target, Quest Progress and Tapped by Others.
+
+Pets:
+
+| Fact | What you hear | In combat | Out of combat |
+|------|---------------|-----------|---------------|
+| Name | The name | On | On |
+| Owner | Whose pet it is, for example "Broesel's Pet", or "Yours" for your own | On | On |
+| Level | "Level 60" | Off | On |
+| Creature Type | "Beast", "Demon" and so on | Off | Off |
+| Creature Family | "Wolf", "Cat" and so on | Off | On |
+| Reaction | "Hostile", "Neutral" or "Friendly" | Off | Off |
+| Target in Combat | "In Combat" | Off | Off |
+| Dead | "Dead" | On | On |
+
+Totems have Name and Owner (both on) and Reaction (off).
+
+Example: in combat you want to hear only the names of mobs.
+
+1. Press Shift+F1 (or type /wv) and go to Targeting, then Names, then In Combat, then Mobs.
+2. Turn off Level, Rare, Elite, Boss and Dead.
+3. Close the menu with Escape. The next mob you target in combat says only its name.
+
+To hear and read what each fact says for your current target, type /wv targetinfo; see [Commands](../reference/commands.md).
 
 ### Settings for hard target announcements
 
@@ -97,7 +195,7 @@ If you have turned the interact key on in the game's own options, WowVision does
 
 ### What you hear
 
-While a soft target type is on, WowVision announces each new soft target of that type: the unit's tooltip text, or at least its name, plus a short sound that is different for enemy, friend and interact. When the soft target disappears nothing is said.
+While a soft target type is on, WowVision announces each new soft target of that type with the facts you picked under Names (see [What the announcement says: Names](#what-the-announcement-says-names)), plus a short sound that is different for enemy, friend and interact. Things that are not units, such as a mailbox, speak their tooltip text, or at least their name. When the soft target disappears nothing is said.
 
 Each type is an alert in the Targeting menu named Soft Target Enemy, Soft Target Friend and Soft Target Interact. The alert is off by default; its Enabled setting is what the key flips. Under it you find TTS Alert (spoken, interrupting by default) and Sound Alert, both on by default once the alert is on. You can pick a different sound with the Sound setting of the sound output.
 
@@ -167,6 +265,12 @@ Because the focus is a name, the game targets the nearest unit with that name. T
 2. Target the second boss and type /focus2, then the third and /focus3.
 3. In the keybinding window assign Alt+1, Alt+2 and Alt+3 to Target Focus 1, 2 and 3.
 4. In the fight, Alt+1 targets the first boss and WowVision reads it as it would any target change.
+
+## Your target's target
+
+Target of Target has no key by default, so give it one in the keybinding window. Press it to target whatever your target is targeting: the enemy a group member is fighting, or the group member an enemy is attacking. WowVision reads the new target as it reads any target change. If the enemy is attacking you, you target yourself. It works in combat too, and it does not start an attack.
+
+If you have no target, you hear "No target". If your target has no target, you hear "Your target has no target", and your target stays as it was.
 
 ## The target's menu: Alt+T
 

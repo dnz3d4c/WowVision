@@ -26,12 +26,14 @@ Unless a command says otherwise, it exists on all game versions: Classic Era, Th
 | /wv bind | Open the keybinding window | all |
 | /wv close | Closes every WowVision window | all |
 | /wv version | Prints the WowVision version | all |
+| /wv accept | Accepts a group invitation, also in combat | all |
 | /beacon | Sets a beacon, routes to a named place, or reads your position | all |
 | /focus1 to /focus5 | Sets a virtual focus target | all, not with Sku |
 | /pquit | Leaves your party | all, not with Sku |
 | /dquit | Leaves the dungeon group or battleground | all, not with Sku |
 | /enableaddon, /disableaddon | Turns an addon on or off and reloads | all, not with BlindSlash |
 | /wv soft | Reads soft targeting values | all |
+| /wv targetinfo | Lists what each fact of the target announcement says for your target | all |
 | /wv mscan | Minimap scan and its log | where the minimap scan works |
 | /wv quests | Quest data check | all |
 | /wv errors | Shows Lua errors | all |
@@ -79,6 +81,10 @@ Closes every open WowVision window at once. Use it when a window seems stuck. Th
 ### /wv version
 
 Prints the installed WowVision version to your chat window, for example V0.9.0, or "beta" for the beta pre-release. Versions: all.
+
+### /wv accept
+
+Accepts the group invitation that is shown and says "Group invitation accepted". It also works in combat, where WowVision cannot open the invitation popup. Without an invitation it says "No group invitation". The Accept Group Invitation key does the same; it is unbound. Versions: all. See [Group Finder](../windows/group-finder.md).
 
 ### /beacon
 
@@ -130,6 +136,10 @@ Do not use /disableaddon wowvision; it would turn WowVision itself off. These co
 ### /wv soft
 
 Reads the soft targeting mode and every soft targeting game value, one line each: first the lock mode (Soft Targeting With a Hard Target), then lines such as "SoftTargetEnemy 3 (default 0)". A value waiting for combat to end is marked "after combat" with the value it will get, and a value your game version does not have is marked "not available". The lines are printed to chat and spoken. See [Targeting](../world/targeting.md).
+
+### /wv targetinfo
+
+Lists, for your current target, everything the target announcement can say: the kind of unit, whether In Combat or Out of Combat applies right now, and every fact of that kind with what it says for this target, whether its checkbox is on, and whether your game version offers it. Then the lines of the target's tooltip, and last the announcement as you hear it. The list opens in the results window and is printed to chat, and the announcement is spoken. A fact the game hides in that moment shows as <secret>. This helps with bug reports. See [Targeting](../world/targeting.md#what-the-announcement-says-names).
 
 ### /wv mscan
 

@@ -54,12 +54,8 @@ settings:add({ key = "targetTolerance", type = "Number", label = L["Height Toler
 settings:add({ key = "chokeFallback", type = "Bool", label = L["Step Back at Gates"], default = true })
 -- his preload: the player's zone and its neighbours are decoded ahead
 settings:add({ key = "preload", type = "Bool", label = L["Prepare Neighbouring Zones"], default = true })
--- his /vn ankunft: a waypoint counts as reached within at least this many yards; 0 = the data's own radius of each
--- waypoint (his default). WowVision's arrival distance (Alt-P) is not used by WowNav routes.
-settings:add({
-    key = "arrivalMin", type = "Number", label = L["Minimum Arrival Distance for WowNav Waypoints (0 = Their Own)"],
-    default = 0, min = 0, max = 10,
-})
+-- his /vn ankunft (a waypoint counts as reached within at least this many yards) is WowVision's arrival distance:
+-- the radius Alt-P picks (navigation/maps) is the minimum over the data's own radius of each waypoint
 
 local BUDGET_MS = 8          -- search time per frame (his chapter 7 point 4 allows 30)
 local SLOW_NOTICE = 1.0      -- seconds before "calculating route" is said
@@ -144,8 +140,8 @@ local function ready(self)
     WowVisionNavigationDB.targetRadius = self.settings.targetRadius
     WowVisionNavigationDB.targetTolerance = self.settings.targetTolerance
     WowVisionNavigationDB.chokeFallback = self.settings.chokeFallback ~= false
-    -- his /vn ankunft: the module's own setting (default 0: the data's radius of each waypoint)
-    G.arrivalMin = self.settings.arrivalMin or 0
+    -- his /vn ankunft: WowVision's arrival distance (Alt-P), kept current by the subscriptions at the end
+    G.arrivalMin = maps:arrivalDistance()
     return N
 end
 
@@ -218,6 +214,18 @@ function engine:unitTarget(creatureId, px, py, map)
         WowVision.targetFind.UNIT_RADIUS)
 end
 
+-- A target another source names (the scanner's quest NPCs and objects: { kind, id, name } at x, y): the catalogue's
+-- row of the same target near that position (catalog.matchRow), which brings its height; nil where WowNav has no data
+-- or no such target.
+function engine:matchTarget(match, x, y, map)
+    local N = ready(module)
+    if N == nil or x == nil or map == nil or not catalog.covers(N, map) then
+        return nil
+    end
+    N.activeMapId = map
+    return catalog.matchRow(N, _G.WowVisionNavigationTargetCatalog, map, match, x, y)
+end
+
 -- Shift-F12 (his /vn stop): ends the search, the route, a transit waiting for its far end, the dock guidance and the
 -- water beacon of a fishing spot. True when any of them was running.
 function engine:cancel()
@@ -229,6 +237,11 @@ function engine:cancel()
         module:stopRoute()
     end
     return running
+end
+
+-- Ctrl-Shift-R (maps:reverseRoute): the running route turned around. Nil when no WowNav route runs.
+function engine:reverseRoute()
+    return module:reverseRoute()
 end
 
 function engine:search(text, px, py, map, opts)
@@ -457,9 +470,18 @@ local function startRoute(self, request, outcome)
     -- a target picked as the start (not a waypoint) is the first waypoint itself; not after a transit, whose route
     -- goes on from the far end
     local start = request.start
-    if start ~= nil and start.nodeId == nil and route.path[1] == request.startOverride then
+    local fromStart = start ~= nil and route.path[1] == request.startOverride
+    if fromStart and start.nodeId == nil then
         route:prependStart(start.x, start.y, start.z)
     end
+    -- Ctrl-Shift-R: the way back was found; Ctrl-Shift-N goes there again. Once: a transit's continuation starts anew.
+    local reversed = request.reversed
+    request.reversed = nil
+    if reversed ~= nil then
+        maps.lastDestination = reversed.destination
+    end
+    -- start and target on the same spot: nothing to walk on the network
+    local sameSpot = fromStart and Route.sameSpot(start, request.contract) and route:dropToEnd()
     if request.dockTarget ~= nil and not trimmed then
         route.waitCheck = dock.waitAreaCheck(N, request.dockTarget)
     end
@@ -481,6 +503,10 @@ local function startRoute(self, request, outcome)
 
     local count = #route.path
     local yards = px ~= nil and routeLength(N, route.path, route.pathIndex, px, py) or 0
+    -- standing on it: the arrival of the first update says all there is
+    if sameSpot and yards <= route.G.EffectiveRadius(Route.ARRIVAL_TARGET_RADIUS) then
+        return
+    end
     local text = string.format("%d %s, %d %s", count, L["waypoints"], yards, L["yards"])
     local approx = approximateText(outcome.result)
     if approx ~= nil then
@@ -497,6 +523,9 @@ local function startRoute(self, request, outcome)
     local outpost = outcome.plan and outcome.plan.result and outcome.plan.result.outpost
     if outpost == "through" or outpost == "target" then
         text = text .. ". " .. WowVisionNavigationText("outpost_" .. outpost)
+    end
+    if reversed ~= nil then
+        text = reversed.text .. ". " .. text
     end
     say(text)
 end
@@ -567,7 +596,8 @@ function module:routeTo(target)
             say(L["No WowNav network here"])
             return true
         end
-        local request = { nodeId = target.data.nodeId, label = target.label, onArrive = target.onArrive, start = start }
+        local request = { nodeId = target.data.nodeId, label = target.label, onArrive = target.onArrive, start = start,
+            reversed = target.reversed }
         if bindStart(self, request) then
             self:stopRoute()
             search(self, request)
@@ -640,12 +670,59 @@ function module:routeTo(target)
     end
     local request = { contract = contract, label = target.label, onArrive = target.onArrive, dockTarget = dockTarget,
         activationTarget = activationTarget, approx = type(target.data) == "table" and target.data.approx == true,
-        lowestFloor = type(target.data) == "table" and target.data.lowestFloor == true, start = start }
+        lowestFloor = type(target.data) == "table" and target.data.lowestFloor == true, start = start,
+        reversed = target.reversed }
     if bindStart(self, request) then
         self:stopRoute()
         search(self, request)
     end
     return true
+end
+
+-- Ctrl-Shift-R: the running route turned around. The new route starts at the waypoint the beacon leads to now (the
+-- next real network point when that one is virtual: a picked target before its network point) and leads back to
+-- where the previous route started: the target or waypoint picked as its entry point in F10, else its start node.
+-- Nil when no WowNav route runs; true when the request was made.
+function module:reverseRoute()
+    local request, path = self.request, self.path
+    local N = self:network()
+    if request == nil or path == nil or route == nil or not route.active or route.path == nil
+        or request.startOverride == nil or N == nil then
+        return nil
+    end
+    local from
+    for i = route.pathIndex or 1, #route.path do
+        local id = route.path[i]
+        if N.virt[id] == nil then
+            from = id
+            break
+        end
+    end
+    if from == nil then
+        return nil
+    end
+    local _, _, fromZ = N.Position(from)
+    local start = request.start
+    local data, x, y, z
+    if type(start) == "table" and (start.tid ~= nil or start.nodeId ~= nil) and start.x ~= nil then
+        data, x, y, z = start, start.x, start.y, start.z
+    else
+        data = { nodeId = request.startOverride }
+        x, y, z = N.Position(request.startOverride)
+        data.x, data.y, data.z = x, y, z
+    end
+    local label = (type(start) == "table" and start.n) or L["the start of the previous route"]
+    if data.n == nil then
+        data.n = label
+    end
+    -- the search answers later: said and remembered when the route starts (startRoute), a failed one says why
+    local reversed = { text = string.format(L["Route reversed, back to %s"], label), destination = data }
+    if self:routeTo({ x = x, y = y, z = z, label = label, data = data, start = { nodeId = from, z = fromZ },
+        reversed = reversed }) then
+        return true
+    end
+    say(L["No route found"])
+    return false
 end
 
 -- His TargetProviders:GroupMember: the unit's position now as a live target, valid for 30 s; nil without one.
@@ -810,7 +887,8 @@ function module:onRouteEvent(path, event)
                 self.dockPath = water
                 maps:pathfind(water)
             end
-        elseif result == nil or result.quality == "exact" then
+        elseif Route.reachesTarget(result, radius) then
+            -- an approximate result whose network ends at the target is an arrival too (Route.reachesTarget)
             say(L["Arrived"] .. (label ~= nil and (" " .. label) or ""))
         elseif result.normalizedWater then
             -- his stop_water_net_ends / stop_net_ends: how far the network ends from the target
@@ -887,7 +965,7 @@ local function checkAction(self)
     end
     local x, y, map = route.env.position()
     local current = route.action
-    local state = route:observeAction(x, y, map, maps:arrivalDistance())
+    local state = route:observeAction(x, y, map, route.G.MinArrivalRadius())
     traceAction(current, x, y, map)
     if state ~= nil then
         logLine(string.format("transit: %s at %.1f %.1f", state, x or 0, y or 0))
@@ -1213,6 +1291,16 @@ module.settings.class:getField("avoidOutposts").events.valueChange:subscribe(mod
         recalcAt = GetTime() + RECALC_DELAY
     end
 end)
+
+-- Alt-P or the settings changed the arrival distance: the running route uses it at once
+for _, key in ipairs(maps.arrivalDistanceKeys) do
+    maps.settings.class:getField(key).events.valueChange:subscribe(module, function()
+        local _, G = module:network()
+        if G ~= nil then
+            G.arrivalMin = maps:arrivalDistance()
+        end
+    end)
+end
 
 -- With the setting turned on while the standalone addon runs, say why nothing changes.
 module.settings.class:getField("enabled").events.valueChange:subscribe(module, function(_, _, _, _, value)

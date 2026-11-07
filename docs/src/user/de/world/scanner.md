@@ -4,6 +4,8 @@ Der Scanner (Scanner) ist eine Liste der Dinge um dich herum und wo sie sind: Qu
 
 Drücke F9, um den Scanner zu öffnen. Mit Esc schließt du ihn. Die Taste heißt im Fenster für die Tastenbelegung Scanner und lässt sich dort ändern; siehe [Tastenbelegung](../basics/keybindings.md). Der Scanner funktioniert in jeder Spielversion, aber was er auflisten kann, hängt von der Version und von den verfügbaren Daten ab. Siehe "Hinweise zu den Versionen" am Ende.
 
+Drückst du F9, während du im Questlog bist, öffnet sich der Scanner direkt auf dieser Quest, unter Quests, Laufend: die Quest, auf der dein Cursor im Questlog steht, sonst die Quest, deren Details offen sind. Drücke Pfeil rechts, um ihre Questziele zu hören, oder Eingabe, um zu ihrem nächsten Ziel geführt zu werden.
+
 Hinweis: Die Ansagen des Scanners kommen größtenteils aus lokalisierten Texten und werden auf einem deutschen Client auf Deutsch gesprochen. Die Beispiele zeigen, was du hörst. Namen von NPCs, Orten und Questzielen stammen aus den Spieldaten und bleiben so, wie sie dort stehen.
 
 ## Wie er aufgebaut ist
@@ -65,6 +67,8 @@ Du hörst also, wonach du suchen sollst, bevor du hörst, wo es ist. Beispiel: D
 
 Die Questzeile und das Ziel tragen jeweils auch eine eigene Position, das erste unerledigte Ziel, sodass Eingabe auf der Quest selbst dich zum nächsten Ort führt, an dem du vorankommen kannst. Eine abgeschlossene Quest führt dich zu ihrer Abgabe.
 
+Manche Ziele nennen nichts, wohin du gehen kannst: ein Gebiet, das du erkunden sollst, ein Gegner, für den die Questdaten keine Fundorte kennen, oder ein Ort auf einem anderen Kontinent. Dann nimmt WowVision die Questmarkierung des Spiels, das Gebiet, das das Spiel auf deiner Karte für den aktuellen Schritt der Quest zeigt, und der Eintrag sagt "Questmarkierung des Spiels". Markiert das Spiel nichts, nimmt WowVision die eigene Kartenmarkierung von Questie für das nächste offene Ziel, den Punkt, den Questie auf deiner Karte zeigt, und der Eintrag sagt "Questie-Markierung". Hat ein Ziel mehrere Questie-Markierungen, klappt es zu ihnen auf, die nächste zuerst. Die Markierung des Spiels führt dich auch zur Abgabe einer abgeschlossenen Quest, deren Abgabe nicht bekannt ist, und zu einer Quest, die Questie nicht kennt. Eingabe führt dich zu all diesen Orten wie zu jedem anderen. Nur wenn weder das Spiel noch Questie etwas markieren, hat der Eintrag keinen Ort.
+
 ### NPCs
 
 - Questgeber: die NPCs, die die unter In der Nähe aufgelisteten Quests anbieten, jeweils mit der Zahl der Quests darunter ("3 Quests"). Öffne einen, um seine Quests zu sehen. Ein Questgeber, der nur durch den Minikarten-Scan gefunden wurde, ist ein einzelner Eintrag mit der Markierung "gesehen".
@@ -93,6 +97,8 @@ Eingabe auf einem Eintrag mit Ort schließt den Scanner und beginnt, dich zu fü
 
 - Gibt es Routendaten für den Kontinent, auf dem du bist, öffnet sich das Navigationsfenster mit dem nächsten Einstiegspunkt ins Wegnetz und deinem gewählten Eintrag schon als Ziel ausgewählt. Drücke dort Eingabe, um die Route zu gehen. Sie folgt dem Wegpunktnetz und endet mit einem geraden letzten Stück bis zum Eintrag.
 - Gibt es keine Routendaten, hörst du "Signal gesetzt", gefolgt von der Entfernung in Metern, zum Beispiel "Signal gesetzt 40 Meter", und ein Klang-Signal führt dich in gerader Linie. Wenn du ankommst, hörst du "Angekommen".
+
+Ist WowNav an (WoW: Forever), wird ein NPC oder Objekt, das WowNavs eigene Ortsliste an dieser Stelle kennt, aus dieser Liste genommen: dieselbe Kreatur, sonst ein Ort mit demselben Namen. Die Route kennt dann Höhe und Stockwerk des Ziels, führt also auf das richtige Stockwerk und endet ohne den Hinweis, dass das letzte Stück ungeprüft ist. Ein Ziel, das WowNav nicht kennt, wird wie bisher angesteuert.
 
 Bei einem gesehenen NPC, den der Minikarten-Scan gefunden hat, löst die Ankunft außerdem die Suche nach dem echten Namen aus, die im [Minikarten-Scanner](minimap.md) beschrieben ist.
 
