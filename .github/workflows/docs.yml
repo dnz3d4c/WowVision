@@ -41,6 +41,15 @@ jobs:
       - name: Build the book
         run: mdbook build docs
 
+      # mdBook gives every page the book's single language (en). Pages under
+      # user/<lang>/ get their own, so screen readers speak them in that language.
+      - name: Mark translated pages with their language
+        run: |
+          for lang in de ko; do
+            [ -d "docs/book/user/$lang" ] || continue
+            find "docs/book/user/$lang" -name '*.html' -exec sed -i "s/<html lang=\"en\"/<html lang=\"$lang\"/" {} +
+          done
+
       - name: Upload the site
         uses: actions/upload-pages-artifact@v3
         with:
