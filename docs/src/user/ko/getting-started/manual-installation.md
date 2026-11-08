@@ -10,7 +10,7 @@
 WowVision은 GitHub에 올라옵니다. 내려받을 수 있는 것은 두 종류이고, 어느 쪽이든 zip 파일 하나입니다.
 
 - 최신 릴리스. 안정 버전입니다. [WowVision 릴리스 페이지](https://github.com/wow-vision/WowVision/releases/latest)에서 내려받습니다. zip 이름은 버전을 따릅니다(예: WowVision-V1.0.0.zip). 용량이 큽니다(약 100MB).
-- 베타 프리릴리스. 릴리스와 릴리스 사이에는 beta라는 프리릴리스가 하나 있습니다. 개발자가 무언가를 바꿀 때마다 다시 만들어지므로 테스터용입니다. 늘 같은 주소인 [베타 프리릴리스 페이지](https://github.com/wow-vision/WowVision/releases/tag/beta)에 있습니다. zip 파일 자체는 항상 https://github.com/wow-vision/WowVision/releases/download/beta/WowVision-beta.zip 에 있습니다. 그 페이지의 릴리스 노트에 지난 릴리스 이후의 모든 변경 사항이 있습니다.
+- 베타 프리릴리스. 릴리스와 릴리스 사이에는 beta라는 프리릴리스가 하나 있습니다. 개발자가 무언가를 변경할 때마다 다시 만들어지므로 테스터용입니다. 늘 같은 주소인 [베타 프리릴리스 페이지](https://github.com/wow-vision/WowVision/releases/tag/beta)에 있습니다. zip 파일 자체는 항상 https://github.com/wow-vision/WowVision/releases/download/beta/WowVision-beta.zip 에 있습니다. 그 페이지의 릴리스 노트에 지난 릴리스 이후의 모든 변경 사항이 있습니다.
 
 두 종류 모두 같은 방법으로 설치합니다. 이미 설치된 예전 버전 위에 베타를 설치하면 기존 파일을 덮어쓸 뿐입니다.
 

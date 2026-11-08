@@ -11,7 +11,7 @@ WowVision은 다섯 가지 게임 버전에서 동작합니다. 게임이 시작
 - Retail — World of Warcraft의 현재 확장팩
 - WoW: Forever — WoW: Forever 클라이언트
 
-개발이 가장 활발한 버전은 불타는 성전과 판다리아의 안개이고, WoW: Forever는 빠르게 바뀌고 있습니다. Classic Era와 Retail도 모든 버전이 공유하는 기능은 전부 갖추지만, 공통 기능 외에 지원하는 게임 창은 다른 버전보다 적습니다.
+개발이 가장 활발한 버전은 불타는 성전과 판다리아의 안개이고, WoW: Forever는 빠르게 변경되고 있습니다. Classic Era와 Retail도 모든 버전이 공유하는 기능은 전부 갖추지만, 공통 기능 외에 지원하는 게임 창은 다른 버전보다 적습니다.
 
 ## 모든 버전 공통
 
