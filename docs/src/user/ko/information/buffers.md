@@ -221,7 +221,7 @@ Retail에서 전투 중이거나 인스턴스 안에 있으면 게임이 애드�
 |---|---|
 | 생명력 | `current`, `maximum`, `minimum` |
 | 자원 | `current`, `maximum`, `minimum`, `label`(자원 이름) |
-| PvP | `status`("사용함" 또는 "사용 안 함") |
+| PvP | `status`("사용함" 또는 "사용 불가") |
 | 경험치 | `current`, `maximum`, `percent`, `nextLevel`, `rested` |
 | 돈 | `current`(코퍼 단위), `formatted`(골드, 실버, 코퍼를 낱말로) |
 | 가방 | `free` |
