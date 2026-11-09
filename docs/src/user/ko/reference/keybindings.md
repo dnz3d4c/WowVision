@@ -1,4 +1,4 @@
-<!-- source: docs/src/user/en/reference/keybindings.md @ 2c7d4cb -->
+<!-- source: docs/src/user/en/reference/keybindings.md @ 5cbf76a -->
 # 단축키 목록
 
 이 페이지는 WowVision의 모든 단축키와 기본 키를 나열합니다. 어느 것이든 단축키 화면에서 변경할 수 있습니다. WowVision 메뉴(Shift+F1)를 열고 인터페이스로 가서 단축키를 고르십시오. 단축키 화면을 쓰는 법은 [단축키](../basics/keybindings.md)에서 설명합니다.
@@ -103,7 +103,7 @@
 | WowNav 경로 상태 | 지정 안 됨 | (WoW: Forever) WowNav 경로의 상태를 말합니다 |
 | 막힌 지점을 피하는 새 WowNav 경로 | 지정 안 됨 | (WoW: Forever) 내가 막혀 있는 지점을 피하는 새 경로를 짭니다 |
 
-Alt Gr은 지정된 단축키가 아닙니다. WowVision이 Alt Gr 키를 직접 감지하며, 입력창에 글을 쓰는 동안에는 아무 말도 하지 않습니다. 지도 모듈의 Alt Gr로 거리 알림 설정에서 이 기능을 끌 수 있습니다. [길 안내와 경로](../world/navigation.md)와 [WowNav](../world/wownav.md)를 참고하십시오.
+Alt Gr은 지정된 단축키가 아닙니다. WowVision이 Alt Gr 키를 직접 감지하며, 입력창에 글을 쓰는 동안에는 아무 말도 하지 않습니다. 길 안내의 비컨과 경로 모듈에 있는 Alt Gr로 거리 알림 설정으로 이 기능을 끌 수 있습니다. [길 안내와 경로](../world/navigation.md)와 [WowNav](../world/wownav.md)를 참고하십시오.
 
 ## 미니맵
 

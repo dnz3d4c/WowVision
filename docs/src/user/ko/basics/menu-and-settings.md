@@ -1,4 +1,4 @@
-<!-- source: docs/src/user/en/basics/menu-and-settings.md @ 397ffc3 -->
+<!-- source: docs/src/user/en/basics/menu-and-settings.md @ 5cbf76a -->
 # WowVision 메뉴와 설정
 
 WowVision 메뉴는 음성, 알림, 길 안내, 버퍼, 모니터, 창 등 애드온의 여러 기능을 설정하는 곳입니다. 다른 WowVision 창과 똑같이 작동하므로 [인터페이스 사용하기](./interface.md)의 내용이 모두 적용됩니다. 이 페이지에서는 메뉴의 구성, 설정 종류별 편집 방법, 설정을 캐릭터별 또는 계정 전체로 저장하는 방법을 설명합니다.
@@ -25,7 +25,7 @@ WowVision 메뉴는 음성, 알림, 길 안내, 버퍼, 모니터, 창 등 애�
 | /wv gsettings ui.tooltip.quality | 인터페이스, 툴팁, 등급 |
 | /wv gsettings ui.combat | 인터페이스, 전투 |
 | /wv gsettings navigation.compass | 길 안내, 나침반 |
-| /wv gsettings navigation.maps | 길 안내, 지도 |
+| /wv gsettings navigation.maps | 길 안내, 비컨과 경로 |
 | /wv gsettings chat | 대화 |
 | /wv gsettings targeting | 목표 선택 |
 | /wv gsettings errors | 오류 |
@@ -59,8 +59,8 @@ WowVision 메뉴는 음성, 알림, 길 안내, 버퍼, 모니터, 창 등 애�
 | 오류 | 모두 | 게임 오류 메시지와 정보 메시지를 읽는 방식. | [전투](../world/combat.md) |
 | 미니맵 스캐너 | 모두 | 미니맵 스캔과 걷는 중 알림. | [미니맵](../world/minimap.md) |
 | 모니터 | 모두 | 오라, 재사용 대기 등의 모니터. | [모니터](../information/monitors.md) |
-| 길 안내 | 모두 | 아틀라스, 나침반, 낙하 감지, 따르기, 지도, 상하 각도 고정, 방문한 경유지, 벽 감지 등. | [이동](../world/movement.md), [길 안내](../world/navigation.md) |
-| 퀘스트 | 모두 | 퀘스트 목록 도구, 퀘스트 지역 알림. | [퀘스트](../world/quests.md) |
+| 길 안내 | 모두 | 아틀라스, 비컨과 경로, 나침반, 낙하 감지, 따르기, 상하 각도 고정, 방문한 경유지, 벽 감지 등. | [이동](../world/movement.md), [길 안내](../world/navigation.md) |
+| 퀘스트 | 모두 | 퀘스트 목록 도구, 퀘스트 지역 알림과 퀘스트 진행 상황 알림. | [퀘스트](../world/quests.md) |
 | 스캐너 | 모두 | 스캐너(F9). | [스캐너](../world/scanner.md) |
 | 음성 | 모두 | 음성 종류, 속도, 음량, 음성 동작. | [음성](./speech.md) |
 | 목표 선택 | 모두 | 대상 알림, 소프트 대상 지정, 주시 대상. | [목표 선택](../world/targeting.md) |
@@ -81,6 +81,7 @@ WowVision 메뉴 첫 화면에서 Down으로 인터페이스까지 간 뒤 Enter
 | 단축키 | | 단축키 화면. [단축키](./keybindings.md)를 보십시오. |
 | 창을 닫을 때 음성 중단 | 끔 | 창이 닫힐 때마다 음성을 끊습니다. |
 | 메뉴에서 글자로 이동 | 켬 | 메뉴에서 글자 키를 눌러 항목으로 건너뜁니다. 메뉴가 열려 있는 동안에도 글자 키가 계속 원래대로 작동해야 하면 끄십시오. |
+| WowVision 소리 채널 | 효과 | WowVision의 모든 소리가 재생되는 게임 소리 채널입니다. 알림 소리, 음성 팩, 비컨, 소리 탐색기의 미리 듣기가 모두 여기에 해당합니다. 항목 이름은 게임 소리 설정의 음량 슬라이더 이름과 같으므로, 고른 채널의 슬라이더가 곧 WowVision의 음량이 됩니다. 다른 용도로 거의 쓰지 않는 채널을 고르면 WowVision만의 음량을 따로 둘 수 있습니다. 리테일과 WoW: Forever에서는 게임 플레이 효과음도 고를 수 있습니다. |
 
 ### 창 모듈
 

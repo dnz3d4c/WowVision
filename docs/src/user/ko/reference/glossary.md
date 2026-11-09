@@ -1,4 +1,4 @@
-<!-- source: docs/src/user/en/reference/glossary.md @ 397ffc3 -->
+<!-- source: docs/src/user/en/reference/glossary.md @ 5cbf76a -->
 # 용어집과 자주 묻는 질문
 
 ## 용어집
@@ -106,6 +106,10 @@ WowVision 메뉴(Shift+F1)를 열고 음성으로 가서 음성 속도를 올리
 ### 듣고 싶지 않은 안내가 나옵니다.
 
 거의 모든 안내는 끄거나 소리로 변경할 수 있는 알림입니다. WowVision 메뉴에서 해당 모듈의 항목을 찾아보십시오. 게임 오류 메시지는 오류, 오류별 필터에서 하나씩 무음으로 만들 수 있습니다. [알림](../basics/alerts.md)와 [전투](../world/combat.md)를 참고하십시오.
+
+### 경로에서 막혔습니다. 어떻게 해야 합니까?
+
+점프하거나, 옆으로 비켜서거나, Ctrl+W로 경유지를 건너뛰거나, Ctrl+S로 이전 경유지로 되돌아가거나, Alt+P로 도착 거리를 변경합니다. 찾는 NPC가 계산대 뒤에 서 있으면 그 NPC에게 바로 말을 겁니다. [문제 해결](../getting-started/troubleshooting.md#경로에서-막힘)을 참고하십시오.
 
 ### 모든 키는 어디서 볼 수 있습니까?
 
