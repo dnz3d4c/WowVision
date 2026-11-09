@@ -63,7 +63,7 @@ The panel shows one of two views, as it does on screen: the list, or the details
 The list view opens first. Press Tab to move from the quest list to the search box, then the settings, and back to the list.
 
 - The list shows zone headers and quests, under a name that gives your quest count. Press Enter on a header to collapse or expand it. Backspace on a header opens the game's menu with Track All and Untrack All.
-- A quest reads like "[12] Wolves Across the Border, Green, selected, tracked". The color word (Grey, Green, Yellow, Orange, Red) is the game's difficulty color for your level, as a sighted player sees it. "selected" and "tracked" are added when they apply, and a tag such as Elite or Dungeon follows the title.
+- A quest reads like "[12] Wolves Across the Border, Green, selected, tracked". The color word (Grey, Green, Yellow, Orange, Red) is the game's difficulty color for your level, as a sighted player sees it. "selected" and "tracked" are added when they apply, and a tag such as Elite or Dungeon follows the title. A finished quest adds "Complete" after its title, a failed one "Failed", where the game shows its check mark or its red Failed icon.
 - Press Enter on a quest to open its details. Backspace opens the game's menu for that quest, with Track, Focus, Share and Abandon.
 - Press Right on a quest to reach its Track Quest checkbox. Enter checks or unchecks it. If the game's Show Objectives setting is on, the quest's objectives follow to the right of the checkbox.
 - The search box filters the list as you type. Tab into it to start typing.
@@ -133,6 +133,16 @@ The alert is the Quest Area Alert in the Quests module. See [Alerts](../basics/a
 | Sound Alert, Enabled | Off | Plays a sound instead of or besides the speech. |
 | Sound Alert, Sound | none | Which sound to play. |
 
+## Quest progress alerts
+
+The game shows quest progress as a message in the middle of the screen. WowVision speaks those messages as the game words them, and plays a sound for what happened, with three alerts of their own:
+
+- Quest Progress Alert: a count moves, for example "Kobold Vermin slain: 3/8" or "Linen Cloth: 2/6". Its sound is success1, the one Sku plays.
+- Objective Complete Alert: an objective is done, for example "Explore the Mine (Complete)", or the game's "Objective Complete." message, which names no objective. Its sound is objective_complete.
+- Quest Complete Alert: every objective of a quest is done, so it is ready to hand in. Its sound is success2, the one Sku plays, and it plays in place of the objective's sound. The game sends no message for this, so WowVision reads it from your quest log. Its speech, the quest's title and "Complete", starts switched off, because you already hear the game's line for the last objective.
+
+The game's line is spoken at once. When an objective is done, its sound waits a moment, less than half a second, to learn whether that finished the quest. Each alert has TTS and Sound and can be switched off on its own. They work whatever the Errors module does, also with it switched off, and these messages do not appear in its Per-Error Filter. If you had muted one of these messages there, or switched Announce Errors off, its alert starts switched off. See [Alerts](../basics/alerts.md).
+
 ## Finding quests and objectives
 
 The [Scanner](scanner.md) turns quest data into places you can walk to. It is the main way to find quests with WowVision.
@@ -153,7 +163,9 @@ Open the WowVision menu, then Quests. See [Menu and Settings](../basics/menu-and
 |---------|---------|--------------|
 | Nearby Level Range | 5 | The Nearby list hides quests that are more than this many levels below your level. From 0 to 60. Set 60 to see every quest, or 0 to see only quests at or above your level. |
 | Include Repeatable Quests | On | Whether repeatable and daily quests appear in the Nearby list. |
+| Sort Quests by Proximity | On | Whether the In Progress list is nearest first, by the place Enter on each quest would take you to (the next open objective, or the turn-in once a quest is complete). Quests with no place to walk to follow, in the order of your log. Turn it off to keep the order of the log. |
 | Quest Area Alert | see above | Announcements when entering or leaving an objective area. |
+| Quest Progress Alert, Objective Complete Alert, Quest Complete Alert | see above | Announcements of quest progress. |
 
 The Nearby list also leaves out quests you cannot take yet, because of your level or a missing prerequisite.
 

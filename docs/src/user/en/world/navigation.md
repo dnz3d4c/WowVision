@@ -106,7 +106,7 @@ A waypoint counts as reached when you are within the arrival distance of it (see
 
 ### Beacon sounds
 
-All beacon sounds are one alert called Beacon in the Maps module (WowVision menu, Navigation, Maps, Beacon). The alert and each of its four sounds has its own Enabled switch and its own sound, so each cue can be turned off or changed on its own. See [Alerts](../basics/alerts.md) for how alerts work.
+All beacon sounds are one alert called Beacon in the Beacon and Routes module (WowVision menu, Navigation, Beacon and Routes, Beacon). The alert and each of its four sounds has its own Enabled switch and its own sound, so each cue can be turned off or changed on its own. See [Alerts](../basics/alerts.md) for how alerts work.
 
 | Sound | Default | When it plays |
 |-------|---------|---------------|
@@ -221,6 +221,19 @@ Two bindings, both unbound by default, lead you to the nearest unvisited destina
 
 Without a destination picked earlier you hear Choose a destination in the navigation window first. If every spawn is visited you hear "No unvisited" and the name, for example "No unvisited Peacebloom found".
 
+### Auto mode
+
+Auto mode does that chaining for you. In the navigation window, press Shift+F10 on a destination or an entry point and choose one of two entries:
+
+- Auto Direct: a straight beacon to the destination. Each time you arrive, the next straight beacon goes to the nearest unvisited destination with the same name.
+- Auto Route: a route to the destination. Each time you arrive, the next route goes to the unvisited destination of that name that is the shortest walk away. WowVision checks the nearest 8 by straight line and picks the one with the shortest walk, so a herb across a river does not win over one a little further away on your side. With WowNav this is planned in the background, and you may hear Calculating route first.
+
+You hear "Auto Direct" or "Auto Route" when it starts, then the usual words of each beacon or route. The first leg starts at the entry point you selected in the window, as Enter does. The chain ends when every spawn is visited (you hear "No unvisited" and the name), when any other guidance starts (another destination, a beacon, /beacon, Ctrl+Shift+R), or when you stop the guidance with Shift+F12. Ctrl+Shift+N starts the current leg again and keeps the chain.
+
+Ctrl+W and Ctrl+S step through the chain the way they step through a route. Past the end of the current leg, Ctrl+W goes to the next spawn: with Auto Direct at once, since a straight beacon has only one point, with Auto Route after the route's last waypoint. It skips a spawn you cannot reach or that is empty, and the chain does not offer it again. When a leg finds no route, Ctrl+W moves on the same way. Ctrl+S before the start of a leg goes back to the spawn before. After stepping back, the chain goes on through the spawns it already led to, then to new ones. Before the first one you hear Start of route.
+
+Auto mode needs visited places switched on, because they are what it skips. With the Visited Waypoints module off, both entries only say "Auto mode needs Visited Waypoints switched on".
+
 ## Straight beacons and the /beacon command
 
 You can set a beacon without the window. Type these commands in the chat box:
@@ -255,17 +268,17 @@ When a destination is not on the link network (most creatures and objects are no
 
 ## Settings
 
-Open the WowVision menu (/wv), then Navigation, then Maps. Settings are shared by all your characters unless you change that in the module's context menu; see [Menu and settings](../basics/menu-and-settings.md).
+Open the WowVision menu (/wv), then Navigation, then Beacon and Routes. Settings are shared by all your characters unless you change that in the module's context menu; see [Menu and settings](../basics/menu-and-settings.md).
 
 | Setting | Default | What it does |
 |---------|---------|--------------|
-| Enabled | On | Turns the whole Maps module off, including the keys and /beacon. |
+| Enabled | On | Turns the whole Beacon and Routes module off: not only the beacon but also routes, the keys and /beacon. |
 | Arrival Radius | Medium Range | Which arrival distance is active. Alt+P changes it too. |
 | Short Range | 0.3 yards | The short arrival distance (0.1 to 20 yards). |
 | Medium Range | 1 yard | The medium arrival distance (0.1 to 20 yards). |
 | Long Range | 3 yards | The long arrival distance (0.1 to 20 yards). |
 | Announce Distance with Alt Gr | On | Whether Alt Gr and Ctrl+Alt speak the distance. The Announce Distance binding works either way. |
-| Beacon | (see above) | The beacon alert and its four sounds: Beacon Sound, Beacon Aligned, Beacon Off Course, Waypoint Reached. Each has Enabled and a sound choice. |
+| Beacon | (see above) | The beacon alert and its four sounds: Beacon Sound, Beacon Aligned, Beacon Off Course, Waypoint Reached. Each has Enabled and a sound choice; Beacon Sound also has Beacon Volume. |
 
 The Visited Waypoints module (under Navigation) has one setting:
 
