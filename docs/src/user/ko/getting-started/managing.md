@@ -1,4 +1,4 @@
-<!-- source: docs/src/user/en/getting-started/managing.md @ 397ffc3 -->
+<!-- source: docs/src/user/en/getting-started/managing.md @ 94c2b0f -->
 # WowVision 관리
 
 WowVision이 설정을 어디에 보관하는지와 백업하는 법, WowVision을 업데이트하는 법, 제거하는 법을 설명합니다.
@@ -12,11 +12,11 @@ WowVision은 게임 자체의 저장 변수 파일에 데이터를 보관합니�
 | WowVisionGlobalDB | 기본적으로 대부분의 설정, 알림, 단축키, 버퍼와 모니터 | 계정 전체 |
 | WowVisionDB | "이 캐릭터"로 옮긴 설정과 주문 기록 | 캐릭터마다 파일 하나 |
 | WowVisionDump | 진단 기록: Lua 오류, 차단된 호출 기록, 컨트롤러 기록, 미니맵 걷기 로그, 퀘스트 점검 보고서 등 | 계정 전체 |
-| WowVisionPriceDB | 경매 가격 데이터베이스(TBC 전용) | 계정 전체 |
+| WowVisionPriceDB | 경매 가격 데이터베이스(불타는 성전, Retail, WoW: Forever) | 계정 전체 |
 
 파일은 WowVision을 설치한 게임 버전 폴더 안의 WTF 폴더에 있습니다.
 
-- 계정 전체 파일: `WTF\Account\<ACCOUNT NAME>\SavedVariables\`에 있으며 이름은 WowVisionGlobalDB.lua와 WowVisionDump.lua이고, TBC에서는 WowVisionPriceDB.lua도 있습니다.
+- 계정 전체 파일: `WTF\Account\<ACCOUNT NAME>\SavedVariables\`에 있으며 이름은 WowVisionGlobalDB.lua와 WowVisionDump.lua이고, 불타는 성전에서는 WowVisionPriceDB.lua도 있습니다.
 - 캐릭터별 파일: `WTF\Account\<ACCOUNT NAME>\<Realm>\<Character>\SavedVariables\WowVisionDB.lua`.
 
 기본적으로 대부분의 설정은 모든 캐릭터가 함께 씁니다. 한 모듈의 설정을 한 캐릭터에서만 쓰도록 변경할 수도 있습니다. WowVision 메뉴에서 해당 모듈에 초점을 두고 Shift+F10을 누른 뒤 범위를 고릅니다. 단축키(컨트롤러 버튼 포함)도 같은 방식으로 공유되며, 단축키 버튼에 따로 범위 항목이 있습니다. [WowVision 메뉴와 설정](../basics/menu-and-settings.md)과 [단축키](../basics/keybindings.md)를 참고하십시오.
@@ -25,7 +25,7 @@ WowVision은 게임 자체의 저장 변수 파일에 데이터를 보관합니�
 
 ## WowVision 업데이트
 
-- 설치 프로그램으로: 바탕 화면이나 시작 메뉴의 바로 가기로 WowVision Updater를 실행하고 지금 업데이트를 고릅니다. [나중에 업데이트하기](./installer.md#나중에-업데이트하기)를 참고하십시오.
+- 설치 프로그램으로: 바탕 화면이나 시작 메뉴의 바로 가기로 WowVision Updater를 실행하고 현재 설정으로 업데이트를 고릅니다. [나중에 업데이트하기](./installer.md#나중에-업데이트하기)를 참고하십시오.
 - 직접: 새 zip을 내려받아 기존 폴더를 새 폴더로 교체합니다. [직접 업데이트하기](./manual-installation.md#직접-업데이트하기)를 참고하십시오.
 
 업데이트에 필요하면 WowVision이 저장된 설정을 스스로 변환합니다. 릴리스 페이지의 릴리스 노트를 읽어 보십시오. 지난 릴리스 이후의 변경 사항과 초기화되는 항목이 나와 있습니다. 베타는 매번 같은 주소에서 교체되므로 원하는 만큼 자주 업데이트해도 됩니다.

@@ -14,7 +14,7 @@
 아래 목록을 차례대로 확인합니다.
 
 1. 애드온이 켜져 있습니까? 대화 입력창에 /enableaddons를 입력하고 Enter를 누릅니다. 게임 자체 명령으로, 모든 애드온을 켜고 인터페이스를 다시 불러옵니다. [애드온 켜기](./installation.md#애드온-켜기)를 참고하십시오.
-2. 구버전입니까? 게임 패치 후에는 로그인 화면에서 구버전 애드온을 경고하고, 게임은 보통 그 애드온을 불러오지 않습니다. WowVision Updater를 실행해 지금 업데이트를 고르거나, 직접 설치했다면 더 새로운 WowVision을 내려받습니다. ["구버전" 애드온](./installation.md#구버전-애드온)을 참고하십시오.
+2. 구버전입니까? 게임 패치 후에는 로그인 화면에서 구버전 애드온을 경고하고, 게임은 보통 그 애드온을 불러오지 않습니다. WowVision Updater를 실행해 현재 설정으로 업데이트를 고르거나, 직접 설치했다면 더 새로운 WowVision을 내려받습니다. ["구버전" 애드온](./installation.md#구버전-애드온)을 참고하십시오.
 3. 게임을 다시 시작했습니까? 새로 복사한 애드온은 게임이 시작될 때만 인식됩니다. /reload로는 부족합니다.
 4. 폴더가 겹쳐 있습니까? TOC 파일은 AddOns\WowVision\WowVision\WowVision_Standard.toc가 아니라 AddOns\WowVision\WowVision_Standard.toc(와 나머지 네 파일)에 있어야 합니다. "새 폴더에" 압축을 풀면 이렇게 됩니다. [흔한 실수: 겹친 폴더](./manual-installation.md#흔한-실수-겹친-폴더)를 참고하십시오.
 5. 맞는 게임 버전의 폴더에 있습니까? Classic Era는 `_classic_era_`, 불타는 성전 기념 서버는 `_anniversary_`, 판다리아의 안개는 `_classic_`, Retail은 `_retail_`, WoW: Forever는 `_forever_`를 사용합니다. 다른 버전 폴더에 있는 애드온은 실행한 게임에서 아예 보이지 않습니다. [어디에 두는가](./manual-installation.md#어디에-두는가)를 참고하십시오.
