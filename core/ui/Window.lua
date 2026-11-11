@@ -59,11 +59,19 @@ Window:addFields({
     { key = "innate", default = false },
     { key = "conflictingAddons" },
     { key = "graphScreen" }, -- graph-framework screen config
+    { key = "letterSettings" }, -- the module whose menu has this window's Letter Navigation switch (default: its own)
 })
 
 -- Whether this window type needs to be polled each frame
 -- Override in subclasses that need polling (FrameWindow, CustomWindow)
 function Window:needsPolling()
+    return false
+end
+
+-- Whether opening and closing it play the menu sounds. Only WowVision's
+-- own windows (ManualWindow: the WowVision menu, scanner, navigation,
+-- action bars, chat); the game's windows make their own sounds.
+function Window:playsMenuSounds()
     return false
 end
 
@@ -125,6 +133,12 @@ function Window:openGraph(manager)
             window:requestClose()
         end
     end
+    local letterOwner = self._letterOwner
+    if letterOwner ~= nil then
+        config.windowLetters = function()
+            return letterOwner:windowLettersOn()
+        end
+    end
     local instance = {
         ref = self,
         name = self.name,
@@ -140,6 +154,9 @@ end
 function Window:requestClose()
     local frame = self.getFrame and self:getFrame() or nil
     if frame ~= nil then
+        if InCombatLockdown() and frame:IsProtected() then
+            return
+        end
         if HideUIPanel ~= nil then
             HideUIPanel(frame)
         else
@@ -267,6 +284,10 @@ end
 -- isOpen returns internal state - only changes when opened/closed externally
 function ManualWindow:isOpen()
     return self._isCurrentlyOpen
+end
+
+function ManualWindow:playsMenuSounds()
+    return true
 end
 
 WowVision.ManualWindow = ManualWindow

@@ -60,6 +60,7 @@ Siehe [Tooltips](../basics/tooltips.md).
 | Aktion | Standardtaste | Seite |
 |---|---|---|
 | WowVision-Menü (WowVision Menu) | Umschalt+F1 (oder tippe `/wv`) | [Das WowVision-Menü und die Einstellungen](../basics/menu-and-settings.md) |
+| Alle Fenster schließen (Close All Windows) | Umschalt+Esc | Schließt jedes offene WowVision-Fenster und jedes Fenster des Spiels |
 | Chat | Umschalt+F3 | [Chat](../windows/chat.md) |
 | Aktionsleisten (Action Bars) | Umschalt+F4 | [Aktionsleisten](../windows/action-bars.md) |
 | Scanner | F9 | [Scanner](../world/scanner.md) |
@@ -101,7 +102,7 @@ Siehe [Chat](../windows/chat.md).
 | Ankunftsdistanz wechseln (Cycle Arrival Distance) | Alt+P | Ändert, wie nah du an einen Wegpunkt herankommen musst, damit er als erreicht gilt |
 | Entfernung ansagen (Announce Distance) | Unbelegt | Spricht die Entfernung zum Wegpunkt. Alt Gr (oder Strg+Alt) tut von Haus aus dasselbe |
 | Route zu deinem Ziel (Route to Your Target) | Unbelegt | Startet eine Route zu deinem aktuellen Ziel |
-| Route zum nächsten unbesuchten gleichnamigen Ziel (Route to the Nearest Unvisited of the Same Name) | Unbelegt | Führt per Route zum nächsten Ort mit demselben Namen, den du noch nicht besucht hast |
+| Route zum nächsten unbesuchten gleichnamigen Ziel (Route to the Nearest Unvisited of the Same Name) | Unbelegt | Führt per Route zu dem Ort mit demselben Namen, den du noch nicht besucht hast, der den kürzesten Fußweg entfernt ist |
 | Direkt zum nächsten unbesuchten gleichnamigen Ziel (Direct to the Nearest Unvisited of the Same Name) | Unbelegt | Dasselbe als gerades Beacon statt als Route |
 | WowNav-Routenstatus (WowNav Route Status) | Unbelegt | (WoW: Forever) Spricht den Zustand der WowNav-Route |
 | Neue WowNav-Route um eine versperrte Stelle (New WowNav Route Around a Blocked Spot) | Unbelegt | (WoW: Forever) Plant eine neue Route, die die Stelle meidet, an der du feststeckst |
@@ -133,7 +134,7 @@ Siehe [Zielerfassung](../world/targeting.md).
 
 | Aktion | Standardtaste | Hinweise |
 |---|---|---|
-| Würfel-Tooltip (Roll Tooltip) | Alt+Strg+Y | Sagt den Namen des Gegenstands, um den gewürfelt wird |
+| Würfel-Tooltip (Roll Tooltip) | Alt+Strg+Y | Liest den ganzen Tooltip des Gegenstands vor, um den gewürfelt wird: Name, Qualität, Gegenstandsstufe, Werte und Voraussetzungen |
 | Bedarf würfeln (Roll Need) | Alt+Strg+U | |
 | Gier würfeln (Roll Greed) | Alt+Strg+I | |
 | Passen (Roll Pass) | Alt+Strg+O | |

@@ -64,6 +64,8 @@ Hake Direkt an (drücke Eingabe auf dem Kontrollkästchen), wenn du keine Route 
 
 Direkt ist die erste Station. Um dorthin zu kommen, drücke Umschalt+Tab von den Einstiegspunkten aus.
 
+Für ein einzelnes gerades Beacon brauchst du das Kontrollkästchen nicht: Rücktaste auf einem Ziel setzt es sofort, Eingabe routet weiter. Mit WowNav bleibt das Kontrollkästchen trotzdem nützlich, denn nur mit Direkt an zeigt die Liste auch Orte, zu denen keine Route führt.
+
 ### Nach einem Ziel suchen
 
 Drücke Tab von den Einstiegspunkten aus, um zu Suchen zu kommen. Das Eingabefeld nimmt deine Eingabe sofort an, und was du tippst, wird beim Tippen vorgelesen. Tippe ein Namensstück, zum Beispiel "Auktionator", und drücke Eingabe, um es anzuwenden. WowVision liest vor, was du getippt hast. Die Liste darunter wird sofort gefiltert. Tab wendet den Text ebenfalls an und geht zur nächsten Station weiter; Esc schließt das Eingabefeld, ohne die Suche zu ändern.
@@ -82,6 +84,7 @@ Drücke noch einmal Tab, um zu Ziele zu kommen. Es ist eine einzige lange Liste,
 | Pfeil hoch / Pfeil runter | Vorheriges / nächstes Ziel. |
 | Pos1 / Ende | Erstes / letztes Ziel. |
 | Eingabe | Das Fenster schließen und die Route starten (oder das gerade Beacon, wenn Direkt an ist). |
+| Rücktaste | Das Fenster schließen und ein gerades Beacon auf das Ziel setzen, ohne Route, egal ob Direkt an ist. |
 
 Jedes Ziel liest seinen Namen und seine Entfernung, dann seine Position in der Liste. Mit WowNav kommt nach der Entfernung, was der Ort ist und wo er ist, zum Beispiel "Innkeeper Allison (Innkeeper), 85 Meter, Questgeber, Händler, Gastwirt, Stormwind City, 1 von 342". Ein Ziel, das du in den letzten Minuten erreicht hast, wird mit Besucht davor angesagt; siehe [Besuchte Orte](#besuchte-orte). Eine leere Liste liest "Leer".
 
@@ -216,10 +219,12 @@ Zwei Belegungen, beide standardmäßig nicht belegt, führen dich zum nächsten 
 
 | Belegung | Was sie tut |
 |----------|-------------|
-| Route zum nächsten unbesuchten gleichnamigen Ziel | Plant eine Route dorthin, mit Einstieg an dem Einstiegspunkt, den das Fenster vorwählen würde. |
+| Route zum nächsten unbesuchten gleichnamigen Ziel | Plant eine Route, mit Einstieg an dem Einstiegspunkt, den das Fenster vorwählen würde. Von den 8 in Luftlinie nächsten nimmt sie das mit dem kürzesten Fußweg, wie Automatisch routen. |
 | Direkt zum nächsten unbesuchten gleichnamigen Ziel | Setzt dorthin ein gerades Beacon. |
 
-"Gleicher Name" heißt bei WowNav der ganze Name und bei klassischen Routen der Name vor dem ersten Semikolon ("Peacebloom"), ohne Beachtung der Groß- und Kleinschreibung. Der Ort, an dem du gerade bist, und die als besucht markierten werden übersprungen. Drücke die Taste immer wieder, und du gehst nacheinander jeden Spawn dieses Objekts ab.
+"Gleicher Name" heißt bei WowNav der ganze Name und bei klassischen Routen der Name vor dem ersten Semikolon ("Peacebloom"), ohne Beachtung der Groß- und Kleinschreibung. Der Ort, an dem du gerade bist, und die als besucht markierten werden übersprungen. Ebenso die Orte, zu denen dich die Tasten schon geführt haben, auch wenn du einen vor der Ankunft verlassen hast, bis du ein Ziel auf anderem Weg wählst. Drücke die Taste immer wieder, und du gehst nacheinander jeden Spawn dieses Objekts ab.
+
+Läuft der Automatikmodus (unten), führt jede der beiden Tasten die Kette zum nächsten Spawn weiter, wie Strg+W hinter dem Ende einer Etappe.
 
 Ohne früher gewähltes Ziel hörst du Wähle zuerst ein Ziel im Navigationsfenster. Ist jeder Spawn besucht, hörst du "Kein unbesuchtes Ziel Peacebloom gefunden".
 
@@ -287,6 +292,8 @@ Das Modul Besuchte Wegpunkte (unter Navigation) hat eine Einstellung:
 | Einstellung | Standard | Was sie tut |
 |-------------|----------|-------------|
 | Gilt als besucht für (Minuten) | 15 | Wie lange ein erreichtes Ziel als besucht gilt (1 bis 1440 Minuten). |
+
+Beim Start einer Route alle Fenster schließen (Modul Navigation, standardmäßig an) schließt jedes offene Fenster, sobald du eine Route oder ein Beacon startest, damit deine Tasten zum Laufen frei sind; die Etappen, die eine Auto-Kette von selbst startet, lassen deine Fenster in Ruhe.
 
 Drei Einstellungen des Moduls Navigation hängen damit zusammen: Verbleibende Wegpunkte ansagen (standardmäßig an) sagt nach jedem erreichten Wegpunkt, wie viele noch übrig sind, Automatisch zur Leiche navigieren (standardmäßig an) startet eine Route zu deinem Körper, sobald du ein Geist bist, und Automatisch zum Interaktionsziel bewegen wird bei den Bewegungsfunktionen erklärt. Dazu, zum Kompass und zum Folgen eines Spielers siehe [Bewegung und Orientierung](./movement.md).
 

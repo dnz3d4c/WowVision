@@ -8,6 +8,8 @@ The WowVision menu is where you configure the addon: speech, alerts, navigation,
 |---|---|
 | Shift+F1 | Opens the menu (the WowVision Menu binding). |
 | /wv | Opens the menu. Typing /wv followed by something WowVision does not know also opens it. |
+| Right Arrow | Opens the next level, when the entry has one. |
+| Left Arrow | Goes back one level. On the first level nothing happens and the menu stays open. |
 | Escape | Goes back one level. On the first level, closes the menu. |
 | /wv close | Force-closes all WowVision windows. |
 
@@ -52,7 +54,7 @@ Because it is a list that owns the keyboard, you can press letters to jump: S fo
 
 | Entry | Game versions | What it holds | More |
 |---|---|---|---|
-| Auction Prices | The Burning Crusade | Price history and extra price lines on item tooltips. | [Tooltips](./tooltips.md#prices-in-tooltips-the-burning-crusade-only) |
+| Auction Prices | The Burning Crusade | Price history and extra price lines on item tooltips. | [Tooltips](./tooltips.md#prices-in-tooltips) |
 | Buffers | All | Your buffer groups and buffers, and the Invert Item Direction setting. | [Buffers](../information/buffers.md) |
 | Chat | All | One alert per chat tab, whisper tabs, chat box sounds. | [Chat](../windows/chat.md) |
 | Errors | All | How game error and info messages are spoken. | [Combat](../world/combat.md) |
@@ -60,7 +62,7 @@ Because it is a list that owns the keyboard, you can press letters to jump: S fo
 | Monitors | All | Aura, cooldown and other monitors. | [Monitors](../information/monitors.md) |
 | Navigation | All | Atlas, Beacon and Routes, Compass, Fall Detection, Follow, Pitch Lock, Visited Waypoints, Wall Detection and more. | [Movement](../world/movement.md), [Navigation](../world/navigation.md) |
 | Quests | All | Quest log tools, quest area and quest progress alerts. | [Quests](../world/quests.md) |
-| Scanner | All | The scanner (F9). | [Scanner](../world/scanner.md) |
+| Scanner | All | The scanner (F9): scan radius, entries per category, and Scanner as Tree to choose between a tree and a menu. | [Scanner](../world/scanner.md) |
 | Speech | All | Voice, rate, volume and speech behaviour. | [Speech](./speech.md) |
 | Targeting | All | Target announcements, soft targeting, focus targets. | [Targeting](../world/targeting.md) |
 | UI | All | Window behaviour, bindings, combat, cursor, tooltips. | below |
@@ -79,6 +81,7 @@ Press U in the main menu, then Enter. It contains:
 | Tooltip, then Quality | | Which item quality colours are spoken, see [Tooltips](./tooltips.md#item-quality-in-names). |
 | Bindings | | The keybinding screen, see [Keybindings](./keybindings.md). |
 | Interrupt Speech on Window Close | Off | Cut off speech whenever a window closes. |
+| Sounds on Opening and Closing WowVision Menus | On | Play a short sound when a WowVision window opens and another when it closes: the WowVision menu, the Scanner, the navigation window, the action bars and chat. The game's own windows make their own sounds and get none from WowVision. |
 | Letter Navigation in Menus | On | Let letter keys jump to entries in menus. Turn it off if you need your letter keys to keep working while a menu is open. |
 | WowVision Sound Channel | Sound Effects | The game sound channel every WowVision sound plays on: alert sounds, voice packs, the beacon and the previews in the sound browsers. The entries are named like the volume sliders in the game's sound options, so that slider is then WowVision's volume. A channel you use for little else gives WowVision a volume of its own. Retail and WoW: Forever also offer Gameplay Sound Effects. |
 

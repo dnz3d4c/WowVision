@@ -12,6 +12,16 @@ settings:add({
     default = false,
 })
 
+-- A short sound when a WowVision window opens and another when it closes
+-- (the WowVision menu, the scanner, navigation, the action bars, chat), as
+-- Sku plays for its menu. The game's own windows make their own sounds.
+settings:add({
+    type = "Bool",
+    key = "menuSounds",
+    label = L["Sounds on Opening and Closing WowVision Menus"],
+    default = true,
+})
+
 -- Letters jump to the next entry starting with them in the lists that own the keyboard: the WowVision menu, context
 -- and dropdown menus (graph/typeAhead.lua, graph/Host.lua).
 settings:add({
@@ -37,6 +47,14 @@ local soundChannel = settings:add({
 soundChannel.events.valueChange:subscribe(module, function(_, _, _, _, value)
     WowVision.audio.selectedChannel = value
 end)
+
+-- The same arrow pressed twice quickly skips the empty slots of a bag or action bar (graph/doublePress.lua).
+settings:add({
+    type = "Bool",
+    key = "skipEmptySlots",
+    label = L["Skip Empty Slots on Double Arrow"],
+    default = false,
+})
 
 -- Chasing stuck movement keys with testers: prints when windows take, wait
 -- for and release the navigation keys, and what the held check saw.
@@ -365,6 +383,19 @@ module:registerBindings({
         interruptSpeech = true,
         func = function()
             WowVision.graph.settings.openMenu()
+        end,
+    },
+    -- Closes every WowVision window and every window of the game at once.
+    {
+        type = "Function",
+        key = "wowvision/closeAll",
+        label = L["Close All Windows"],
+        inputs = { "SHIFT-ESCAPE" },
+        interruptSpeech = true,
+        func = function()
+            if WowVision.UIHost:closeAllWindows() then
+                WowVision:notify(L["All windows closed"])
+            end
         end,
     },
 })

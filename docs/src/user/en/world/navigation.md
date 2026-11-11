@@ -62,6 +62,8 @@ Tick Direct (press Enter on the checkbox) if you do not want a route. The entry 
 
 Direct is the first stop. To reach it, press Shift+Tab from the entry points.
 
+You do not need the checkbox for a single straight beacon: Backspace on a destination sets one at once, while Enter still routes. The checkbox is still useful with WowNav, because only with Direct on does the list also show places no route leads to.
+
 ### Searching for a destination
 
 Press Tab from the entry points to reach Search. The edit box takes your typing immediately, and what you have typed is read as you type. Type a fragment of a name, for example "auctioneer", and press Enter to apply it. WowVision reads back what you typed. The list below is filtered at once. Tab applies the text as well and moves on to the next stop; Escape closes the edit box without changing the search.
@@ -80,6 +82,7 @@ Press Tab again to reach Destinations. It is one long list, sorted by distance f
 | Up / Down | Previous / next destination. |
 | Home / End | First / last destination. |
 | Enter | Close the window and start the route (or the straight beacon, if Direct is on). |
+| Backspace | Close the window and set a straight beacon to the destination, without a route, whether Direct is on or not. |
 
 Each destination reads its name and its distance, then its position in the list. With WowNav, what the place is and where it is come after the distance, for example "Innkeeper Allison (Innkeeper), 85 yards, quest giver, vendor, innkeeper, Stormwind City, 1 / 342". A destination you reached in the last few minutes is announced with Visited first; see [Visited places](#visited-places). An empty list reads "Empty".
 
@@ -214,10 +217,12 @@ Two bindings, both unbound by default, lead you to the nearest unvisited destina
 
 | Binding | What it does |
 |---------|--------------|
-| Route to the Nearest Unvisited of the Same Name | Plans a route there, entering at the entry point the window would preselect. |
+| Route to the Nearest Unvisited of the Same Name | Plans a route, entering at the entry point the window would preselect. Of the nearest 8 by straight line it takes the one with the shortest walk, as Auto Route does. |
 | Direct to the Nearest Unvisited of the Same Name | Sets a straight beacon there. |
 
-"Same name" means the whole name with WowNav and the name before the first semicolon with classic routes ("Peacebloom"), ignoring capital letters. The spot you are already at, and the ones marked visited, are skipped. Chain the key and you walk through every spawn of that object, one after the other.
+"Same name" means the whole name with WowNav and the name before the first semicolon with classic routes ("Peacebloom"), ignoring capital letters. The spot you are already at, and the ones marked visited, are skipped. So are the spots the keys already led you to, even when you left one before reaching it, until you pick a destination another way. Chain the key and you walk through every spawn of that object, one after the other.
+
+While auto mode runs (below), either key steps the chain on to its next spawn, the same as Ctrl+W past the end of a leg.
 
 Without a destination picked earlier you hear Choose a destination in the navigation window first. If every spawn is visited you hear "No unvisited" and the name, for example "No unvisited Peacebloom found".
 
@@ -285,6 +290,8 @@ The Visited Waypoints module (under Navigation) has one setting:
 | Setting | Default | What it does |
 |---------|---------|--------------|
 | Visited For (Minutes) | 15 | How long a reached destination counts as visited (1 to 1440 minutes). |
+
+Close All Windows When a Route Starts (Navigation module, on by default) closes every open window as soon as you start a route or a beacon, so your keys are free for walking; the legs an Auto chain starts by itself leave your windows alone.
 
 Three settings of the Navigation module are related: Announce Remaining Waypoints (on by default) says how many waypoints are left after each one you reach, Automatically Navigate to Corpse (on by default) starts a route to your body as soon as you are a ghost, and Auto-move to Interact Target is explained with the movement features. See [Movement](./movement.md) for those, for the compass and for following a player.
 

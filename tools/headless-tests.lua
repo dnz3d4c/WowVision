@@ -95,9 +95,12 @@ loadAddonFile("camelot/wownav/tests.lua")
 -- suite can play the game's side.
 do
     local hooks, eventFrame = {}, nil
-    local game = { moving = false, falling = false, now = 0 }
+    local game = { moving = false, falling = false, combat = false, now = 0 }
     function GetTime()
         return game.now
+    end
+    function UnitAffectingCombat(unit)
+        return unit == "player" and game.combat
     end
     function IsPlayerMoving()
         return game.moving
@@ -138,7 +141,8 @@ do
         for key in pairs(movement.flags) do
             movement.flags[key] = false
         end
-        game.moving, game.falling = false, false
+        game.moving, game.falling, game.combat = false, false, false
+        movement.attacking = false
     end
 
     WowVision.testing.testRunner:addSuite("Movement", {
@@ -203,6 +207,23 @@ do
             call("TurnLeftStop")
         end,
 
+        ["in combat, auto-attack with no key held is the game chasing the enemy"] = function(t)
+            reset()
+            t:assertFalse(movement:isChasing())
+            event("PLAYER_ENTER_COMBAT")
+            -- The walk up to the enemy, before the fight: obstacles count.
+            t:assertFalse(movement:isChasing())
+            game.combat = true
+            t:assertTrue(movement:isChasing())
+            -- A held key makes the movement yours again: walls still count.
+            call("MoveForwardStart")
+            t:assertFalse(movement:isChasing())
+            call("MoveForwardStop")
+            t:assertTrue(movement:isChasing())
+            event("PLAYER_LEAVE_COMBAT")
+            t:assertFalse(movement:isChasing())
+        end,
+
         ["a stale key flag does not count while the game says standing"] = function(t)
             reset()
             -- The Stop function never ran: the flag stays on.
@@ -222,6 +243,8 @@ loadAddonFile("core/quests/Adapter.lua")
 loadAddonFile("core/quests/tests.lua")
 loadAddonFile("core/quests/completion.lua")
 loadAddonFile("core/quests/completionTests.lua")
+loadAddonFile("core/quests/nearbyEngine.lua")
+loadAddonFile("core/quests/nearbyEngineTests.lua")
 -- The quest scanner over a stand-in quest module: the snapshot it builds
 -- from and the live log it reads while open (core/quests/scannerLiveTests.lua).
 do
@@ -273,12 +296,19 @@ do
     loadAddonFile("core/quests/scannerLiveTests.lua")
     WowVision.base = savedBase
 end
+loadAddonFile("core/quests/tooltip.lua")
+loadAddonFile("core/quests/tooltipTests.lua")
+loadAddonFile("core/quests/zones.lua")
+loadAddonFile("core/quests/zonesTests.lua")
 loadAddonFile("core/minimap/logic.lua")
 loadAddonFile("core/minimap/gatheringNames.lua")
 loadAddonFile("core/minimap/tests.lua")
 loadAddonFile("retail/groupHealth/logic.lua")
 loadAddonFile("retail/groupHealth/voices.lua")
 loadAddonFile("retail/groupHealth/tests.lua")
+loadAddonFile("retail/auction/prices.lua")
+loadAddonFile("retail/auction/ReplicateScanner.lua")
+loadAddonFile("retail/auction/tests.lua")
 loadAddonFile("core/colors/names.lua")
 loadAddonFile("core/colors/colors.lua")
 loadAddonFile("core/colors/tests.lua")
@@ -300,6 +330,9 @@ loadAddonFile("core/secrets.lua")
 loadAddonFile("core/secretsTests.lua")
 loadAddonFile("camelot/petTraining.lua")
 loadAddonFile("camelot/petTrainingTests.lua")
+loadAddonFile("core/gameDB/itemQuality.lua")
+loadAddonFile("core/gameDB/itemCompare.lua")
+loadAddonFile("core/gameDB/itemCompareTests.lua")
 loadAddonFile("core/ui/input/heldKeys.lua")
 loadAddonFile("core/ui/input/heldKeysTests.lua")
 loadAddonFile("core/ui/input/padLogic.lua")
@@ -314,6 +347,8 @@ loadAddonFile("core/chat/links.lua")
 loadAddonFile("core/chat/linkTests.lua")
 loadAddonFile("core/chat/tabs.lua")
 loadAddonFile("core/chat/tabTests.lua")
+loadAddonFile("core/chat/echo.lua")
+loadAddonFile("core/chat/echoTests.lua")
 loadAddonFile("core/ClassTests.lua")
 loadAddonFile("core/ttsVoiceTests.lua")
 loadAddonFile("core/errors/utils.lua")
@@ -321,6 +356,9 @@ loadAddonFile("core/errors/tests.lua")
 
 -- The component registry and the systems above it, all on the class library.
 loadAddonFile("core/Registry.lua")
+loadAddonFile("core/ui/WindowManager.lua")
+loadAddonFile("core/ui/Window.lua")
+loadAddonFile("core/ui/windowTests.lua")
 loadAddonFile("core/templates/templates.lua")
 loadAddonFile("core/templates/tests.lua")
 loadAddonFile("core/components/components.lua")
@@ -328,6 +366,14 @@ loadAddonFile("core/components/RegistryType.lua")
 loadAddonFile("core/components/ClassRegistryType.lua")
 loadAddonFile("core/components/ComponentRegistry.lua")
 loadAddonFile("core/components/tests.lua")
+
+-- The tooltip reader's comparison blocks (the frames are the game's side).
+strtrim = strtrim or function(text)
+    return (text:gsub("^%s+", ""):gsub("%s+$", ""))
+end
+loadAddonFile("core/ui/tooltip/TooltipReader.lua")
+loadAddonFile("core/ui/tooltip/Tooltip.lua")
+loadAddonFile("core/ui/tooltip/comparisonTests.lua")
 
 -- Object types read the game on demand: their spoken lines run here with
 -- stand-ins for the game functions they call.
@@ -1497,6 +1543,164 @@ WowVision.testing.testRunner:addSuite("ModuleSettings", {
     end,
 })
 
+-- The chat module's real hook, on a stand-in for the module frame around it.
+WowVision.testing.testRunner:addSuite("ChatEchoHistory", {
+    ["an addon message lands in the tab's history and is not spoken again"] = function(t)
+        local function noop() end
+        local chatModule = {
+            L = setmetatable({}, {
+                __index = function(_, key)
+                    return key
+                end,
+            }),
+            setLabel = noop,
+            addAlert = function()
+                return { addOutput = noop, parameters = { add = noop } }
+            end,
+            hasSettings = function()
+                return { add = noop, addRef = noop }
+            end,
+        }
+        local savedBase, savedDate = WowVision.base, date
+        WowVision.base = {
+            createModule = function()
+                return chatModule
+            end,
+        }
+        date = date or os.date
+        loadAddonFile("core/chat/module.lua")
+
+        local stored, fired = {}, 0
+        local frame = {
+            GetID = function()
+                return 1
+            end,
+            IsShown = function()
+                return true
+            end,
+        }
+        function frame:AddMessage(text)
+            chatModule.onMessage(self, text)
+        end
+        chatModule.frames = {
+            [1] = {
+                frame = frame,
+                store = {
+                    add = function(_, data)
+                        stored[#stored + 1] = data.message
+                    end,
+                },
+                alert = {
+                    enabled = true,
+                    parameters = {
+                        getFieldValue = function()
+                            return "always"
+                        end,
+                    },
+                    fire = function()
+                        fired = fired + 1
+                    end,
+                },
+            },
+        }
+
+        WowVision.chatEcho.send(frame, "Route started")
+        local firedAfterEcho = fired
+        frame:AddMessage("Someone says hello")
+        WowVision.base, date = savedBase, savedDate
+
+        t:assertEqual(stored[1], "WowVision: Route started")
+        t:assertEqual(firedAfterEcho, 0, "already spoken by notify")
+        t:assertEqual(stored[2], "Someone says hello")
+        t:assertEqual(fired, 1, "a normal line still speaks")
+    end,
+})
+
+WowVision.testing.testRunner:addSuite("NearbyQuestSounds", {
+    ["the three alerts construct with Sku's defaults and a ping plays the file for its level"] = function(t)
+        local alerts, refs, played = {}, {}, {}
+        local nearby = {
+            L = setmetatable({}, {
+                __index = function(_, key)
+                    return key
+                end,
+            }),
+        }
+        function nearby:setLabel() end
+        function nearby:registerEvent() end
+        function nearby:hasSettings()
+            return {
+                add = function() end,
+                addRef = function(_, key)
+                    tinsert(refs, key)
+                end,
+            }
+        end
+        function nearby:addAlert(info)
+            local alert = WowVision.alerts.Alert:new(info)
+            alerts[info.key] = alert
+            return alert
+        end
+        local directory = {
+            getPath = function(_, key)
+                return {
+                    maxDistance = 30,
+                    getFile = function(_, angle, level)
+                        return key .. ";" .. angle .. ";" .. level
+                    end,
+                }
+            end,
+        }
+        local audio = WowVision.audio
+        local savedBase, savedPlay = WowVision.base, PlaySoundFile
+        local savedGetPath, savedChannel = rawget(audio, "getPath"), rawget(audio, "channel")
+        WowVision.base = {
+            quests = {
+                createModule = function()
+                    return nearby
+                end,
+            },
+            speech = { settings = {} },
+        }
+        audio.getPath = function()
+            return directory
+        end
+        audio.channel = function()
+            return "SFX"
+        end
+        PlaySoundFile = function(path, channel)
+            tinsert(played, path .. "@" .. channel)
+        end
+        local ok, err = pcall(function()
+            loadAddonFile("core/quests/nearbySounds.lua")
+            t:assertEqual(#refs, 3)
+            local expected = {
+                availableQuest = { "WowVision/Notification_soft_100", 30 },
+                turnInQuest = { "WowVision/steel_gong", 40 },
+                questObjective = { "WowVision/probe_deep_1", 30 },
+            }
+            for key, want in pairs(expected) do
+                local db = alerts[key]:getDefaultDBRecursive()
+                t:assertEqual(db.outputs.beacon.beacon, want[1])
+                t:assertEqual(db.outputs.beacon.volume, want[2])
+                t:assertEqual(db.outputs.tts.enabled, false)
+                alerts[key]:setDB(db)
+            end
+            -- volume 30 is seven levels down; the file levels stop at 1 and 30
+            alerts.availableQuest:fire({ angle = 10, level = 4, text = "x" })
+            alerts.availableQuest:fire({ angle = 10, level = 29, text = "x" })
+            t:assertEqual(played[1], "WowVision/Notification_soft_100;10;11@SFX")
+            t:assertEqual(played[2], "WowVision/Notification_soft_100;10;30@SFX")
+            t:assertEqual(#played, 2, "the speech output starts off")
+        end)
+        WowVision.base, PlaySoundFile = savedBase, savedPlay
+        audio.getPath, audio.channel = savedGetPath, savedChannel
+        if not ok then
+            error(err, 0)
+        end
+    end,
+})
+
 WowVision.testing.testRunner:addSuite("AlertConstruction", {
     ["an alert with an output constructs enabled"] = function(t)
         local alert = WowVision.alerts.Alert:new({ key = "smoke", label = "Smoke" })
@@ -1549,6 +1753,7 @@ WowVision.testing.testRunner:addSuite("AlertConstruction", {
         C_VoiceChat = nil
         WowVision.base = nil
     end,
+
 })
 
 loadAddonFile("core/graph/ControlId.lua")
@@ -1557,6 +1762,7 @@ loadAddonFile("core/graph/Announcer.lua")
 loadAddonFile("core/graph/KeyGraph.lua")
 loadAddonFile("core/graph/typeAhead.lua")
 loadAddonFile("core/graph/typeAheadTests.lua")
+loadAddonFile("core/graph/doublePress.lua")
 loadAddonFile("core/graph/Builder.lua")
 loadAddonFile("core/graph/ControlTypes.lua")
 loadAddonFile("core/graph/nodes.lua")
@@ -1566,7 +1772,25 @@ loadAddonFile("core/graph/scrollBox.lua")
 loadAddonFile("core/graph/settings.lua")
 loadAddonFile("core/graph/fieldControls.lua")
 loadAddonFile("core/graph/tests.lua")
+loadAddonFile("core/graph/doublePressTests.lua")
 loadAddonFile("core/graph/controlTests.lua")
+-- The graph host, with its frame stubbed (its announcer words saved and restored so the graph suites keep their
+-- own), then the scanner window and the key-press suite on it and the window manager loaded further up.
+do
+    local announcer = WowVision.graph.announcer
+    local savedCreateFrame = CreateFrame
+    local savedPosition, savedExpanded = announcer.positionText, announcer.expandedStateText
+    CreateFrame = function()
+        return { RegisterEvent = function() end, SetScript = function() end }
+    end
+    loadAddonFile("core/graph/Screen.lua")
+    loadAddonFile("core/graph/Host.lua")
+    CreateFrame = savedCreateFrame
+    announcer.positionText, announcer.expandedStateText = savedPosition, savedExpanded
+    WowVision.graphHost = nil
+end
+loadAddonFile("core/scanner/menuTests.lua")
+loadAddonFile("core/graph/menuNavTests.lua")
 loadAddonFile("core/targeting/targetNames.lua")
 loadAddonFile("core/targeting/targetNamesTests.lua")
 
@@ -1636,8 +1860,6 @@ local parseOnly = {
     "tbc/speech.lua",
     "mists/speech.lua",
     "retail/speech.lua",
-    "core/graph/Screen.lua",
-    "core/graph/Host.lua",
     "core/graph/liveWatch.lua",
     "core/graph/textEntry.lua",
     "core/graph/keyCapture.lua",
@@ -1646,7 +1868,6 @@ local parseOnly = {
     "core/ui/input/pad.lua",
     "core/ui/input/tests.lua",
     "core/ui/Window.lua",
-    "core/ui/WindowManager.lua",
     "core/windows/GameMenu.lua",
     "core/errors/module.lua",
     "core/quests/module.lua",
@@ -1694,6 +1915,7 @@ local parseOnly = {
     "classic/friends.lua",
     "classic/quests/questie.lua",
     "core/quests/module.lua",
+    "core/quests/nearbySounds.lua",
     "core/quests/scanner.lua",
     "core/quests/places.lua",
     "core/quests/native.lua",
@@ -1736,8 +1958,10 @@ local parseOnly = {
     "core/chat/module.lua",
     "core/chat/ui.lua",
     "core/ui/tooltip/types/HyperlinkTooltip.lua",
+    "core/ui/tooltip/types/LinesTooltip.lua",
     "core/ui/tooltip/types/AuraTooltip.lua",
     "mists/auction.lua",
+    "retail/auction/module.lua",
     "tbc/QuestLog.lua",
     "tbc/socketing.lua",
     "tbc/spellbook.lua",

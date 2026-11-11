@@ -134,12 +134,46 @@ Das Spiel zeigt den Questfortschritt als Meldung in der Bildschirmmitte. WowVisi
 
 Die Meldung des Spiels wird sofort gesprochen. Ist ein Ziel erledigt, wartet sein Ton einen Moment, weniger als eine halbe Sekunde, um zu erfahren, ob damit die Quest fertig ist. Jeder Alarm hat TTS und Sound und lässt sich einzeln ausschalten. Sie arbeiten unabhängig vom Modul Fehler, auch wenn es ausgeschaltet ist, und diese Meldungen erscheinen nicht in seinem Filter pro Fehler. Hattest du eine dieser Meldungen dort stummgeschaltet oder Fehler ansagen ausgeschaltet, startet ihr Alarm ausgeschaltet. Siehe [Alarme](../basics/alerts.md).
 
+## Quest-Töne in der Nähe
+
+Beim Laufen hörst du die Quests in deiner Nähe. Jeder Quest-Ton ist ein kurzer Ping, der aus der Richtung des Ortes kommt, wie das Beacon. Er ist leiser, je weiter der Ort entfernt ist, und du hörst ihn nur, wenn der Ort vor dir liegt. Drehst du dich zu einem Ping, den du verpasst hast, hörst du ihn noch einmal. Die Töne brauchen Questie, gelten also für Classic Era, The Burning Crusade, Mists of Pandaria und WoW: Forever mit geladenem Questie. Ohne Questie bleiben sie stumm.
+
+Es gibt drei Töne:
+
+- Ton für annehmbare Quests: Der Questgeber einer Quest, die du annehmen kannst, ist in deiner Nähe. Es ist der weiche Benachrichtigungston, den auch Sku spielt.
+- Ton für abgebbare Quests: Eine Quest in deinem Log ist abgeschlossen und die Person, bei der du sie abgibst, ist in deiner Nähe. Es ist der Stahlgong, den auch Sku spielt.
+- Ton für Questziele: Eine Quest in deinem Log hat ein offenes Ziel in deiner Nähe, etwa Kreaturen zum Töten oder einen Gegenstand zum Finden. Es ist ein tiefer Sondierungston. Sku hat dafür keinen Ton.
+
+Ein Ort pingt zum ersten Mal einen Moment, nachdem du in seine Reichweite gekommen bist, früher, wenn er nah ist, und später, wenn er weit weg ist. Mehrere Quests beim selben Questgeber ergeben einen Ping. Nach dem Ping bleibt der Ort still, bis du ein anderes Gebiet betrittst. Bekommt der Questgeber eine neue Quest zum Anbieten, hörst du ihn wieder. Ist die Einstellung zum einmaligen Spielen aus, pingt der Ort immer wieder, solange du in Reichweite bleibst. Questziele sind wieder still, wenn du dich weit von ihnen entfernt hast, und pingen wieder, wenn du zurückkommst. Stehst du nah an einem Ort, näher als die Entfernung für Stumm, ist er still. Du hörst nichts, solange du auf einer Flugroute reist, tot bist oder kämpfst. Nach dem Kampf kommen die Pings wieder.
+
+Quests eines Feiertags zählen nur, solange der Feiertag läuft. Für annehmbare Quests gelten die Einstellungen Stufenbereich für Quests in der Nähe und Wiederholbare Quests einbeziehen, siehe unten. Schalte das Ganze mit Aktiviert im Menü In der Nähe aus.
+
+Öffne das WowVision-Menü, dann Quests, dann In der Nähe.
+
+| Einstellung | Standard | Was sie tut |
+|-------------|----------|-------------|
+| Aktiviert | An | Schaltet alle Quest-Töne in der Nähe an oder aus. |
+| Ton für annehmbare Quests, Aktiviert | An | Schaltet den Ton für annehmbare Quests an oder aus. |
+| Ton für annehmbare Quests, Beacon-Ton, Aktiviert | An | Spielt den Ping. |
+| Ton für annehmbare Quests, Beacon-Ton, Beacon-Ton | Notification soft 100 | Welcher Ton gespielt wird. |
+| Ton für annehmbare Quests, Beacon-Ton, Lautstärke | 30 | Wie laut der Ping ist, von 10 bis 100. |
+| Ton für annehmbare Quests, TTS-Alarm, Aktiviert | Aus | Sagt die Quest, ihren Namen und die Entfernung, zum Beispiel "Quest verfügbar: A Threat Within, 30 yards". |
+| Ton für abgebbare Quests | dieselben Einstellungen | Lautstärke 40, Ton steel gong, und es sagt "Quest abgeben" vor dem Namen. |
+| Ton für Questziele | dieselben Einstellungen | Lautstärke 30, Ton probe deep 1, und es sagt "Questziel" vor dem Namen. |
+| Reichweite für annehmbare Quests | 40 | Entfernung in Yards, ab der annehmbare Quests pingen. Von 5 bis 200. |
+| Reichweite für abgebbare Quests | 60 | Entfernung, ab der abgebbare Quests pingen. |
+| Reichweite für Questziele | 50 | Entfernung, ab der offene Ziele pingen. |
+| Annehmbare Quests nur einmal | An | Jeder Ort pingt einmal, statt immer wieder. |
+| Abgebbare Quests nur einmal | An | Dasselbe für abzugebende Quests. |
+| Questziele nur einmal | An | Dasselbe für Ziele. |
+| Stumm ab Entfernung | 5 | Näher als so viele Yards ist ein Ort still. Von 1 bis 30. |
+
 ## Quests und Questziele finden
 
 Der [Scanner](scanner.md) verwandelt Questdaten in Orte, zu denen du gehen kannst. Er ist der wichtigste Weg, mit WowVision Quests zu finden.
 
 - Quests, In der Nähe: Quests, die du in deiner Umgebung annehmen kannst, der nächste Questgeber zuerst.
-- Quests, Laufend: dein Log. Jede Quest, die die Datenquelle kennt, öffnet sich zu ihren Zielen, jedes Ziel zu den Kreaturen, Objekten und Gegenstandsquellen, um die es geht, und jede davon zu ihren Fundorten.
+- Quests, Laufend: dein Log, nach Zonen geordnet wie im Questlog, in jeder Zone die nächste Quest zuerst. Jede Quest, die die Datenquelle kennt, öffnet sich zu ihren Zielen, jedes Ziel zu den Kreaturen, Objekten und Gegenstandsquellen, um die es geht, und jede davon zu ihren Fundorten.
 - NPCs, Questgeber: dieselben Questgeber, nach NPC gruppiert.
 
 Eingabe auf einer Quest, einem Ziel, einem Ziel-NPC oder einem Fundort führt dich zu seinem Ort. Siehe [Navigation und Routen](navigation.md).
@@ -154,7 +188,7 @@ So werden Orte in den Listen beschrieben: Ein Fundort liest sich mit seinem Gebi
 |-------------|----------|-------------|
 | Stufenbereich für Quests in der Nähe | 5 | Die Liste In der Nähe blendet Quests aus, die um mehr als so viele Stufen unter deiner Stufe liegen. Von 0 bis 60. Stelle 60 ein, um jede Quest zu sehen, oder 0, um nur Quests auf deiner Stufe oder darüber zu sehen. |
 | Wiederholbare Quests einbeziehen | An | Ob wiederholbare und tägliche Quests in der Liste In der Nähe erscheinen. |
-| Quests nach Entfernung sortieren | An | Ob die Liste Laufend nach Entfernung sortiert ist, die nächste zuerst, und zwar nach dem Ort, zu dem dich Eingabe auf der jeweiligen Quest führen würde (das nächste offene Ziel, oder die Abgabe, sobald eine Quest abgeschlossen ist). Quests ohne Ort, zu dem du gehen kannst, folgen in der Reihenfolge deines Questlogs. Schalte die Einstellung aus, um die Reihenfolge des Questlogs zu behalten. |
+| Quests nach Entfernung sortieren | An | Ob jede Zone der Liste Laufend nach Entfernung sortiert ist, die nächste zuerst, und zwar nach dem Ort, zu dem dich Eingabe auf der jeweiligen Quest führen würde (das nächste offene Ziel, oder die Abgabe, sobald eine Quest abgeschlossen ist). Quests ohne Ort, zu dem du gehen kannst, folgen in der Reihenfolge deines Questlogs. Schalte die Einstellung aus, um in jeder Zone die Reihenfolge des Questlogs zu behalten. |
 | Questgebiet | siehe oben | Ansagen beim Betreten oder Verlassen eines Zielgebiets. |
 | Questfortschritt, Ziel erreicht, Quest abgeschlossen | siehe oben | Ansagen zum Questfortschritt. |
 
@@ -164,7 +198,7 @@ Die Liste In der Nähe lässt außerdem Quests weg, die du noch nicht annehmen k
 
 1. Geh zu einem Questgeber. Das Spiel öffnet das Questfenster. Du hörst den Namen des NPCs, dann "Quests" mit "Verfügbare Quest: A Threat Within" oder die Details der einzelnen Quest.
 2. Drücke Pfeil runter, um Beschreibung und Ziele zu lesen. Drücke Tab, dann Eingabe auf Annehmen.
-3. Drücke F9, öffne Quests, dann Laufend. Die Quest ist aufgelistet, "A Threat Within, 0 von 1". Drücke Pfeil rechts, um das Ziel zu öffnen, und noch einmal Pfeil rechts, um zu sehen, was du töten sollst, dann drücke Eingabe auf einem Fundort, um dorthin geführt zu werden.
+3. Drücke F9, öffne Quests, dann Laufend, dann Wald von Elwynn. Die Quest ist aufgelistet, "A Threat Within, 0 von 1". Drücke Pfeil rechts, um das Ziel zu öffnen, und noch einmal Pfeil rechts, um zu sehen, was du töten sollst, dann drücke Eingabe auf einem Fundort, um dorthin geführt zu werden.
 4. Draußen hörst du "Betrete Gebiet: A Threat Within", wenn du das Zielgebiet erreichst.
 5. Ist das Ziel erledigt, liest sich die Quest als "Abgeschlossen". Drücke F9, öffne sie und drücke Eingabe auf der Abgabe. Sprich den NPC an, gehe mit Tab zu Quest abschließen, wähle eine Belohnung, wenn es eine Auswahl gibt, dann Eingabe.
 

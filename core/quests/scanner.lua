@@ -9,7 +9,8 @@ local L = quests.L
 -- Quests
 --   Nearby        available quests, nearest giver first; Enter beacons the
 --                 giver; a giver with several spawns expands to them
---   In Progress   the log; Enter beacons the first unfinished objective's
+--   In Progress   the log, one level per quest log zone, each zone's
+--                 quests nearest first (zones.lua); Enter beacons the first unfinished objective's
 --                 nearest target (the turn-in when complete), likewise
 --                 expanding to that target's spawns; with no target to walk
 --                 to, the game's own marker for the quest, then Questie's
@@ -170,6 +171,24 @@ local function pointAt(node, target)
     return node
 end
 
+-- The quest tooltip, read with the tooltip keys (Shift+Down) on a quest in
+-- Nearby and In Progress: title, level and colour, kind, progress or giver,
+-- the quest text (core/quests/tooltip.lua), then what the game's own quest
+-- link tooltip adds.
+local function questTooltip(entry, kind)
+    local link = "quest:" .. tostring(entry.questId)
+    if type(entry.level) == "number" then
+        link = link .. ":" .. tostring(entry.level)
+    end
+    return {
+        type = "Lines",
+        link = link,
+        lines = function()
+            return WowVision.quests.tooltipLines(entry, kind)
+        end,
+    }
+end
+
 local function questDetails(questId)
     return function()
         local quest = quests:quest(questId)
@@ -241,6 +260,7 @@ local function nearbyQuestNode(entry)
         label = entry.name or unknown(),
         detail = detail,
         details = questDetails(entry.questId),
+        tooltip = questTooltip(entry, "nearby"),
     }, entry.starter)
 end
 
@@ -418,6 +438,7 @@ local function inProgressNode(entry)
         key = "quest:" .. entry.questId,
         label = questTitle(entry),
         details = questDetails(entry.questId),
+        tooltip = questTooltip(entry, "inProgress"),
     }
     local unfinished = 0
     for _, objective in ipairs(entry.objectives) do
@@ -494,9 +515,26 @@ function quests:questNavigationTarget(questId)
 end
 
 -- The scanner path of a quest in the log, for landing on it when the
--- scanner opens from the quest log.
+-- scanner opens from the quest log: under In Progress, its zone.
 function quests:scannerQuestPath(questId)
-    return { "quests", "inProgress", "quest:" .. tostring(questId) }
+    local zone = nil
+    local ok, entries = pcall(self.inProgress, self)
+    for _, entry in ipairs(ok and entries or {}) do
+        if entry.questId == questId then
+            zone = entry.zone
+            break
+        end
+    end
+    return { "quests", "inProgress", WowVision.quests.zoneKey(zone), "quest:" .. tostring(questId) }
+end
+
+-- Yards from the player to where a quest node points, nil without a place.
+local function nodeDistance(node)
+    local maps = WowVision.base.navigation and WowVision.base.navigation.maps or nil
+    if maps == nil or node.x == nil then
+        return nil
+    end
+    return maps:distanceTo(node.x, node.y)
 end
 
 local function loadingNode()
@@ -532,16 +570,18 @@ scanner:registerProvider({
             {
                 key = "inProgress",
                 label = L["In Progress"],
+                -- one level per quest log zone, each zone's quests
+                -- nearest first
                 children = function()
-                    local out = {}
-                    for _, entry in ipairs(quests:inProgress()) do
-                        tinsert(out, inProgressNode(entry))
+                    -- nearest first inside a zone, unless Sort Quests by Proximity is off
+                    -- (then the log's order)
+                    local distanceOf = nodeDistance
+                    if not quests.settings.sortByProximity then
+                        distanceOf = function()
+                            return nil
+                        end
                     end
-                    -- nearest first, by where each quest's node would take you
-                    if quests.settings.sortByProximity then
-                        out = Adapter.sortByProximity(out, quests:playerContext())
-                    end
-                    return out
+                    return WowVision.quests.zoneGroups(quests:inProgress(), inProgressNode, distanceOf)
                 end,
             },
         }
@@ -566,8 +606,44 @@ local function seenTargets(roleKey, radius)
     return WowVision.quests.seen:npcs(roleKey, radius)
 end
 
--- Database targets plus seen ones, nearest first. A seen NPC whose name
--- the database already lists is left out: the database wins.
+-- Yards: a seen entry this close to a database spawn of its category is
+-- the same thing, the database wins.
+local SEEN_MATCH_YARDS = 15
+-- Categories of objects: the same name stands in many places (every
+-- mailbox), so only the place matches, never the name alone.
+local PLACE_ONLY = { mailboxes = true }
+
+local function nearSpawn(target, seen)
+    local spot = seen.nearest
+    if spot == nil then
+        return false
+    end
+    for _, spawn in ipairs(target.spawns or {}) do
+        if spawn.continent == spot.continent and spawn.wx ~= nil then
+            local dx, dy = spawn.wx - spot.wx, spawn.wy - spot.wy
+            if dx * dx + dy * dy <= SEEN_MATCH_YARDS * SEEN_MATCH_YARDS then
+                return true
+            end
+        end
+    end
+    return false
+end
+
+local function nearAnySpawn(targets, seen)
+    for _, target in ipairs(targets) do
+        if nearSpawn(target, seen) then
+            return true
+        end
+    end
+    return false
+end
+
+-- Database targets plus seen ones, nearest first. A seen NPC is left out
+-- when the database lists its name (one NPC, one name). A seen object of
+-- a PLACE_ONLY category is left out when a database one stands within
+-- SEEN_MATCH_YARDS (the names can differ: Questie's German data calls
+-- three mailboxes "Mailbox", the minimap "Briefkasten"); NPCs are not
+-- matched by place, neighbours in a town would hide each other.
 local function withSeen(targets, roleKey, ctx)
     local seen = seenTargets(roleKey, ctx.radius)
     if #seen == 0 then
@@ -575,13 +651,14 @@ local function withSeen(targets, roleKey, ctx)
     end
     local out, names = {}, {}
     for _, target in ipairs(targets) do
-        if target.name ~= nil then
+        if target.name ~= nil and not PLACE_ONLY[roleKey] then
             names[target.name] = true
         end
         tinsert(out, target)
     end
     for _, target in ipairs(seen) do
-        if not names[target.name] then
+        local known = names[target.name] == true or (PLACE_ONLY[roleKey] and nearAnySpawn(targets, target))
+        if not known then
             tinsert(out, target)
         end
     end

@@ -203,7 +203,7 @@ function engine:startHere(px, py, map)
     local start, why = self:startAt(px, py, map)
     if start == nil then
         -- WowVision:speak, not say: this file's say is declared further down
-        WowVision:speak(why == "ambiguous" and L["Your floor is not clear here"] or L["No WowNav network here"])
+        WowVision:notify(why == "ambiguous" and L["Your floor is not clear here"] or L["No WowNav network here"])
     end
     return start
 end
@@ -263,7 +263,7 @@ maps:setRouteEngine(engine)
 
 -- ---- speech
 local function say(text)
-    WowVision:speak(text)
+    WowVision:notify(text)
 end
 -- what his dock module says (WowVisionNavigationPrint)
 WowVision.wownavText.say = say
@@ -515,6 +515,11 @@ local function startRoute(self, request, outcome)
     self.path = path
     self.request = request
     maps:pathfind(path)
+    -- once per request: a transit's continuation comes back here with the same one
+    if not request.windowsClosed and not request.chainLeg then
+        maps:closeWindowsForGuidance(true)
+    end
+    request.windowsClosed = true
 
     local count = #route.path
     if reversed ~= nil then
@@ -714,6 +719,8 @@ function module:routeTo(target)
     end
     if bindStart(self, request) then
         self:stopRoute()
+        -- the search answers later, outside the chain's own call
+        request.chainLeg = maps.chainLeg
         search(self, request)
     end
     return true
@@ -751,6 +758,7 @@ function module:routeToNearest(targets)
         local candidate = targetRequest(N, target, px, py, map)
         if candidate ~= nil then
             candidate.onChosen = target.onChosen
+            candidate.chainLeg = maps.chainLeg
             tinsert(candidates, candidate)
         end
     end

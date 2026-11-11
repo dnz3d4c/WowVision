@@ -82,6 +82,10 @@ Up and Down move through the controls in the order they appear. Where controls s
 
 If you press an arrow key at the edge of a list, nothing happens and nothing is said. Windows do not wrap around with arrow keys.
 
+### Skipping empty slots
+
+With the Skip Empty Slots on Double Arrow setting switched on (UI menu, off by default), in your bags, the bank and the action bars you can press the same arrow key twice quickly (within a quarter of a second) to skip the empty slots: you land on the next slot that holds something. Keep tapping quickly to hop from item to item. If nothing follows in that direction, you land on the last slot, which reads "Empty". Two different arrow keys in a row never count as a double press.
+
 ### Tab stops
 
 Large windows are divided into tab stops, usually a list, a row of buttons, a search box and so on. Tab and Shift+Tab jump between them, wrapping around from the last to the first. Each stop remembers where you were, so Tab takes you back to the entry you left, or to the selected entry when you come into a stop for the first time. A window with a single stop, such as a simple menu, ignores Tab.
@@ -174,17 +178,18 @@ In lists that own the keyboard, you can press a letter to jump to the next entry
 - context menus,
 - the game's dropdown menus.
 
-It does not work in windows you play with open, such as the navigation window.
+Every other window has its own Letter Navigation switch, off by default: the navigation window in the Navigation menu, the Scanner in the Scanner menu, and each game window in its own entry of the Windows menu. Switched on, every list in that window works the same way.
 
 How it behaves:
 
 - Press a letter to move to the next entry starting with it. Press the same letter again to move to the one after, wrapping around at the end.
-- Type several letters quickly (within half a second) to search for a longer start: G then O finds "Goldshire".
-- Accents are ignored, so U finds "Übersicht". Leading numbers and punctuation in a name are skipped.
-- If nothing starts with what you typed, you hear "No results".
+- Type two different letters quickly (within half a second) to filter the list. You land on a line that says Filter and what you typed; below it are only the entries containing those letters anywhere in their name. Every further letter narrows the list, however slowly you type it.
+- While a list is filtered, Backspace or Left Arrow brings the whole list back. Enter on an entry, or going one level deeper, also ends the filter.
+- Accents are ignored, so U finds "Übersicht". Pressing an umlaut key finds only entries with that umlaut, so Ü finds "Übersicht" but not "Ultra". Leading numbers and punctuation in a name are skipped.
+- If nothing matches what you typed, you hear "No results".
 - If you press the same single letter again and the entry you are on is the only one that starts with it, that entry is read again.
 
-While such a list is open, letter keys do not move your character. You can turn this off with the Letter Navigation in Menus setting (UI menu, on by default). The keys are also released whenever you enter combat or close the list.
+While such a list is open, every letter key belongs to it: W, A, S and D do not move your character, and letter keys of the game such as B for the bags do nothing. For the menus, you can turn this off with the Letter Navigation in Menus setting (UI menu, on by default). The keys are also released whenever you enter combat or close the list.
 
 Example: at the top of the WowVision menu, press S once to reach Scanner, S again for Speech, then T for Targeting.
 

@@ -56,6 +56,7 @@ See [Tooltips](../basics/tooltips.md).
 | Action | Default key | Page |
 |---|---|---|
 | WowVision Menu | Shift+F1 (or type `/wv`) | [The WowVision Menu and Settings](../basics/menu-and-settings.md) |
+| Close All Windows | Shift+Escape | Closes every open WowVision window and every window of the game |
 | Chat | Shift+F3 | [Chat](../windows/chat.md) |
 | Action Bars | Shift+F4 | [Action Bars](../windows/action-bars.md) |
 | Scanner | F9 | [Scanner](../world/scanner.md) |
@@ -97,7 +98,7 @@ See [Chat](../windows/chat.md).
 | Cycle Arrival Distance | Alt+P | Changes how close you must come before a waypoint counts as reached |
 | Announce Distance | Unbound | Speaks the distance to the waypoint. Alt Gr (or Ctrl+Alt) does the same out of the box |
 | Route to Your Target | Unbound | Starts a route to your current target |
-| Route to the Nearest Unvisited of the Same Name | Unbound | Routes to the nearest place with the same name you have not visited yet |
+| Route to the Nearest Unvisited of the Same Name | Unbound | Routes to the place with the same name you have not visited yet that is the shortest walk away |
 | Direct to the Nearest Unvisited of the Same Name | Unbound | The same as a straight beacon instead of a route |
 | WowNav Route Status | Unbound | (WoW: Forever) Speaks the state of the WowNav route |
 | New WowNav Route Around a Blocked Spot | Unbound | (WoW: Forever) Plans a new route that avoids the spot where you are stuck |
@@ -129,7 +130,7 @@ See [Targeting](../world/targeting.md).
 
 | Action | Default key | Notes |
 |---|---|---|
-| Roll Tooltip | Alt+Ctrl+Y | Says the name of the item up for a roll |
+| Roll Tooltip | Alt+Ctrl+Y | Reads the whole tooltip of the item up for a roll: name, quality, item level, stats and requirements |
 | Roll Need | Alt+Ctrl+U | |
 | Roll Greed | Alt+Ctrl+I | |
 | Roll Pass | Alt+Ctrl+O | |

@@ -145,12 +145,46 @@ The game shows quest progress as a message in the middle of the screen. WowVisio
 
 The game's line is spoken at once. When an objective is done, its sound waits a moment, less than half a second, to learn whether that finished the quest. Each alert has TTS and Sound and can be switched off on its own. They work whatever the Errors module does, also with it switched off, and these messages do not appear in its Per-Error Filter. If you had muted one of these messages there, or switched Announce Errors off, its alert starts switched off. See [Alerts](../basics/alerts.md).
 
+## Nearby quest sounds
+
+While you walk around, you hear the quests near you. Each quest sound is a short ping that comes from the direction of the place, like the Beacon. It is quieter the farther away the place is, and you only hear it when the place is in front of you. Turn toward a ping you have missed and you hear it again. The sounds need Questie, so they are for Classic Era, The Burning Crusade, Mists of Pandaria and WoW: Forever with Questie loaded. Without Questie they stay silent.
+
+There are three sounds:
+
+- Available Quest Sound: a quest you can accept has its giver near you. It is the soft notification sound, the one Sku plays.
+- Turn-In Quest Sound: a quest in your log is complete and the person to hand it in to is near you. It is the steel gong, the one Sku plays.
+- Quest Objective Sound: a quest in your log has an open objective near you, such as creatures to kill or an item to find. It is a deep probe sound. Sku has no sound for this.
+
+A place pings for the first time a moment after you come into its range, sooner when it is close and later when it is far. Several quests at the same giver give one ping. After the ping the place stays quiet until you enter another zone. If the giver gets a new quest to offer, you hear it again. With the Play Once setting off, the place pings again and again for as long as you stay in range. Objectives are quiet again after you have walked well away from them, and ping again when you come back. Standing close to a place, nearer than the Silence Distance, makes it quiet. You hear nothing while you ride a flight path, are dead, or are fighting, and the pings come again after the fight.
+
+Quests of a holiday only count while the holiday is on. The Nearby Level Range and Include Repeatable Quests settings, below, apply to the quests you can accept. Switch the whole feature off with Enabled in the Nearby menu.
+
+Open the WowVision menu, then Quests, then Nearby.
+
+| Setting | Default | What it does |
+|---------|---------|--------------|
+| Enabled | On | Switches all nearby quest sounds on or off. |
+| Available Quest Sound, Enabled | On | Switches the sound for quests you can accept on or off. |
+| Available Quest Sound, Beacon Sound, Enabled | On | Plays the ping. |
+| Available Quest Sound, Beacon Sound, Beacon Sound | Notification soft 100 | Which sound to play. |
+| Available Quest Sound, Beacon Sound, Quest Sound Volume | 30 | How loud the ping is, from 10 to 100. |
+| Available Quest Sound, TTS Alert, Enabled | Off | Says the quest, its name and the distance, for example "Quest available: A Threat Within, 30 yards". |
+| Turn-In Quest Sound | the same settings | Volume 40, sound steel gong, and it says "Quest to turn in" before the name. |
+| Quest Objective Sound | the same settings | Volume 30, sound probe deep 1, and it says "Quest objective" before the name. |
+| Available Quest Range | 40 | Distance in yards from which quests you can accept ping. From 5 to 200. |
+| Turn-In Quest Range | 60 | Distance from which quests to hand in ping. |
+| Quest Objective Range | 50 | Distance from which open objectives ping. |
+| Play Available Quests Once | On | Each place pings once, instead of again and again. |
+| Play Turn-In Quests Once | On | The same for quests to hand in. |
+| Play Quest Objectives Once | On | The same for objectives. |
+| Silence Distance | 5 | Closer than this many yards a place is quiet. From 1 to 30. |
+
 ## Finding quests and objectives
 
 The [Scanner](scanner.md) turns quest data into places you can walk to. It is the main way to find quests with WowVision.
 
 - Quests, Nearby: quests you can accept around you, nearest giver first.
-- Quests, In Progress: your log. Each quest the data source knows opens to its objectives, each objective to the creatures, objects and item sources it is about, and each of those to its spawns.
+- Quests, In Progress: your log, grouped by zone like the quest log, the nearest quest first in each zone. Each quest the data source knows opens to its objectives, each objective to the creatures, objects and item sources it is about, and each of those to its spawns.
 - NPCs, Quest Givers: the same givers, grouped by NPC.
 
 Enter on a quest, an objective, a target or a spawn guides you to its place. See [Navigation](navigation.md).
@@ -165,7 +199,7 @@ Open the WowVision menu, then Quests. See [Menu and Settings](../basics/menu-and
 |---------|---------|--------------|
 | Nearby Level Range | 5 | The Nearby list hides quests that are more than this many levels below your level. From 0 to 60. Set 60 to see every quest, or 0 to see only quests at or above your level. |
 | Include Repeatable Quests | On | Whether repeatable and daily quests appear in the Nearby list. |
-| Sort Quests by Proximity | On | Whether the In Progress list is nearest first, by the place Enter on each quest would take you to (the next open objective, or the turn-in once a quest is complete). Quests with no place to walk to follow, in the order of your log. Turn it off to keep the order of the log. |
+| Sort Quests by Proximity | On | Whether each zone of the In Progress list is nearest first, by the place Enter on each quest would take you to (the next open objective, or the turn-in once a quest is complete). Quests with no place to walk to follow, in the order of your log. Turn it off to keep the order of the log inside each zone. |
 | Quest Area Alert | see above | Announcements when entering or leaving an objective area. |
 | Quest Progress Alert, Objective Complete Alert, Quest Complete Alert | see above | Announcements of quest progress. |
 
@@ -175,7 +209,7 @@ The Nearby list also leaves out quests you cannot take yet, because of your leve
 
 1. Walk to a quest giver. The game opens the quest window. You hear the NPC's name, then "Quests" with "Available Quest: A Threat Within" or the details of the single quest.
 2. Press Down to read the description and objectives. Press Tab, then Enter on Accept.
-3. Press F9, open Quests, then In Progress. The quest is listed, "A Threat Within, 0 of 1". Press Right to open the objective and Right again to see what to kill, then press Enter on a spawn to be guided there.
+3. Press F9, open Quests, then In Progress, then Elwynn Forest. The quest is listed, "A Threat Within, 0 of 1". Press Right to open the objective and Right again to see what to kill, then press Enter on a spawn to be guided there.
 4. In the field, you hear "Entering area: A Threat Within" when you reach the objective area.
 5. When the objective is done, the quest reads "Complete". Press F9, open it, and press Enter on the turn-in. Talk to the NPC, press Tab to Complete Quest, choose a reward if there is a choice, then Enter.
 
