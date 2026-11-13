@@ -21,7 +21,7 @@ WoW Login Tool은 게임과 함께 실행되는 작은 Windows 프로그램입�
 동작 방식은 게임 버전에 따라 다릅니다.
 
 - Classic Era와 불타는 성전(TBC) 기념 서버에서는 도구가 Windows 문자 인식(OCR)으로 화면을 보고 자체 음성으로 읽어 줍니다. 실제 캐릭터 이름, 레벨, 직업, 지역과 실제 서버 목록을 알려 줍니다.
-- WoW: Forever에서는 게임이 자체 TTS 음성으로 로그인 화면을 소리 내어 읽습니다. 그곳에서는 도구가 화면을 읽어 주지 않습니다. 대신 마우스를 항목에서 항목으로 옮겨 주고, 게임이 각 항목을 말합니다.
+- WoW: Forever에서는 게임이 자체 TTS 음성으로 로그인 화면을 소리 내어 읽습니다. 이 버전에서는 도구가 화면을 읽어 주지 않습니다. 대신 마우스를 항목에서 항목으로 옮겨 주고, 게임이 각 항목을 말합니다.
 
 ### 지원하는 게임 버전
 
@@ -150,7 +150,7 @@ Up과 Down으로 항목 사이를 이동하고, Right로 하위 메뉴가 있는
 
 - 아직 캐릭터가 없는 서버에서는 게임이 바로 캐릭터 만들기로 갑니다. 도구가 "No characters on this realm yet."이라고 말합니다.
 - 일부 Classic Era 서버는 하드코어나 전쟁 서버 경고를 보여 줍니다. 도구는 그 글을 읽고 "Press Enter to agree, or press Escape to decline."이라고 말합니다. 대신 답하는 일은 절대 없습니다.
-- 도구는 서버 대기열을 처리하지 않습니다. 게임이 연결 중 메시지를 보여 주는 동안 도구는 그것을 읽고 기다립니다. 1분쯤 지나면 "The game is still connecting. Press Escape to cancel."이라고 말합니다.
+- 도구는 서버 대기열을 처리하지 않습니다. 게임이 연결 중 메시지를 보여 주는 동안 도구는 메시지를 읽고 기다립니다. 1분쯤 지나면 "The game is still connecting. Press Escape to cancel."이라고 말합니다.
 - 게임이 스스로 서버 목록을 열면 "The game has opened the server selection."이 들리고 서버들이 메뉴로 나타납니다. Close server selection이 마지막 항목입니다.
 - 게임이 연결 중인 동안(로그인, 서버 변경, 게임 시작) 도구는 버튼이 하나뿐인 팝업을 읽기만 하고 절대 누르지 않습니다. 그 버튼은 "Cancel"이고, 누르면 로그인이 중단되기 때문입니다.
 
