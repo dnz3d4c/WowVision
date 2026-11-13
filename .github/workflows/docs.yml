@@ -38,8 +38,25 @@ jobs:
           curl -sSL "$url" | tar -xz -C "$RUNNER_TEMP"
           echo "$RUNNER_TEMP" >> "$GITHUB_PATH"
 
+      # This fork's site hosts the Korean manual. The English manual lives on the
+      # original project's site, so drop its chapter from the table of contents
+      # and use a landing page without English links (docs/site/introduction.md).
+      # SUMMARY.md and introduction.md stay as upstream has them, so merges from
+      # upstream do not conflict.
+      - name: Leave the English manual out of the site
+        run: |
+          cp docs/site/introduction.md docs/src/introduction.md
+          awk '/^# User Manual \(English\)/ {skip=1; next} /^# / {skip=0} !skip' docs/src/SUMMARY.md > "$RUNNER_TEMP/SUMMARY.md"
+          mv "$RUNNER_TEMP/SUMMARY.md" docs/src/SUMMARY.md
+          if grep -q 'user/en/' docs/src/SUMMARY.md docs/src/introduction.md; then
+            echo "English pages are still linked" >&2
+            exit 1
+          fi
+
       - name: Build the book
-        run: mdbook build docs
+        run: |
+          mdbook build docs
+          rm -rf docs/book/user/en
 
       # mdBook gives every page the book's single language (en). Pages under
       # user/<lang>/ get their own, so screen readers speak them in that language.
@@ -49,6 +66,8 @@ jobs:
             [ -d "docs/book/user/$lang" ] || continue
             find "docs/book/user/$lang" -name '*.html' -exec sed -i "s/<html lang=\"en\"/<html lang=\"$lang\"/" {} +
           done
+          # The landing page is Korean first (its German part carries lang="de").
+          sed -i 's/<html lang="en"/<html lang="ko"/' docs/book/index.html docs/book/introduction.html
 
       - name: Upload the site
         uses: actions/upload-pages-artifact@v3
