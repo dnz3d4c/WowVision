@@ -120,7 +120,7 @@
         - [Sku Login Tool로 로그인하기](./user/ko/getting-started/sku-login.md)
     - [빠른 시작](./user/ko/getting-started/quick-start.md)
     - [WowVision 관리](./user/ko/getting-started/managing.md)
-    - [WowVision과 Sku 함께 쓰기](./user/ko/getting-started/sku.md)
+    - [WowVision과 Sku 함께 사용하기](./user/ko/getting-started/sku.md)
     - [문제 해결](./user/ko/getting-started/troubleshooting.md)
 - [기본](./user/ko/basics/index.md)
     - [인터페이스 사용하기](./user/ko/basics/interface.md)
