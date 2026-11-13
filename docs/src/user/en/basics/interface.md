@@ -32,7 +32,7 @@ All of these can be changed in the [keybinding screen](./keybindings.md). Most a
 | Shift+F10 | Context Menu | Open the actions menu for the focused control. |
 | Ctrl+Tab / Ctrl+Shift+Tab | Next Window, Previous Window | Switch between open windows. |
 | Escape | Close | Close the window (the game closes game windows itself). |
-| Page Up / Page Down | Scroll Up, Scroll Down | Scroll a long list by a page, on the lists that need it (see [Long lists](#long-lists-and-scrolling)). |
+| Page Up / Page Down | Scroll Up, Scroll Down | Scroll a long list by a page on the lists that need it, or turn the page of a paged list or text (see [Long lists](#long-lists-and-scrolling)). |
 | \\ or Ctrl+D | Drag | Pick up whatever is in the focused slot onto the cursor. |
 | Delete or Alt+Ctrl+\\ | Destroy Cursor Item | Get rid of the item or assignment on the cursor. |
 | Shift+F1 | WowVision Menu | Open the WowVision menu (same as typing /wv). |
@@ -80,7 +80,7 @@ While a control has focus, WowVision watches it. If its text, its checked state 
 
 Up and Down move through the controls in the order they appear. Where controls sit side by side in a row, Left and Right move along the row. Moving up or down from a row lands on the first control of the next row, except in grids and tables that are laid out in columns, where you stay in the same column.
 
-If you press an arrow key at the edge of a list, nothing happens and nothing is said. Windows do not wrap around with arrow keys.
+If you press Up on the first entry of a list or Down on the last one, you hear a short sound and the entry is read again, as in Sku. The Sound at the Start and End of Lists setting (UI menu, on by default) turns this off; the arrow key then does nothing and nothing is said. Left and Right at the edge stay silent, and so do the chat messages. Windows do not wrap around with arrow keys.
 
 ### Skipping empty slots
 
@@ -170,6 +170,8 @@ You never have to scroll yourself. When you arrow onto an entry that is off scre
 
 Page Up and Page Down scroll a list by a full page and put you on the nearest entry that came into view. They are only needed on the long lists whose scrolling the game protects: the friends, ignore and who lists and the guild roster on Classic Era, The Burning Crusade and Mists of Pandaria. On those lists Home and End do nothing, because the game does not allow a jump of that size.
 
+Some windows show their content in pages: the spellbook, the merchant, the mailbox, books and letters, and on WoW: Forever the toy box, heirlooms and appearances. While you are on that content, Page Up and Page Down press the window's Previous Page and Next Page buttons and put you on the first entry of the new page. On the first or last page nothing happens. In a book the new page's text is read when it arrives. The page buttons are also reachable with Tab.
+
 ## Letter navigation in menus
 
 In lists that own the keyboard, you can press a letter to jump to the next entry whose name starts with it. This works in:
@@ -199,6 +201,7 @@ Shift+F10 opens a menu of extra actions for the control you are on. You hear "Me
 
 - On a real game button you usually get Left Click, Right Click and Drag. Some windows add what the click does, for example "Sell, Right Click", and window-specific actions such as linking an item in chat or inviting a player.
 - On a setting in the WowVision menu you get a Scope submenu (see [per-character and account-wide settings](./menu-and-settings.md#per-character-and-account-wide-settings)).
+- On an entry in a list you build yourself in the WowVision menu (a monitor, a rule, a buffer group, a buffer) you get Copy: it adds a full copy right after the entry, named "<name> Copy 1" (or the next free number), and speaks that name. The copy lives where the original lives (account or character), and a copied monitor brings its rules along.
 - If a control has no actions, you hear "Menu Empty".
 
 Inside the menu use Up and Down, Enter to run an entry (the menu closes afterwards, except for entries that act on the game directly), and Escape to close it. Submenus read as "Dropdown" and open with Enter. Entries with a Checked or Unchecked state read as radio buttons. Letters jump to entries, as described above.

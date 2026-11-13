@@ -40,6 +40,7 @@ Unless a command says otherwise, it exists on all game versions: Classic Era, Th
 | /wv taint | Shows blocked protected calls | all |
 | /wv dbcheck | Reports saved variable state | all |
 | /wv turnlog | Lists the last turns to a waypoint | all |
+| /wv unitturnlog | Lists the last turns to a target or focus | all |
 | /wv keylog | Logs window key handling | all |
 | /wv padlog | Restarts the controller log | Retail and WoW: Forever (gamepad interface on) |
 | /wv cdmlog | Cooldown manager monitor log | Retail and WoW: Forever |
@@ -84,7 +85,7 @@ Prints the installed WowVision version to your chat window, for example V0.9.0, 
 
 ### /wv accept
 
-Accepts the group invitation that is shown and says "Group invitation accepted". It also works in combat, where WowVision cannot open the invitation popup. Without an invitation it says "No group invitation". The Accept Group Invitation key does the same; it is unbound. Versions: all. See [Group Finder](../windows/group-finder.md).
+Accepts the group invitation that is shown and says "Group invitation accepted". It also works in combat, where WowVision cannot open the invitation popup. Without an invitation it says "No group invitation". An invitation that asks for a role needs a checked role first, otherwise it says "Choose a role first". The Accept Group Invitation key does the same; it is unbound. Versions: all. See [Group Finder](../windows/group-finder.md).
 
 ### /beacon
 
@@ -200,6 +201,10 @@ Prints a short report about your saved settings to the chat window. You do not n
 ### /wv turnlog
 
 Lists the last turns made by Turn to Waypoint, one line each with its error in degrees, in a window and in chat. It speaks a summary such as "12 turns, mean error 2.4 degrees", or "No turns yet".
+
+### /wv unitturnlog
+
+Lists the last presses of Turn to Target and Turn to Focus (up to 40), one line each with the time, the unit, what the press found and how far your character turned, in a window and in chat. It speaks how many presses there are. The lines are also saved with your settings, so they are there after a reload.
 
 ### /wv keylog
 

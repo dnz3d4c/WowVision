@@ -82,7 +82,7 @@ Solange ein Steuerelement den Fokus hat, behält WowVision es im Blick. Ändert 
 
 Pfeil hoch und Pfeil runter gehen in der Reihenfolge durch die Steuerelemente, in der sie erscheinen. Wo Steuerelemente nebeneinander in einer Zeile stehen, gehen Pfeil links und Pfeil rechts an der Zeile entlang. Wenn du aus einer Zeile nach oben oder unten gehst, landest du auf dem ersten Steuerelement der nächsten Zeile. Ausnahme sind Raster und Tabellen, die in Spalten angeordnet sind: Dort bleibst du in derselben Spalte.
 
-Drückst du am Rand einer Liste eine Pfeiltaste, passiert nichts und es wird nichts gesagt. Die Pfeiltasten springen in Fenstern nicht von hinten nach vorn.
+Drückst du Pfeil nach oben auf dem ersten Eintrag einer Liste oder Pfeil nach unten auf dem letzten, hörst du einen kurzen Ton und der Eintrag wird noch einmal vorgelesen, wie in Sku. Mit der Einstellung Ton am Anfang und Ende von Listen (UI-Menü, standardmäßig an) schaltest du das aus; die Pfeiltaste tut dann nichts und es wird nichts gesagt. Pfeil links und rechts am Rand bleiben still, ebenso die Chat-Nachrichten. Die Pfeiltasten springen in Fenstern nicht von hinten nach vorn.
 
 ### Leere Plätze überspringen
 
@@ -201,6 +201,7 @@ Umschalt+F10 öffnet ein Menü mit zusätzlichen Aktionen für das Steuerelement
 
 - Bei einem echten Spielschalter bekommst du meistens Linksklick, Rechtsklick und Ziehen. Manche Fenster ergänzen, was der Klick bewirkt, zum Beispiel „Verkaufen, Rechtsklick“, sowie fensterspezifische Aktionen wie einen Gegenstand im Chat verlinken oder einen Spieler einladen.
 - Bei einer Einstellung im WowVision-Menü bekommst du ein Untermenü Bereich (siehe [Einstellungen pro Charakter und accountweit](./menu-and-settings.md#einstellungen-pro-charakter-und-accountweit)).
+- Bei einem Eintrag in einer Liste, die du im WowVision-Menü selbst aufbaust (ein Monitor, eine Regel, eine Puffergruppe, ein Puffer), bekommst du Kopie: Sie fügt direkt hinter dem Eintrag eine vollständige Kopie ein, die „<Name> Kopie 1“ heißt (oder die nächste freie Nummer), und spricht diesen Namen. Die Kopie liegt dort, wo das Original liegt (Account oder Charakter), und ein kopierter Monitor bringt seine Regeln mit.
 - Hat ein Steuerelement keine Aktionen, hörst du „Menü Leer“.
 
 Im Menü benutzt du Pfeil hoch und Pfeil runter, Eingabe, um einen Eintrag auszuführen (danach schließt sich das Menü, außer bei Einträgen, die direkt auf das Spiel wirken), und Esc, um es zu schließen. Untermenüs werden als „Dropdown“ gelesen und mit Eingabe geöffnet. Einträge mit dem Zustand Aktiviert oder Deaktiviert werden als Optionsfelder gelesen. Buchstaben springen zu Einträgen, wie oben beschrieben.

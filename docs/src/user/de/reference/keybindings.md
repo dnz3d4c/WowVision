@@ -94,6 +94,8 @@ Siehe [Chat](../windows/chat.md).
 | Aktion | Standardtaste | Hinweise |
 |---|---|---|
 | Zum Wegpunkt drehen (Turn to Waypoint) | I | Dreht dich zum aktuellen Wegpunkt deiner Route |
+| Zum Ziel drehen (Turn to Target) | Strg+I | Dreht dich zu deinem Ziel, gefunden über seine Namensplakette |
+| Zum Fokus drehen (Turn to Focus) | Strg+U | Dasselbe für deinen Fokus, zum Beispiel einen NPC, den du begleitest |
 | Nächster Wegpunkt (Next Waypoint) | Strg+W | Springt zum nächsten Wegpunkt vor. Du hörst, wie viele Wegpunkte noch übrig sind, zum Beispiel "12 verbleibend" |
 | Vorheriger Wegpunkt (Previous Waypoint) | Strg+S | Geht zum vorherigen Wegpunkt zurück, mit derselben Zählung |
 | Route von hier neu starten (Start the Route Again From Here) | Strg+Umschalt+N | Plant die Route zu deinem letzten Ziel noch einmal, beginnend dort, wo du stehst. Du hörst "Keine Route zum Neustarten", wenn du noch kein Ziel gewählt hast |
@@ -188,6 +190,7 @@ Das sind keine zusätzlichen Belegungen. Es sind die Fenstertasten aus den erste
 | Scanner | Tab | Springt zwischen der Liste und dem Schalter Aktualisieren (Refresh) |
 | Aktionsleisten (Umschalt+F4), Taschen und andere Platzfenster | \\ oder Strg+D, dann Entf | Einen Platz auf den Cursor nehmen, dann leeren oder zerstören |
 | Freunde-, Ignorier-, Wer- und Gildenlisten (Classic Era, TBC und Mists) | Bild auf, Bild ab | Die Liste eine Seite scrollen; Pos1 und Ende tun dort nichts |
+| Fenster mit Seiten: Zauberbuch, Händler, Briefkasten, Bücher und Briefe, Spielzeugkiste, Erbstücke, Vorlagen | Bild auf, Bild ab | Zur vorherigen oder nächsten Seite blättern und auf ihrem ersten Eintrag landen |
 | WowVision-Menü, Kontextmenüs, Dropdown-Menüs | Buchstaben | Zum nächsten Eintrag springen, der mit dem Buchstaben beginnt. Lässt sich mit der Einstellung Buchstaben-Navigation in Menüs (Letter Navigation in Menus) ausschalten |
 | Eingabefelder | Eingabe, Tab, Esc | Eingabe setzt den Cursor in ein Feld des Spiels und übernimmt ein WowVision-Feld; Tab geht weiter; Esc bricht ein WowVision-Feld ab |
 

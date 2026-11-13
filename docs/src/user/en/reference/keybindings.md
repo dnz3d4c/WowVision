@@ -90,6 +90,8 @@ See [Chat](../windows/chat.md).
 | Action | Default key | Notes |
 |---|---|---|
 | Turn to Waypoint | I | Faces the current waypoint of your route |
+| Turn to Target | Ctrl+I | Faces your target, found by its nameplate. See [Navigation](../world/navigation.md#turn-to-target-and-focus-ctrli-ctrlu) |
+| Turn to Focus | Ctrl+U | The same for your focus, for example an escort NPC you follow |
 | Next Waypoint | Ctrl+W | Skip ahead to the next waypoint. You hear how many waypoints remain, for example "12 remaining" |
 | Previous Waypoint | Ctrl+S | Go back to the previous waypoint, with the same count |
 | Start the Route Again From Here | Ctrl+Shift+N | Plans the route to your last destination again, starting from where you stand. You hear "No route to start again" if you have not chosen a destination yet |
@@ -184,6 +186,7 @@ These are not extra bindings. They are the window keys from the first sections, 
 | Scanner | Tab | Jumps between the list and the Refresh button |
 | Action bars (Shift+F4), bags and other slot windows | \\ or Ctrl+D, then Delete | Pick up a slot onto the cursor, then clear or destroy it |
 | Friends, ignore, who and guild lists (Classic Era, TBC and Mists) | Page Up, Page Down | Scroll the list a page; Home and End do nothing there |
+| Paged windows: spellbook, merchant, mailbox, books and letters, toy box, heirlooms, appearances | Page Up, Page Down | Turn to the previous or next page and land on its first entry |
 | WowVision menu, context menus, dropdown menus | Letters | Jump to the next entry that starts with the letter. Can be switched off with the Letter Navigation in Menus setting |
 | Edit boxes | Enter, Tab, Escape | Enter puts the cursor in a game box and accepts a WowVision box; Tab moves on; Escape cancels a WowVision box |
 
