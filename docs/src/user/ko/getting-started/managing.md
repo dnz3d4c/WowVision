@@ -19,7 +19,7 @@ WowVision은 게임 자체의 저장 변수 파일에 데이터를 보관합니�
 - 계정 전체 파일: `WTF\Account\<ACCOUNT NAME>\SavedVariables\`에 있으며 이름은 WowVisionGlobalDB.lua와 WowVisionDump.lua이고, 불타는 성전에서는 WowVisionPriceDB.lua도 있습니다.
 - 캐릭터별 파일: `WTF\Account\<ACCOUNT NAME>\<Realm>\<Character>\SavedVariables\WowVisionDB.lua`.
 
-기본적으로 대부분의 설정은 모든 캐릭터가 함께 씁니다. 한 모듈의 설정을 한 캐릭터에서만 사용하도록 변경할 수도 있습니다. WowVision 메뉴에서 해당 모듈에 초점을 두고 Shift+F10을 누른 뒤 범위를 고릅니다. 단축키(컨트롤러 버튼 포함)도 같은 방식으로 공유됩니다. 단축키의 범위는 WowVision 메뉴의 단축키 버튼에 따로 있는 범위 항목에서 고릅니다. [WowVision 메뉴와 설정](../basics/menu-and-settings.md)과 [단축키](../basics/keybindings.md)를 참고하십시오.
+기본적으로 대부분의 설정은 모든 캐릭터가 공유합니다. 한 모듈의 설정을 한 캐릭터에서만 사용하도록 변경할 수도 있습니다. WowVision 메뉴에서 해당 모듈에 초점을 두고 Shift+F10을 누른 뒤 범위를 고릅니다. 단축키(컨트롤러 버튼 포함)도 같은 방식으로 공유됩니다. 단축키의 범위는 WowVision 메뉴의 단축키 버튼에 따로 있는 범위 항목에서 고릅니다. [WowVision 메뉴와 설정](../basics/menu-and-settings.md)과 [단축키](../basics/keybindings.md)를 참고하십시오.
 
 설정을 백업하려면 게임을 닫은 상태에서 위에 나온 WowVision 저장 변수 파일들을 복사합니다. 모두 초기화하려면 게임을 닫은 상태에서 WowVision 저장 변수 파일들을 지웁니다. 다음 로그인 때 WowVision이 기본값으로 시작합니다. 설정이 자꾸 사라지면 [설정이 사라짐](./troubleshooting.md#설정이-사라짐)을 참고하십시오.
 
