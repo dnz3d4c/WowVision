@@ -65,7 +65,7 @@ WowVision은 게임이 제공하는 음성 합성 목소리, 즉 Windows에 설�
 
 ### Escape와 창 닫기
 
-Escape는 두 가지 방식으로 작동합니다. 게임 자체 프레임으로 만든 창(상인, 가방, 우편함)에서는 WowVision이 Escape를 게임에 넘기고, 게임이 그 프레임을 닫습니다. 프레임이 사라지면 WowVision도 그 창을 닫습니다. WowVision 자체 창(메뉴, 길 안내, 스캐너, 대화 창, 행동 단축바 창, 다른 창 안에서 연 모든 화면)에서는 WowVision이 직접 Escape를 처리합니다. 컨트롤러에서는 B 버튼을 누르면 창에 따라 게임이나 WowVision이 알맞게 처리합니다. [컨트롤러](../controller.md)를 참고하십시오.
+Escape는 두 가지 방식으로 작동합니다. 게임 자체 프레임으로 만든 창(상인, 가방, 우체통)에서는 WowVision이 Escape를 게임에 넘기고, 게임이 그 프레임을 닫습니다. 프레임이 사라지면 WowVision도 그 창을 닫습니다. WowVision 자체 창(메뉴, 길 안내, 스캐너, 대화 창, 행동 단축바 창, 다른 창 안에서 연 모든 화면)에서는 WowVision이 직접 Escape를 처리합니다. 컨트롤러에서는 B 버튼을 누르면 창에 따라 게임이나 WowVision이 알맞게 처리합니다. [컨트롤러](../controller.md)를 참고하십시오.
 
 WowVision 창이 닫히지 않으면 /wv close를 입력합니다. 열린 WowVision 창을 한 번에 모두 닫습니다. 게임 자체 프레임은 열린 채로 남습니다.
 
